@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Incident report · INC-BT-REATOR-20251128-1</title><style>
+/* ============================================================
+   Safety Copilot — base visual da tela de contexto
+   Apenas estilos. Nenhum conteúdo, nenhum valor.
+
+   Classes disponíveis, agrupadas por uso:
+
+   layout      : header, .banner, main, .grid, section.card
+   rótulos     : .badge  (+ .bad .warn .ok .n .calc)
+   gráfico     : svg.chart, .chart-head (.nm .vl), .lg
+   tabela      : table, th, td, td.num
+   barreira    : .bcard, .bhead, .bname, .bnode, .pfd2, .pcol,
+                 .pair, .from, .to, .dl, .chn, .ch, .prem
+   bowtie      : .bt, .flow, .node (+ .threat .b .top), .op
+   envelope    : .env, .envbox (+ .ref .now), .rule
+   destaques   : .gap (lacuna), .contra (contradição)
+   rodapé      : .foot
+
+   Convenção de marcação de origem do valor:
+     <span class="badge calc">cálculo</span>  -> valor derivado
+     sem badge                                -> leitura direta do banco
+   ============================================================ */
+
+:root{
+  --acc:#0B6E6E;--acc-d:#075454;--grey:#f2f2f2;--hdr:#d9e2e4;--bd:#dcdcdc;
+  --tx:#1a1a1a;--sub:#5c5c5c;--ok:#2e8b3d;--ok-bg:#e4f4e4;--warn:#b4790c;
+  --warn-bg:#fdf0ce;--bad:#b3261e;--bad-bg:#fbeaea;--nb:#eef0f0;
+}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Calibri,Arial,sans-serif;margin:0;background:#f5f6f6;color:var(--tx)}
+
+/* ---------- cabeçalho ---------- */
+header{background:linear-gradient(135deg,var(--acc-d),var(--acc));color:#fff;padding:20px 30px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header h1{margin:0;font-size:19px}
+header p{margin:4px 0 0;font-size:12.5px;opacity:.85}
+header code{background:rgba(255,255,255,.15);padding:1px 5px;border-radius:3px}
+.banner{background:#fff;color:var(--tx);border-radius:6px;padding:9px 14px;font-size:12.5px;
+  display:flex;align-items:center;gap:10px;max-width:540px;line-height:1.45}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--bad);flex-shrink:0}
+
+/* ---------- layout ---------- */
+main{max-width:1240px;margin:0 auto;padding:20px 24px 60px}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+section.card{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:16px 20px;margin-bottom:18px}
+section.card>h2{font-size:14px;color:var(--acc-d);margin:0 0 4px;display:flex;align-items:center;gap:8px}
+section.card>p.sub{margin:0 0 12px;font-size:12px;color:var(--sub);line-height:1.5}
+
+/* ---------- rótulos ---------- */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;
+  padding:2px 9px;border-radius:10px;text-transform:uppercase;letter-spacing:.02em}
+.badge.bad{background:var(--bad-bg);color:var(--bad)}
+.badge.warn{background:var(--warn-bg);color:var(--warn)}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}
+.badge.n{background:var(--nb);color:var(--sub)}
+.badge.calc{background:#ece6f7;color:#5b3fa0}
+
+/* ---------- gráfico ---------- */
+svg.chart{width:100%;height:180px;display:block;background:#fbfbfb;border:1px solid var(--bd);border-radius:4px}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 4px}
+.chart-head .nm{font-size:13px;font-weight:700}
+.chart-head .vl{font-size:13px;font-weight:700;color:var(--bad)}
+.lg{display:flex;gap:16px;font-size:10.5px;color:var(--sub);margin-top:5px;flex-wrap:wrap;align-items:center}
+.lg i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:4px}
+
+/* ---------- tabelas ---------- */
+table{width:100%;border-collapse:collapse;font-size:12px;margin:6px 0}
+th,td{border:1px solid var(--bd);padding:6px 9px;text-align:left}
+th{background:var(--hdr);color:var(--acc-d);font-size:11px}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- barreiras ---------- */
+.bcard{border:1px solid var(--bd);border-radius:7px;padding:12px 14px;margin-bottom:12px}
+.bcard:last-child{margin-bottom:0}
+.bhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}
+.bname{font-size:13px;font-weight:700}
+.bnode{font-size:11px;color:var(--sub);font-family:Consolas,monospace;margin-top:2px}
+
+/* PFD no formato projeto -> atual, lado a lado */
+.pfd2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+@media(max-width:700px){.pfd2{grid-template-columns:1fr}}
+.pcol{background:var(--grey);border-radius:6px;padding:9px 11px}
+.pcol .t{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);margin-bottom:5px}
+.pair{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.from,.to{font-size:14px;font-weight:700}
+.from{color:var(--sub)}
+.from::after{content:'→';margin-left:9px;color:#b8b8b8;font-weight:400}
+.to.bad{color:var(--bad)}
+.to.warn{color:var(--warn)}
+.from em,.to em{display:block;font-size:9.5px;font-weight:400;font-style:normal;color:var(--sub);margin-top:1px}
+.dl{font-size:11px;margin-top:6px;font-weight:600}
+.dl.bad{color:var(--bad)}
+.dl.warn{color:var(--warn)}
+
+/* canais de grupo votado */
+.chn{display:flex;gap:6px;margin:8px 0}
+.ch{flex:1;text-align:center;border-radius:5px;padding:6px 4px;font-size:11px;font-weight:700;line-height:1.4}
+.ch.ok{background:var(--ok-bg);color:var(--ok)}
+.ch.bad{background:var(--bad-bg);color:var(--bad)}
+.ch small{display:block;font-weight:400;font-size:10px;opacity:.85}
+
+/* premissa do modelo — marcar onde o valor é assumido, não lido */
+.prem{font-size:11px;color:var(--warn);background:var(--warn-bg);border-radius:4px;
+  padding:5px 9px;margin-top:7px;line-height:1.45}
+
+/* ---------- bowtie macro ---------- */
+.bt{background:#fbfbfb;border:1px solid var(--bd);border-radius:7px;padding:12px 14px}
+.flow{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
+.node{border:1.5px solid var(--bd);border-radius:6px;padding:7px 10px;background:#fff;min-width:112px;flex:1}
+.node .n1{font-size:11.5px;font-weight:700;line-height:1.3}
+.node .n2{font-size:10px;color:var(--sub);margin-top:2px}
+.node.threat{border-color:var(--bad)}
+.node.threat .n1{color:var(--bad)}
+.node.b.bad{border-color:var(--bad);background:var(--bad-bg)}
+.node.b.warn{border-color:var(--warn);background:var(--warn-bg)}
+.node.top{border-color:var(--acc);background:var(--hdr);text-align:center;
+  display:flex;align-items:center;justify-content:center}
+.op{align-self:center;font-size:10.5px;font-weight:800;color:var(--sub);
+  background:#eceeee;border-radius:9px;padding:2px 7px}
+
+/* ---------- envelope de validade ---------- */
+.env{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:700px){.env{grid-template-columns:1fr}}
+.envbox{border-radius:6px;padding:10px 12px}
+.envbox.ref{background:var(--grey)}
+.envbox.now{background:var(--bad-bg)}
+.envbox .t{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);margin-bottom:6px}
+.envbox .big{font-size:18px;font-weight:700}
+.envbox.now .big{color:var(--bad)}
+.envbox .u{font-size:11px;color:var(--sub);margin-top:3px}
+.rule{font-size:11.5px;background:#fff;border:1px dashed var(--bd);border-radius:5px;
+  padding:8px 11px;line-height:1.55}
+
+/* ---------- lacunas e contradições ---------- */
+.gap{border-left:3px solid var(--warn);background:var(--warn-bg);padding:9px 12px;margin:8px 0;
+  font-size:12px;border-radius:0 4px 4px 0;line-height:1.55}
+.contra{border-left:3px solid var(--bad);background:var(--bad-bg);padding:9px 12px;margin:8px 0;
+  font-size:12px;border-radius:0 4px 4px 0;line-height:1.55}
+
+/* ---------- rodapé ---------- */
+.foot{font-size:11.5px;color:var(--sub);margin-top:26px;border-top:1px solid var(--bd);
+  padding-top:12px;line-height:1.6}
+
+/* complementos locais, mesma paleta */
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:12px;line-height:1.6}
+.kv b{color:var(--sub);font-weight:600}
+.mono{font-family:Consolas,'Courier New',monospace;font-size:11px}
+.q{font-family:Consolas,'Courier New',monospace;font-size:10.5px;color:var(--sub);
+   background:var(--grey);border-radius:4px;padding:5px 8px;margin:5px 0 9px;display:block;
+   overflow-x:auto;white-space:pre;line-height:1.5}
+h3.s{font-size:12px;color:var(--acc-d);margin:16px 0 4px;text-transform:uppercase;letter-spacing:.04em}
+ul.tight{margin:6px 0 0;padding-left:18px;font-size:12px;line-height:1.65}
+ul.tight li{margin-bottom:4px}
+.wo{font-size:11.5px;border-left:2px solid var(--bd);padding:4px 0 4px 10px;margin:5px 0 5px 6px;line-height:1.5}
+.wo.bad{border-left-color:var(--bad)}
+.wo.warn{border-left-color:var(--warn)}
+.wo.ok{border-left-color:var(--ok)}
+.foot code{background:var(--grey);padding:1px 4px;border-radius:3px}
+.gate{background:var(--hdr);border:1px solid var(--acc);border-radius:6px;padding:11px 14px;
+      font-size:12.5px;line-height:1.6;margin-top:6px}
+</style></head><body>
+<header><div><h1>Incident report · episode <code>RUN_A</code></h1><p><code>INC-BT-REATOR-20251128-1</code> · bowtie <code>BT-REATOR</code> (pathway T1) · <code>t_now 2025-11-28T00:00:00</code> · trigger <code>record:process_event:operating_condition_change, alarme:PIT-7001:LO, discrepancia:PIT-7001</code> · <a href='log.html' style='color:#fff'>audit log</a></p></div><div class='banner'><span class='dot'></span><div><b>No demand on a barrier</b> at the instant assessed; active alarms: PIT-7001 LO.</div></div></header><main>
+<section class='card'><h2>Required decision <span class='badge n'>agent judgement · blind</span></h2><p class='sub'>Single agent governed by <code>SKILL.md</code>, run blind in a sandbox. Figures are cited from the context fields, not retyped. The full chain is in the <a href='log.html'>audit log</a>.</p><p class='sub'><b>incident_id</b> INC-BT-REATOR-20251128-1 · <b>bowtie_id</b> BT-REATOR · <b>opened_at</b> 2025-11-28T00:00:00 · <b>engine</b> conventional · <b>status</b> action_required · <b>urgency</b> planned · <b>confidence</b> medium</p><h2 style='font-size:15px;margin:0 0 10px'>Treat the T1 design basis as unverified from this instant and restore the three overdue maintenance items on PT-007 / OP-B2 before sustained operation at the new load, because the operating condition changed with no revalidation while the pressure voted group runs 2oo2 with a frozen channel.</h2>
+<h3 class='s'>Fact</h3>
+<p style='font-size:12.5px;line-height:1.6'>Three triggers fired at the same instant, <code class='mono'>identidade.gatilho</code>:</p>
+<p style='font-size:12.5px;line-height:1.6'>1. <code class='mono'>record:process_event:operating_condition_change</code> at 2025-11-28T00:00:00 — mode &quot;campanha padrao&quot;, <code class='mono'>carga_pct</code> 15, <code class='mono'>escala_setpoints_alimentacao</code> 1.15, affecting FIT-1001 and PIT-7001 (<code class='mono'>a2_estado_atual.eventos_operacionais[0]</code>). <code class='mono'>a2_estado_atual.regime.revalidacao_registrada</code> = false. 2. <code class='mono'>alarme:PIT-7001:LO</code> — LO (2550 kPa) crossed downward, value at <code class='mono'>a2_estado_atual.alarmes_ativos[0].valor_pico</code>, exceedance in <code class='mono'>a2_estado_atual.margem.PIT-7001.limiares_ja_cruzados</code>, <code class='mono'>e_demanda</code> = 0, active 0.0 min. 3. <code class='mono'>discrepancia:PIT-7001</code> — spread against limit in <code class='mono'>a2_estado_atual.discrepancia_canais[0]</code> (190.5 kPa against 17.5 kPa), divergent channel B by majority.</p>
+<p style='font-size:12.5px;line-height:1.6'>Operating mode: standard campaign, load changed at <code class='mono'>t_now</code>. No demand on any barrier is recorded (<code class='mono'>a2_estado_atual.demandas.B1.demandada</code> = false).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Data quality.</b> The rate ladder is empty: <code class='mono'>a2_estado_atual.escada_de_taxas.lacuna</code> = &quot;serie insuficiente na janela&quot;, so no rate is available for any tag and every <code class='mono'>tempo_ate_limiar_min</code> is null. Per the honesty rule &quot;do not conclude from an instantaneous value&quot;, every margin statement below is a distance without a rate, and no time-to-target exists at <code class='mono'>t_now</code>. The post-change regime is not yet established (<code class='mono'>a2_estado_atual.regime.regime_depois</code> = null, <code class='mono'>deslocamento_kpa</code> = null): the change and the reading are simultaneous, so the magnitude of the regime shift is not demonstrated. One channel of the voted group is frozen (<code class='mono'>a2_estado_atual.grupo_votado.congelamento</code>). The crossing itself is reproducible from the voted series and the alarm record, so the B1 gate is passed; the inference below is bounded by the missing rate, not by the crossing.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>What this trigger establishes.</b> This analysis opens the stream for BT-REATOR; there is no earlier analysis to compare against. What the trigger changed in the plant&#x27;s knowledge is observability: channel B has been flat at 2708.42 kPa since about 2025-08-29 (<code class='mono'>a2_estado_atual.grupo_votado.congelamento.parado_desde_aprox</code>), 0.05 kPa from the pre-change regime median (<code class='mono'>.diferenca_para_o_regime</code>). While the plant sat at that regime the freeze was invisible in the spread; the load change moved A and C and exposed it. The freeze did not cause the pressure change — it was masked by the old regime and is unmasked by the new one.</p>
+<h3 class='s'>Scenario and mechanism</h3>
+<p style='font-size:12.5px;line-height:1.6'>Qualitative chain, pathway T1 (<code class='mono'>diagrams/BT-REATOR.txt</code>):</p>
+<p style='font-size:12.5px;line-height:1.6'><code class='mono'>T1 loss of stream 1 feed → B1 automatic high-pressure interlock → B2 manual operator action → top event &quot;loss of reactor control&quot; → (mitigation not in scope of phase A) → consequence not declared</code></p>
+<p style='font-size:12.5px;line-height:1.6'>The threat is not manifest at <code class='mono'>t_now</code>: FIT-1001 reads above the design base-case feed of 0.252 kscmh (<code class='mono'>a2_estado_atual.margem.FIT-1001.valor</code>; design basis §2), and the pressure excursion is downward, away from the T1 escalation direction. What this analysis addresses is the erosion of the two T1 barriers, not an active demand.</p>
+<p style='font-size:12.5px;line-height:1.6'>Quantitative chain, link by link:</p>
+<table><tr><th>Link</th><th>Source</th><th>Strength</th></tr><tr><td>PT-007.B failed detected, unrepaired since 2025-08-29T00:30:00, WO-RUN_A-CH-B open</td><td><code class='mono'>a2_estado_atual.canais</code>, <code class='mono'>ordens_servico</code></td><td>demonstrated</td></tr><tr><td>Failure mode is a frozen channel, not drift: B sd 0.2 against A 14.22 and C 14.16 over the 30-day window, B flat inside a ±1.5 kPa band at the old regime value</td><td><code class='mono'>a2_estado_atual.grupo_votado.estatistica_por_canal</code>, <code class='mono'>.congelamento</code></td><td>demonstrated</td></tr><tr><td>Group therefore runs 2oo2 without reconfiguration → channel PFD grows linearly from detection</td><td><code class='mono'>premissas_do_modelo.voted_group_without_reconfiguration</code> (model assumption, not asset data)</td><td>inferred</td></tr><tr><td>PT-007 item multiplier 34.05× against design</td><td><code class='mono'>a1_base_de_projeto.barreiras[*].c2.componente_pior</code></td><td>demonstrated (under the model clock; see contradiction)</td></tr><tr><td>B1 PFD design → current, ×1.11; B2 ×2.27</td><td><code class='mono'>a1_base_de_projeto.barreiras[*].pfd_projeto</code>, <code class='mono'>.pfd_atual</code>, <code class='mono'>.c2.multiplicador_barreira</code></td><td>demonstrated</td></tr><tr><td>OP-B2 at 0.25 drives 92 % of B2&#x27;s PFD</td><td><code class='mono'>a1_base_de_projeto.barreiras[1].c2.elemento_dominante</code>; value is <code class='mono'>premissas_do_modelo.human_barrier_pfd_with_overdue_competence</code></td><td>inferred (assumed PFD, not read from the asset)</td></tr><tr><td>Top event frequency design → current, ×2.07 conventional</td><td><code class='mono'>motores.conventional.projeto/atual/razao</code></td><td>demonstrated (given the PFD inputs above)</td></tr><tr><td>Consequence / receptor / tolerability</td><td>not present in any phase A field</td><td>undetermined</td></tr></table>
+<p style='font-size:12.5px;line-height:1.6'>Temporal coincidence between the condition change and the LO alarm is recorded; with no post-change regime and no rate, it is not established as causal.</p>
+<h3 class='s'>Analysis</h3>
+<h3 class='s'>1. Bowtie</h3>
+<p style='font-size:12.5px;line-height:1.6'><b>B1 — high-pressure interlock: <code class='mono'>degraded</code>.</b> Not demanded up to <code class='mono'>t_now</code> (<code class='mono'>a2_estado_atual.demandas.B1</code>), so no observation settles the state and the PFD governs. The barrier multiplier is small (<code class='mono'>c2.multiplicador_barreira</code> 1.11×) precisely because the dominant element is XV-1001 at 48 % of the total (<code class='mono'>c2.elemento_dominante</code>), not the sensor — C2&#x27;s two multipliers disagree by a factor of ~31, and reporting only the component&#x27;s 34.05× would over-state, reporting only the barrier&#x27;s 1.11× would hide the loss of redundancy. What makes it <code class='mono'>degraded</code> rather than <code class='mono'>healthy</code> is not the multiplier: it is that the requirement is no longer demonstrated. The functional test of the interlock is 181 d overdue and not executed (WO-RUN_A-TEST), so nothing currently verifies the detect–decide–act path; and the voted group is known degraded (C4) with a 90-day repair backlog (<code class='mono'>a3_cruzamentos[C4].relogio</code>). The frozen channel has a directional consequence for the demand trigger: B&#x27;s reading is stuck at 2708.42 kPa, below HIHI (2800, <code class='mono'>a1_base_de_projeto.limiares</code>), so on a genuine T1 escalation B cannot contribute to the vote and satisfaction of &quot;voted PIT-7001 ≥ HIHI&quot; rests on A and C together. Not <code class='mono'>critical</code>: the function is not removed, isolated or bypassed, and the majority pair is live.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>B2 — manual operator action: <code class='mono'>degraded</code>.</b> PFD ×2.27, dominated by OP-B2 at 92 %, with the competence renewal 121 d overdue and open (WO-RUN_A-TRAIN). The 0.25 figure is a model assumption, not an asset value — the erosion of B2 is demonstrated by the overdue training record; its magnitude is assumed. C3 cannot be evaluated (<code class='mono'>a3_cruzamentos[C3].nao_se_aplica</code> — no demand, real window not measurable), and because C1 has fired, the 67-min tolerable delay and the 162-min HIHI→SIS window of design basis §5 must not be cited as current. The design basis states that all of B2&#x27;s margin is perception and decision, none execution; that margin is a property of the operating condition, and the operating condition just changed without revalidation. So B2 carries two independent degradations — an assumed-higher human PFD, and an unknown window — and the second is a gap, not a number to adjust (C3 rule; risk-analysis-reference §5).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Dependencies (C6).</b> Detection independent (PT-007 versus ZT-1001), actuation shared (XV-1001 and VLV-006): <code class='mono'>a3_cruzamentos[C6].declared_independence</code>. Joint credit must not multiply the two PFDs, and no IPL/SIL credit is claimed here — none is documented in any phase A field. Note a divergence between sources: the asset composition of B2 lists PT-007 among its components (<code class='mono'>a1_base_de_projeto.barreiras[1].componentes</code>, and <code class='mono'>a3_cruzamentos[C6].shared_items.PT-007</code> = [B1, B2]), while the design basis §4 declares B2&#x27;s detection to be ZT-1001 and its trigger to be a command-versus-position discrepancy. Both readings come from the supplied material and disagree; the practical effect is that the current PFD model already propagates the PT-007 degradation into B2, which is conservative if the design basis is right and correct if the asset table is right. Either way the direction of the finding is unchanged; the record should be reconciled.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Declared side effect of B1&#x27;s action (C6).</b> Actuation closes the A+C feed valve, which is the actuator of the LIC-8001 level cascade; inventory control is lost, level goes to about −2.5 % and a low-level trip follows roughly 1 h later. This is a declared secondary consequence, not a failure of B1 against the T1 top event (design basis §4, §5). It constrains how the overdue functional test may be executed on line.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Pathway 2 (temperature, B3/B4)</b> was not assessed in phase A; the engines were fed <code class='mono'>motores.pfd_atual.B3</code> and <code class='mono'>.B4</code> at their diagram values, i.e. design. The shift of pathway share from 70.1 % to 85.6 % (<code class='mono'>motores.conventional.*.pathways</code>) therefore reflects T1 erosion against an unexamined pathway 2, and does not demonstrate that pathway 2 is intact.</p>
+<h3 class='s'>2. Process</h3>
+<p style='font-size:12.5px;line-height:1.6'>Trajectory cannot be analysed: the rate ladder is empty (<code class='mono'>envelope.lacuna</code>), so C7 delivers distance without rate for every tag and every <code class='mono'>tempo_ate_limiar_min</code> is null. Against the declared upward targets, PIT-7001 sits 231.75 kPa below HI, 381.75 below the SIS trip (<code class='mono'>alarm_config.trip_sis</code>) and 481.75 below the model physical limit (design basis §3) — all uncrossed (<code class='mono'>a3_cruzamentos[C7].comparado.PIT-7001</code>). TIT-9001, LIT-8001 and TIT-2101 are below their HI thresholds with no target crossed.</p>
+<p style='font-size:12.5px;line-height:1.6'>Two qualifications matter more than those distances:</p>
+<ul class='tight'><li><b>The excursion is downward and the margin ladder looks upward.</b> LO is crossed; LOLO is declared at 2450 kPa (<code class='mono'>a1_base_de_projeto.limiares</code>), and phase A carries no distance or time to it, because <code class='mono'>limiar_a_frente</code> is computed toward HI. With no rate, neither distance nor time to LOLO can be stated here without fabricating a figure. This is a gap in the decision-relevant direction.</li><li><b>No rate means no persistence judgement.</b> The alarm has been active 0.0 min. An alarm one sample old with an unknown rate is not evidence of a stable condition; it is an absence of evidence either way.</li></ul>
+<p style='font-size:12.5px;line-height:1.6'>Precursor coherence: A and C agree within 5.79 kPa (3× the design noise of 1.93 kPa, design basis §3) and both fell; B did not move. Coherence between the pressure fall and the recorded feed setpoint scaling of 1.15 at the same instant is plausible but is not demonstrated by any field — <code class='mono'>regime_depois</code> is null.</p>
+<h3 class='s'>3. Context</h3>
+<p style='font-size:12.5px;line-height:1.6'><b>Design basis and envelope (C1).</b> <code class='mono'>a3_cruzamentos[C1].resultado</code> records an operating-condition change with no revalidation. That is explicitly an invalidation trigger of design basis §7 (&quot;a recorded change of the operating condition of Section 2 … without subsequent revalidation of the windows&quot;). Consequence: from this instant the windows of §5 — 202 min HI→SIS, 162 min HIHI→SIS, 67 min tolerable delay for B2 — are unverified and must not be quoted as the plant&#x27;s current actuation windows. §7 states that when invalidated, the real window &quot;is not known and must be derived from current data&quot;. No escalation window exists at <code class='mono'>t_now</code> from which to derive it, and the design rate of 1.1 kPa/min has nothing to be compared against (<code class='mono'>a3_cruzamentos[C1].comparado.rate_ladder</code> empty). This is the single most consequential finding of the trigger, and it is independent of every PFD in the report.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Mechanical integrity and testing.</b> Three items are open against the T1 barriers, all traceable in the calendar: WO-RUN_A-TEST (interlock functional test, 181 d overdue, never executed), WO-RUN_A-TRAIN (OP-B2 competence, 121 d overdue), WO-RUN_A-CH-B (channel B corrective, open, detection 2025-08-29T00:30:00). WO-RUN_A-CH-A closed with a finding on channel A on 2025-04-02 — a second discrepancy on the same transmitter group within the horizon. Two channel discrepancies in eight months on one voted group, plus an unexecuted functional test on the same asset, is a pattern worth a separate integrity review of PT-007; with n = 2 it is a signal, not a demonstrated systemic failure.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Recorded contradiction, not resolved.</b> <code class='mono'>a2_estado_atual.contradicoes[0]</code>: the PFD creep clock says 331 d since the last test (interval 365 d), the maintenance calendar says the functional test is 181 d overdue. The sensitivity is carried in the same field: item PFD ratio 1.65×, but barrier ratios 1.07× (B1) and 1.01× (B2). The decision is therefore insensitive to which clock governs — the barrier conclusions above hold under both. Which clock is authoritative remains a team decision and a data-governance defect.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Management of change.</b> A load and feed-setpoint change with no revalidation recorded belongs to MOC triage (risk-analysis-reference §4) and is simultaneously the C1 invalidation trigger. Whether an MOC was raised cannot be determined: no MOC record appears in any phase A field. Absence of a record is a gap, not a non-conformance.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Human and organisational factors.</b> The overdue competence renewal is a task-and-organisation finding (an automatically opened work order left unexecuted for 121 d), not operator fault. The design basis is explicit that B2&#x27;s entire margin is perception and decision; competence overdue and window unknown erode the same margin from two directions.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>C5 gap.</b> The single named gap is whether a common cause affects the agreeing pair A and C. The majority already identifies B as divergent, so &quot;which channel is correct&quot; is not open; what is open is a shared error in A and C. External check: an independent field measurement of vessel pressure.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>C8.</b> T1 is not classified; the removal test of design basis §6 was not executed. With the threat not manifest at <code class='mono'>t_now</code>, no behavioural evidence is available either. The success criterion to be applied to B1/B2 in a future episode therefore remains undetermined.</p>
+<h3 class='s'>Risk judgement</h3>
+<p style='font-size:12.5px;line-height:1.6'>Top event frequency, both engines, from <code class='mono'>motores</code>:</p>
+<ul class='tight'><li>conventional: <code class='mono'>motores.conventional.projeto.evento_topo_por_ano</code> → <code class='mono'>motores.conventional.atual.evento_topo_por_ano</code>, ratio <code class='mono'>motores.conventional.razao</code> = 2.07×; pathway T1 share 70.1 % → 85.6 %.</li><li>fuzzy: <code class='mono'>motores.fuzzy.projeto/atual</code>, ratio 1.98×, label <code class='mono'>Moderate</code> → <code class='mono'>Moderate</code>.</li></ul>
+<p style='font-size:12.5px;line-height:1.6'>The conventional figure carries the magnitude; the fuzzy figure carries the propagation of linguistic uncertainty, and the two are not checks on each other (SKILL.md, &quot;The fuzzy engine&quot;). The unchanged fuzzy label is not a statement that nothing changed: a doubling sits inside one linguistic term. The label qualifies a frequency, not a barrier state and not risk.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Consequence and tolerability.</b> No consequence severity, receptor or tolerability criterion exists in any supplied field or in the design basis. Therefore: <b>barrier erosion demonstrated (T1 barrier PFDs ×1.11 and ×2.27, top event frequency ×2.07, design basis envelope invalidated); risk tolerability not determined.</b> This is a result, not a failure of the analysis, and it cannot be closed by this report — it requires the facility&#x27;s approved criteria.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Uncertainty.</b> Three items bound confidence: (i) OP-B2&#x27;s 0.25 is a model assumption, and it drives 92 % of B2&#x27;s PFD, so B2&#x27;s current figure and roughly the whole ratio above inherit that assumption; (ii) no rate is available anywhere, so no time-to-target and no trajectory judgement exists; (iii) the actuation window under the new condition is unknown, not merely uncertain. The 2oo2 fall-back is itself an assumption (<code class='mono'>premissas_do_modelo.voted_group_without_reconfiguration</code>). Overall confidence is medium — bounded by the weakest decisive link, the assumed human PFD.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Urgency: planned.</b> Plausible consequence is unquantified but the event is not proximate: no demand on any barrier, the threat is not present, the excursion is away from the T1 direction, and all upward targets are uncrossed by wide distances. Both T1 barriers remain functional (<code class='mono'>degraded</code>, not <code class='mono'>critical</code>), so no safety-limit escalation criterion of SKILL.md is met. The exposure horizon is the C4 clock — 90 d of backlog on a detected channel failure, with the functional test 181 d overdue — which is a calendar problem, not a control-room problem. What makes it non-routine is that the plant is now operating outside the validated envelope: if T1 occurs before revalidation, the available time is unknown.</p>
+<h3 class='s'>Recommendation</h3>
+<p style='font-size:12.5px;line-height:1.6'><b>Immediate containment (today, no plant action by this analysis):</b></p>
+<ul class='tight'><li>Notify operations and the process safety authority that design basis §7 is triggered: the §5 windows (202 / 162 / 67 min) are unverified from 2025-11-28T00:00:00 and must not be used in shift briefings or emergency response assumptions until revalidated.</li><li>Brief the shift that PT-007 channel B is frozen at 2708.42 kPa and is not a valid indication, that the group is running 2oo2 on A and C, and that B will not contribute to a high-pressure vote.</li><li>Take an independent field measurement of vessel pressure to close the C5 gap (common cause in the agreeing pair A/C). This is the one external check that the current instrumentation cannot substitute.</li><li>Restore process-data capture so a rate can be computed for PIT-7001: at present no time-to-target exists for any declared target, in either direction.</li></ul>
+<p style='font-size:12.5px;line-height:1.6'><b>Restoration (engineering before administrative, per the response hierarchy):</b></p>
+<ul class='tight'><li>Close WO-RUN_A-CH-B: repair or replace PT-007 channel B and retest; restore 2oo3. This removes the dominant driver of the 34.05× item multiplier and restores the arbiter.</li><li>Execute WO-RUN_A-TEST, the B1 interlock functional test, 181 d overdue. <b>C6 constraint:</b> a test that actuates the final element closes the A+C feed valve and destroys LIC-8001 inventory control, with a low-level trip about 1 h later; schedule accordingly, or use a test method that exercises detect and logic without full actuation, and record which coverage was achieved.</li><li>Execute WO-RUN_A-TRAIN, OP-B2 competence renewal, 121 d overdue. This is what retires the 0.25 assumption; until it is closed, B2&#x27;s current PFD is assumed, not measured.</li><li>Re-run the engines after each closure and record the new pair against <code class='mono'>motores</code>.</li></ul>
+<p style='font-size:12.5px;line-height:1.6'><b>Definitive solution:</b></p>
+<ul class='tight'><li>Revalidate the barrier windows under the new operating condition, following <code class='mono'>references/producing-a-design-basis.md</code> steps 2–6, and add the alternative condition to the sensitivity table of the design basis. Without this, C1 has nothing to compare against on the next trigger.</li><li>Run the threat-removal test (design basis §6) to classify T1 under C8 and fix the success criterion that will be applied to B1/B2.</li><li>Raise MOC triage for the load / feed-setpoint change, including the requirement that a base-case change forces window revalidation before it is accepted as the new normal.</li><li>Reconcile the B2 composition record (PT-007 in the asset table versus ZT-1001 in design basis §4) and confirm that the declared demand trigger — command-versus-position discrepancy on ZT-1001 — is instrumented and observable; a barrier whose demand cannot be observed cannot be credited or audited (risk-analysis-reference §6).</li><li>Resolve the PFD-clock rule (model clock versus maintenance calendar) so that the two sources stop disagreeing; the barrier-level sensitivity is 1.07× / 1.01×, so this is a governance fix, not a risk fix.</li><li>Review PT-007 as a repeat offender: two channel discrepancies within the horizon plus an unexecuted functional test on the same asset.</li></ul>
+<p style='font-size:12.5px;line-height:1.6'><b>Suggested owner / deadline:</b> operations shift lead for the containment items, today; maintenance planning for WO-RUN_A-CH-B and WO-RUN_A-TEST, with a date set by the facility&#x27;s backlog rule for a degraded voted group; training function for WO-RUN_A-TRAIN; process safety engineering for revalidation, MOC triage and the C8 campaign. Deadlines are to be set by the accountable functions — none is declared in the supplied material.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Expected return / leading indicator:</b> PT-007 spread back inside the 17.5 kPa limit with three channels moving together (sd of each channel comparable with A and C, not 0.2); B1 and B2 PFDs recomputed against <code class='mono'>pfd_projeto</code>; the conventional top event frequency returning toward <code class='mono'>motores.conventional.projeto.evento_topo_por_ano</code>. Leading indicators: age of the oldest overdue safety-critical work order on a T1 asset, and days a voted group has run without reconfiguration.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Closure criteria:</b> channel B repaired and post-repair tested against the frozen-reading failure mode; B1 functional test executed with its coverage recorded; OP-B2 competence renewed and the 0.25 assumption replaced by asset data; the design basis windows revalidated under the current operating condition and the §7 invalidation cleared; MOC dispositioned; the C5 field check documented; the PFD-clock contradiction resolved. The pressure returning to band does not close this occurrence.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Residual risk / accepting authority:</b> not determined — no tolerability criterion or consequence severity exists in the supplied basis. Acceptance belongs to the facility&#x27;s designated risk authority.</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Human decision:</b> pending</p>
+<h3 class='s'>Evidence and assumptions</h3>
+<ul class='tight'><li>[demonstrated] <code class='mono'>identidade.gatilho</code> / <code class='mono'>a2_estado_atual.eventos_operacionais[0]</code>, 2025-11-28T00:00:00 — operating-condition change (load 15, feed setpoint scale 1.15) with <code class='mono'>regime.revalidacao_registrada</code> = false; triggers design basis §7 invalidation.</li><li>[demonstrated] <code class='mono'>a2_estado_atual.grupo_votado.congelamento</code> + <code class='mono'>.estatistica_por_canal</code> — channel B flat at 2708.42 kPa (sd 0.2) since ~2025-08-29 against A/C sd ≈ 14.2; failure mode is a frozen reading stuck at the pre-change regime (difference 0.05 kPa), which is why the freeze became visible only when the regime moved.</li><li>[demonstrated] <code class='mono'>a2_estado_atual.canais</code> + <code class='mono'>ordens_servico.WO-RUN_A-CH-B</code> — PT-007.B failed detected, unrepaired; C4 clock = 90 d repair backlog.</li><li>[demonstrated] <code class='mono'>ordens_servico.WO-RUN_A-TEST</code> (181 d overdue) and <code class='mono'>.WO-RUN_A-TRAIN</code> (121 d overdue) — B1 interlock test never executed; OP-B2 competence lapsed.</li><li>[demonstrated] <code class='mono'>a1_base_de_projeto.barreiras[*].c2</code> — B1 barrier ×1.11 with dominant element XV-1001 (48 %); B2 barrier ×2.27 with dominant element OP-B2 (92 %); worst component PT-007 ×34.05 in both.</li><li>[demonstrated] <code class='mono'>motores.conventional</code> and <code class='mono'>motores.fuzzy</code> — top event frequency design → current, ratios 2.07× and 1.98×; fuzzy label <code class='mono'>Moderate</code> → <code class='mono'>Moderate</code>; T1 share 70.1 % → 85.6 % (conventional).</li><li>[demonstrated] <code class='mono'>a3_cruzamentos[C6]</code> / design basis §4 — detection independent, actuation shared (XV-1001, VLV-006); joint credit must not multiply; B1 actuation destroys LIC-8001 inventory control with a low-level trip ≈ 1 h later.</li><li>[corroborated] <code class='mono'>a2_estado_atual.grupo_votado.concordancia_no_ultimo_instante</code> and <code class='mono'>a2_estado_atual.discrepancia_canais[0].desvio_contra_mediana</code> — A and C agree within 5.79 kPa, B divergent by majority; the record (WO-RUN_A-CH-B) and the reading agree on which channel is faulty.</li><li>[inferred] <code class='mono'>premissas_do_modelo.human_barrier_pfd_with_overdue_competence</code> = 0.25 — model assumption, not asset data; drives 92 % of B2&#x27;s current PFD and hence most of the ratio in the risk judgement.</li><li>[inferred] <code class='mono'>premissas_do_modelo.voted_group_without_reconfiguration</code> — the fall to 2oo2 is an assumption declared by the model, not a recorded reconfiguration.</li><li>[undetermined] <code class='mono'>a2_estado_atual.escada_de_taxas.lacuna</code> / <code class='mono'>envelope.lacuna</code> — &quot;serie insuficiente na janela&quot;: no rate for any tag, no time to any target, in either direction; distance and time to LOLO (2450 kPa, <code class='mono'>a1_base_de_projeto.limiares</code>) not carried by phase A.</li><li>[undetermined] <code class='mono'>a3_cruzamentos[C3]</code> — real actuation window not measurable, no demand on B1; window compression for the human barrier cannot be quantified and must not be converted into an adjusted PFD.</li><li>[undetermined] <code class='mono'>a3_cruzamentos[C5]</code> — common cause in the agreeing pair A/C; external check = independent field measurement of vessel pressure.</li><li>[undetermined] <code class='mono'>a3_cruzamentos[C8]</code> / design basis §6 — T1 persistent-versus-removable classification not executed; success criterion for the barriers consequently unfixed.</li><li>[undetermined] <code class='mono'>a2_estado_atual.contradicoes[0]</code> — PFD creep clock (331 d) versus maintenance calendar (181 d overdue); item ratio 1.65×, barrier ratios 1.07× / 1.01×; decision insensitive, governance defect open.</li><li>[undetermined] B2 composition — <code class='mono'>a1_base_de_projeto.barreiras[1].componentes</code> lists PT-007 while design basis §4 declares ZT-1001 as B2&#x27;s detection; the two supplied sources disagree and the record needs reconciliation.</li><li>[undetermined] consequence, receptor, tolerability criterion, IPL/SIL credit — absent from every supplied field; no value substituted.</li><li>[undetermined] pathway 2 (B3/B4) — not assessed in phase A; engine inputs <code class='mono'>motores.pfd_atual.B3/.B4</code> equal their diagram values, so the pathway-share shift does not demonstrate that pathway 2 is intact.</li></ul></section>
+<div class='grid'><div>
+<section class='card'><h2>Process variables</h2><p class='sub'>Window 2025-11-28T00:00:00 → 2025-11-28T00:00:00. Shaded bands and dashed lines are the <code>alarm_config</code> thresholds; the solid line is the SIS trip (<code>alarm_config.trip_sis</code>). Every chart carries value and rate.</p>
+<div class='chart-head'><span class='nm'>PIT-7001 — Reaction vessel pressure <span class='badge bad'>anomaly</span></span><span class='vl'>2518.25 kPa</span></div><svg class="chart" viewBox="0 0 1000 180" preserveAspectRatio="none"><rect x="6" width="988" y="49.8" height="16.1" fill="#fbeaea"/><rect x="6" width="988" y="6.0" height="43.8" fill="#f6d3d1"/><rect x="6" width="988" y="130.2" height="32.2" fill="#fbeaea"/><rect x="6" width="988" y="162.4" height="11.6" fill="#f6d3d1"/><line x1="6" x2="994" y1="65.9" y2="65.9" stroke="#b4790c" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="62.9" text-anchor="end" font-size="9" fill="#b4790c">HI 2750</text><line x1="6" x2="994" y1="49.8" y2="49.8" stroke="#b3261e" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="46.8" text-anchor="end" font-size="9" fill="#b3261e">HIHI 2800</text><line x1="6" x2="994" y1="130.2" y2="130.2" stroke="#b4790c" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="127.2" text-anchor="end" font-size="9" fill="#b4790c">LO 2550</text><line x1="6" x2="994" y1="162.4" y2="162.4" stroke="#b3261e" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="159.4" text-anchor="end" font-size="9" fill="#b3261e">LOLO 2450</text><line x1="6" x2="994" y1="17.6" y2="17.6" stroke="#6d1414" stroke-width="1.4" opacity=".9"/><text x="990" y="14.6" text-anchor="end" font-size="9" fill="#6d1414">SIS TRIP 2900</text><path d="M6.0 140.4" fill="none" stroke="#b3261e" stroke-width="2" vector-effect="non-scaling-stroke"/><circle cx="6.0" cy="140.4" r="3.5" fill="#b3261e"/></svg><div class='lg'><span><i style='background:#fbeaea'></i>alarm band</span><span>rate <b>—</b> kPa/min <span class='badge calc'>computed</span></span><span>already crossed <b>LO</b></span></div>
+<p class='sub' style='margin:3px 0'>→ SIS trip (2900 kPa): 381.75 kPa  <span class='mono'>alarm_config.trip_sis</span></p>
+<p class='sub' style='margin:3px 0'>→ model physical limit (3000 kPa): 481.75 kPa  <span class='mono'>design basis, section 3</span></p>
+<div class='chart-head'><span class='nm'>FIT-1001 — Stream 1 feed flow <span class='badge ok'>normal</span></span><span class='vl'>0.3313 kscmh</span></div><svg class="chart" viewBox="0 0 1000 180" preserveAspectRatio="none"><rect x="6" width="988" y="110.9" height="51.5" fill="#fbeaea"/><rect x="6" width="988" y="162.4" height="11.6" fill="#f6d3d1"/><line x1="6" x2="994" y1="110.9" y2="110.9" stroke="#b4790c" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="107.9" text-anchor="end" font-size="9" fill="#b4790c">LO 0.15</text><line x1="6" x2="994" y1="162.4" y2="162.4" stroke="#b3261e" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="159.4" text-anchor="end" font-size="9" fill="#b3261e">LOLO 0.05</text><path d="M6.0 17.6" fill="none" stroke="#b3261e" stroke-width="2" vector-effect="non-scaling-stroke"/><circle cx="6.0" cy="17.6" r="3.5" fill="#b3261e"/></svg><div class='lg'><span><i style='background:#fbeaea'></i>alarm band</span><span>rate <b>—</b> kscmh/min <span class='badge calc'>computed</span></span></div>
+</section>
+<section class='card'><h2>Barrier impact</h2><p class='sub'>Barriers of the pathway combine by <b>AND</b>. PFD as design → current, with both C2 multipliers. A demanded barrier is shown by its outcome.</p><div class='bt'><div class='flow'><div class='node threat'><div class='n1'>T1 — loss of stream 1 feed</div><div class='n2'>FIT-1001 at 0.3313 kscmh</div></div><span class='op'>AND</span><div class='node b warn'><div class='n1'>B1 — interlock</div><div class='n2'>1.11× design</div></div><span class='op'>AND</span><div class='node b bad'><div class='n1'>B2 — operator</div><div class='n2'>2.27× design</div></div><span class='op'>→</span><div class='node top'><div class='n1'>Loss of reactor<br>control</div></div></div></div>
+<div class='bcard'><div class='bhead'><div><div class='bname'>B1 High-pressure interlock</div><div class='bnode'>PT-007 · UZ-007 · XV-1001 · VLV-006</div></div><span class='badge warn'>1.11× design</span></div><div class='pfd2'><div class='pcol'><div class='t'>Most degraded component — PT-007</div><div class='pair'><span class='from'>7.00e-05<em>design</em></span><span class='to bad'>2.38e-03<em>current</em></span></div><div class='dl bad'>34.05× design</div></div><div class='pcol'><div class='t'>Barrier B1 complete</div><div class='pair'><span class='from'>2.05e-02<em>design</em></span><span class='to warn'>2.28e-02<em>current</em></span></div><div class='dl warn'>1.11× — XV-1001 carries 48%</div></div></div>
+<div class='chn'>
+<div class='ch ok'>Channel A<small>2518.14 kPa · sd 14.22</small><small>record: ok</small></div>
+<div class='ch bad'>Channel B<small>2708.64 kPa · sd 0.20</small><small>record: failed_detected_unrepaired</small></div>
+<div class='ch ok'>Channel C<small>2518.98 kPa · sd 14.16</small><small>record: no_discrepancy_reported</small></div>
+</div>
+<div class='gap'>Channel <b>B</b> is flat at 2708.42 kPa since about 2025-08-29; the pressure regime before the operating-condition change was 2708.37 kPa. <span class='badge calc'>computed</span></div>
+</div>
+<div class='bcard'><div class='bhead'><div><div class='bname'>B2 Manual operator action</div><div class='bnode'>PT-007 · XV-1001 · VLV-006 · OP-B2</div></div><span class='badge bad'>2.27× design</span></div><div class='pfd2'><div class='pcol'><div class='t'>Most degraded component — PT-007</div><div class='pair'><span class='from'>7.00e-05<em>design</em></span><span class='to bad'>2.38e-03<em>current</em></span></div><div class='dl bad'>34.05× design</div></div><div class='pcol'><div class='t'>Barrier B2 complete</div><div class='pair'><span class='from'>1.20e-01<em>design</em></span><span class='to bad'>2.72e-01<em>current</em></span></div><div class='dl bad'>2.27× — OP-B2 carries 92%</div></div></div>
+</div>
+</section></div><div>
+<section class='card'><h2>Demand outcome</h2><p class='sub'>Each barrier on the detect–decide–act model, at its own demand, against the design basis success criterion.</p>
+<p class='sub'>B1: no demand on B1 recorded up to t_now</p>
+</section>
+<section class='card'><h2>Top event frequency <span class='badge calc'>computed</span></h2><p class='sub'>Design diagram against current barrier PFDs. Conventional for magnitude; fuzzy for the propagation of linguistic uncertainty.</p><table><tr><th>Engine</th><th>Design /yr</th><th>Current /yr</th><th>×</th><th>Label</th></tr>
+<tr><td>conventional</td><td class='num'>1.75e-03</td><td class='num'><b>3.63e-03</b></td><td class='num'>2.07</td><td>—</td></tr>
+<tr><td>fuzzy</td><td class='num'>2.50e-04</td><td class='num'><b>4.93e-04</b></td><td class='num'>1.98</td><td>Moderate → Moderate</td></tr>
+</table></section>
+<section class='card'><h2>Validity envelope <span class='badge ok'>holds</span></h2>
+<div class='contra'><b>Base-case change</b> at 2025-11-28T00:00:00, regime shift — kPa, no revalidation recorded.</div>
+</section>
+<section class='card'><h2>Gaps that bear on the decision <span class='badge warn'>C5</span></h2>
+<div class='gap'><b>1. Is there a common cause affecting channels A and C?</b><br><b>External check:</b> an independent field measurement of vessel pressure</div>
+</section></div></div>
+<section class='card'><h2>Analyses over time</h2><p class='sub'>Each trigger in the stream opened its own dated analysis, and each decision uses only the context frozen at its <code>t_now</code>.</p><table><tr><th>#</th><th>t_now</th><th>Trigger(s)</th><th>Decision</th></tr>
+<tr><td>1</td><td class='mono'><a href='../INC-BT-REATOR-20250401-1/report.html'>2025-04-01T00:30:00</a></td><td class='mono'>record:wo_opened:WO-RUN_A-CH-A, record:channel_failure_detected:PT-007.A</td><td>Repair PT-007.A under the open corrective work order and confirm how the voting logic reconfigured, while the process itself stays at base-case steady state and requires no operational intervention.</td></tr>
+<tr><td>2</td><td class='mono'><a href='../INC-BT-REATOR-20250402-1/report.html'>2025-04-02T00:00:00</a></td><td class='mono'>record:wo_closed:WO-RUN_A-CH-A, record:channel_repaired:PT-007.A</td><td>Restore PT‑007 to its design credit and keep BT‑REATOR/T1 under routine monitoring: the corrective work order on channel A is closed with a finding, all barrier PFDs are back at design, and no residual condition requires operational action — but do not treat the episode as closed until the envelope and the 2oo3 proof test are evidenced independently of the work‑order narrative.</td></tr>
+<tr><td>3</td><td class='mono'><a href='../INC-BT-REATOR-20250531-1/report.html'>2025-05-31T00:00:00</a></td><td class='mono'>record:wo_opened:WO-RUN_A-TEST, record:wo_overdue:WO-RUN_A-TEST</td><td>Execute the overdue functional test WO-RUN_A-TEST on PT-007 (barrier reator.T1.B1) and settle which test clock governs the PFD; no process condition at `t_now` requires operational intervention.</td></tr>
+<tr><td>4</td><td class='mono'><a href='../INC-BT-REATOR-20250730-1/report.html'>2025-07-30T00:00:00</a></td><td class='mono'>record:wo_opened:WO-RUN_A-TRAIN, record:wo_overdue:WO-RUN_A-TRAIN</td><td>Execute the two overdue safety-critical work orders on pathway T1 — OP-B2 competence renewal (`WO-RUN_A-TRAIN`) and the B1 functional test (`WO-RUN_A-TEST`, 60 d overdue) — because barrier erosion by the maintenance calendar has raised the modelled top event frequency by `motores.conventional.razao` with the plant quiet and no process signal to show it.</td></tr>
+<tr><td>5</td><td class='mono'><a href='../INC-BT-REATOR-20250829-1/report.html'>2025-08-29T00:30:00</a></td><td class='mono'>record:wo_opened:WO-RUN_A-CH-B, record:channel_failure_detected:PT-007.B</td><td>Repair PT-007 channel B and execute the 90-day-overdue interlock functional test as priority maintenance: pathway T1 barriers have eroded to twice the design top-event frequency with the process still at its design base case and no demand yet made.</td></tr>
+<tr style='background:#eef6f6'><td>6</td><td class='mono'><a href='../INC-BT-REATOR-20251128-1/report.html'>2025-11-28T00:00:00</a></td><td class='mono'>record:process_event:operating_condition_change, alarme:PIT-7001:LO, discrepancia:PIT-7001</td><td>Treat the T1 design basis as unverified from this instant and restore the three overdue maintenance items on PT-007 / OP-B2 before sustained operation at the new load, because the operating condition changed with no revalidation while the pressure voted group runs 2oo2 with a frozen channel.</td></tr>
+</table></section>
+<div class='foot'>Figures come from <code>context.json</code> (phase A, deterministic, from the database). The decision text is phase B, governed by <code>SKILL.md</code>; written by the blind single agent. Every recovery rule, cross-check and assumption behind these numbers is in the <a href='log.html'>audit log</a>.</div></main></body></html>

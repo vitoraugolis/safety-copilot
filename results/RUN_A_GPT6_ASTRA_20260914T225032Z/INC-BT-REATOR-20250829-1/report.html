@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Incident report · INC-BT-REATOR-20250829-1</title><style>
+/* ============================================================
+   Safety Copilot — base visual da tela de contexto
+   Apenas estilos. Nenhum conteúdo, nenhum valor.
+
+   Classes disponíveis, agrupadas por uso:
+
+   layout      : header, .banner, main, .grid, section.card
+   rótulos     : .badge  (+ .bad .warn .ok .n .calc)
+   gráfico     : svg.chart, .chart-head (.nm .vl), .lg
+   tabela      : table, th, td, td.num
+   barreira    : .bcard, .bhead, .bname, .bnode, .pfd2, .pcol,
+                 .pair, .from, .to, .dl, .chn, .ch, .prem
+   bowtie      : .bt, .flow, .node (+ .threat .b .top), .op
+   envelope    : .env, .envbox (+ .ref .now), .rule
+   destaques   : .gap (lacuna), .contra (contradição)
+   rodapé      : .foot
+
+   Convenção de marcação de origem do valor:
+     <span class="badge calc">cálculo</span>  -> valor derivado
+     sem badge                                -> leitura direta do banco
+   ============================================================ */
+
+:root{
+  --acc:#0B6E6E;--acc-d:#075454;--grey:#f2f2f2;--hdr:#d9e2e4;--bd:#dcdcdc;
+  --tx:#1a1a1a;--sub:#5c5c5c;--ok:#2e8b3d;--ok-bg:#e4f4e4;--warn:#b4790c;
+  --warn-bg:#fdf0ce;--bad:#b3261e;--bad-bg:#fbeaea;--nb:#eef0f0;
+}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Calibri,Arial,sans-serif;margin:0;background:#f5f6f6;color:var(--tx)}
+
+/* ---------- cabeçalho ---------- */
+header{background:linear-gradient(135deg,var(--acc-d),var(--acc));color:#fff;padding:20px 30px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header h1{margin:0;font-size:19px}
+header p{margin:4px 0 0;font-size:12.5px;opacity:.85}
+header code{background:rgba(255,255,255,.15);padding:1px 5px;border-radius:3px}
+.banner{background:#fff;color:var(--tx);border-radius:6px;padding:9px 14px;font-size:12.5px;
+  display:flex;align-items:center;gap:10px;max-width:540px;line-height:1.45}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--bad);flex-shrink:0}
+
+/* ---------- layout ---------- */
+main{max-width:1240px;margin:0 auto;padding:20px 24px 60px}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+section.card{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:16px 20px;margin-bottom:18px}
+section.card>h2{font-size:14px;color:var(--acc-d);margin:0 0 4px;display:flex;align-items:center;gap:8px}
+section.card>p.sub{margin:0 0 12px;font-size:12px;color:var(--sub);line-height:1.5}
+
+/* ---------- rótulos ---------- */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;
+  padding:2px 9px;border-radius:10px;text-transform:uppercase;letter-spacing:.02em}
+.badge.bad{background:var(--bad-bg);color:var(--bad)}
+.badge.warn{background:var(--warn-bg);color:var(--warn)}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}
+.badge.n{background:var(--nb);color:var(--sub)}
+.badge.calc{background:#ece6f7;color:#5b3fa0}
+
+/* ---------- gráfico ---------- */
+svg.chart{width:100%;height:180px;display:block;background:#fbfbfb;border:1px solid var(--bd);border-radius:4px}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 4px}
+.chart-head .nm{font-size:13px;font-weight:700}
+.chart-head .vl{font-size:13px;font-weight:700;color:var(--bad)}
+.lg{display:flex;gap:16px;font-size:10.5px;color:var(--sub);margin-top:5px;flex-wrap:wrap;align-items:center}
+.lg i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:4px}
+
+/* ---------- tabelas ---------- */
+table{width:100%;border-collapse:collapse;font-size:12px;margin:6px 0}
+th,td{border:1px solid var(--bd);padding:6px 9px;text-align:left}
+th{background:var(--hdr);color:var(--acc-d);font-size:11px}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- barreiras ---------- */
+.bcard{border:1px solid var(--bd);border-radius:7px;padding:12px 14px;margin-bottom:12px}
+.bcard:last-child{margin-bottom:0}
+.bhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}
+.bname{font-size:13px;font-weight:700}
+.bnode{font-size:11px;color:var(--sub);font-family:Consolas,monospace;margin-top:2px}
+
+/* PFD no formato projeto -> atual, lado a lado */
+.pfd2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+@media(max-width:700px){.pfd2{grid-template-columns:1fr}}
+.pcol{background:var(--grey);border-radius:6px;padding:9px 11px}
+.pcol .t{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);margin-bottom:5px}
+.pair{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.from,.to{font-size:14px;font-weight:700}
+.from{color:var(--sub)}
+.from::after{content:'→';margin-left:9px;color:#b8b8b8;font-weight:400}
+.to.bad{color:var(--bad)}
+.to.warn{color:var(--warn)}
+.from em,.to em{display:block;font-size:9.5px;font-weight:400;font-style:normal;color:var(--sub);margin-top:1px}
+.dl{font-size:11px;margin-top:6px;font-weight:600}
+.dl.bad{color:var(--bad)}
+.dl.warn{color:var(--warn)}
+
+/* canais de grupo votado */
+.chn{display:flex;gap:6px;margin:8px 0}
+.ch{flex:1;text-align:center;border-radius:5px;padding:6px 4px;font-size:11px;font-weight:700;line-height:1.4}
+.ch.ok{background:var(--ok-bg);color:var(--ok)}
+.ch.bad{background:var(--bad-bg);color:var(--bad)}
+.ch small{display:block;font-weight:400;font-size:10px;opacity:.85}
+
+/* premissa do modelo — marcar onde o valor é assumido, não lido */
+.prem{font-size:11px;color:var(--warn);background:var(--warn-bg);border-radius:4px;
+  padding:5px 9px;margin-top:7px;line-height:1.45}
+
+/* ---------- bowtie macro ---------- */
+.bt{background:#fbfbfb;border:1px solid var(--bd);border-radius:7px;padding:12px 14px}
+.flow{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
+.node{border:1.5px solid var(--bd);border-radius:6px;padding:7px 10px;background:#fff;min-width:112px;flex:1}
+.node .n1{font-size:11.5px;font-weight:700;line-height:1.3}
+.node .n2{font-size:10px;color:var(--sub);margin-top:2px}
+.node.threat{border-color:var(--bad)}
+.node.threat .n1{color:var(--bad)}
+.node.b.bad{border-color:var(--bad);background:var(--bad-bg)}
+.node.b.warn{border-color:var(--warn);background:var(--warn-bg)}
+.node.top{border-color:var(--acc);background:var(--hdr);text-align:center;
+  display:flex;align-items:center;justify-content:center}
+.op{align-self:center;font-size:10.5px;font-weight:800;color:var(--sub);
+  background:#eceeee;border-radius:9px;padding:2px 7px}
+
+/* ---------- envelope de validade ---------- */
+.env{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:700px){.env{grid-template-columns:1fr}}
+.envbox{border-radius:6px;padding:10px 12px}
+.envbox.ref{background:var(--grey)}
+.envbox.now{background:var(--bad-bg)}
+.envbox .t{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);margin-bottom:6px}
+.envbox .big{font-size:18px;font-weight:700}
+.envbox.now .big{color:var(--bad)}
+.envbox .u{font-size:11px;color:var(--sub);margin-top:3px}
+.rule{font-size:11.5px;background:#fff;border:1px dashed var(--bd);border-radius:5px;
+  padding:8px 11px;line-height:1.55}
+
+/* ---------- lacunas e contradições ---------- */
+.gap{border-left:3px solid var(--warn);background:var(--warn-bg);padding:9px 12px;margin:8px 0;
+  font-size:12px;border-radius:0 4px 4px 0;line-height:1.55}
+.contra{border-left:3px solid var(--bad);background:var(--bad-bg);padding:9px 12px;margin:8px 0;
+  font-size:12px;border-radius:0 4px 4px 0;line-height:1.55}
+
+/* ---------- rodapé ---------- */
+.foot{font-size:11.5px;color:var(--sub);margin-top:26px;border-top:1px solid var(--bd);
+  padding-top:12px;line-height:1.6}
+
+/* complementos locais, mesma paleta */
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:12px;line-height:1.6}
+.kv b{color:var(--sub);font-weight:600}
+.mono{font-family:Consolas,'Courier New',monospace;font-size:11px}
+.q{font-family:Consolas,'Courier New',monospace;font-size:10.5px;color:var(--sub);
+   background:var(--grey);border-radius:4px;padding:5px 8px;margin:5px 0 9px;display:block;
+   overflow-x:auto;white-space:pre;line-height:1.5}
+h3.s{font-size:12px;color:var(--acc-d);margin:16px 0 4px;text-transform:uppercase;letter-spacing:.04em}
+ul.tight{margin:6px 0 0;padding-left:18px;font-size:12px;line-height:1.65}
+ul.tight li{margin-bottom:4px}
+.wo{font-size:11.5px;border-left:2px solid var(--bd);padding:4px 0 4px 10px;margin:5px 0 5px 6px;line-height:1.5}
+.wo.bad{border-left-color:var(--bad)}
+.wo.warn{border-left-color:var(--warn)}
+.wo.ok{border-left-color:var(--ok)}
+.foot code{background:var(--grey);padding:1px 4px;border-radius:3px}
+.gate{background:var(--hdr);border:1px solid var(--acc);border-radius:6px;padding:11px 14px;
+      font-size:12.5px;line-height:1.6;margin-top:6px}
+</style></head><body>
+<header><div><h1>Incident report · episode <code>RUN_A</code></h1><p><code>INC-BT-REATOR-20250829-1</code> · bowtie <code>BT-REATOR</code> (pathway T1) · <code>t_now 2025-08-29T00:30:00</code> · trigger <code>record:wo_opened:WO-RUN_A-CH-B, record:channel_failure_detected:PT-007.B</code> · <a href='log.html' style='color:#fff'>audit log</a></p></div><div class='banner'><span class='dot'></span><div><b>No demand on a barrier</b> at the instant assessed.</div></div></header><main>
+<section class='card'><h2>Required decision <span class='badge n'>agent judgement · blind</span></h2><p class='sub'>Single agent governed by <code>SKILL.md</code>, run blind in a sandbox. Figures are cited from the context fields, not retyped. The full chain is in the <a href='log.html'>audit log</a>.</p><h2 style='font-size:15px;margin:0 0 10px'>Escalate the newly recorded pressure-channel failure for immediate operational review and restoration; continued-operation risk acceptance is not demonstrated.</h2>
+<h3 class='s'>Fact</h3>
+<p style='font-size:12.5px;line-height:1.6'>This trigger adds a detected, unrepaired PT-007.B failure and its corrective work order to the existing test and training backlog; it is a <b>record-triggered deterioration</b>, not a demonstrated process excursion or frequency-criterion crossing (<code class='mono'>identidade.gatilho</code>, <code class='mono'>a2_estado_atual.canais</code>, <code class='mono'>a2_estado_atual.ordens_servico</code>).</p>
+<p style='font-size:12.5px;line-height:1.6'>The assessment is frozen at <code class='mono'>identidade.ts</code>, over <code class='mono'>identidade.janela_de</code> onward, using <code class='mono'>identidade.banco</code>. Failure onset, detection and unresolved repair status are recorded in <code class='mono'>a2_estado_atual.canais[channel_id=PT-007.B]</code>; the exposure clock is <code class='mono'>a3_cruzamentos[id=C4].relogio</code>. No active alarm or B1 demand is recorded (<code class='mono'>a2_estado_atual.alarmes_ativos</code>, <code class='mono'>a2_estado_atual.demandas.B1</code>).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Pre-inference limitations:</b> units are supplied in <code class='mono'>a2_estado_atual.margem</code>; actual operating mode, clock synchronisation, signal-quality flags, instrument ranges, overrides, bypass/test/isolation status, graph revision and approved acceptance criteria are not supplied. The absence of a recorded operating-condition change does not confirm the design operating mode (<code class='mono'>a2_estado_atual.regime</code>; design basis §2; SKILL.md, Phase B).</p>
+<p style='font-size:12.5px;line-height:1.6'>The failure record is reproducible, but the analogue readings do not corroborate its stated discrepancy: all channel pairs agree, no majority outlier is identified, and the channel statistics do not demonstrate freezing. The failure mechanism remains undetermined; agreement does not establish functional availability (<code class='mono'>a2_estado_atual.grupo_votado</code>, <code class='mono'>a2_estado_atual.discrepancia_canais</code>, <code class='mono'>a2_estado_atual.canais</code>).</p>
+<h3 class='s'>Scenario and mechanism</h3>
+<p style='font-size:12.5px;line-height:1.6'><b>Declared scenario:</b> loss of stream 1 feed → B1 automatic intervention, followed by B2 on command–position discrepancy → loss of reactor control → downstream protection → consequence/receptor <b>not demonstrated</b>. The SIS is the last declared automated layer, not evidence that B1 succeeded; no consequence model or mitigating performance beyond it is supplied (<code class='mono'>diagrams/BT-REATOR.txt</code>; design basis §§3–5).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Supported quantitative chain:</b> recorded channel failure → modelled degraded voting and sensor PFD → calculated B1 PFD; overdue competence renewal → assumed human-component PFD → calculated B2 PFD → engine-reported top-event frequency. Sources are <code class='mono'>a2_estado_atual.canais</code>, <code class='mono'>premissas_do_modelo</code>, <code class='mono'>a1_base_de_projeto.barreiras</code> and <code class='mono'>motores</code>. These support barrier erosion, not root cause or consequence frequency.</p>
+<p style='font-size:12.5px;line-height:1.6'>For compact citations below, <b>B1/B2</b> denote the corresponding entries in <code class='mono'>a1_base_de_projeto.barreiras[id=…]</code>.</p>
+<h3 class='s'>Analysis</h3>
+<h3 class='s'>1. Bowtie</h3>
+<ul class='tight'><li><b>B1 — <code class='mono'>degraded</code>.</b> Recorded detection redundancy is reduced and proof testing is overdue, but complete function loss or failure on demand is not demonstrated. Compare <code class='mono'>B1.pfd_projeto</code> → <code class='mono'>B1.pfd_atual</code>, alongside both <code class='mono'>B1.c2.componente_pior.multiplicador</code> and <code class='mono'>B1.c2.multiplicador_barreira</code>. XV-1001 remains dominant (<code class='mono'>B1.c2.elemento_dominante</code>). The automatic response class does not prove current effectiveness without a validated window (<code class='mono'>a3_cruzamentos[id=C3]</code>; SKILL.md B3).</li><li><b>B2 — <code class='mono'>degraded</code>.</b> Competence renewal is overdue; the supplied record does not establish complete loss or formal expiry of the operator function. Compare <code class='mono'>B2.pfd_projeto</code> → <code class='mono'>B2.pfd_atual</code>, both C2 multipliers, and the human-component factor in <code class='mono'>B2.detalhe_componentes[item=OP-B2].fator</code>. OP-B2 dominates the calculated total, but its current PFD is an assumption, not measured competence (<code class='mono'>B2.c2</code>, <code class='mono'>premissas_do_modelo.human_barrier_pfd_with_overdue_competence</code>). No B2-specific demand assessment is supplied; neither success nor failure on demand can be assigned.</li><li><b>Dependency/model conflict:</b> the basis gives B2 independent ZT-1001 detection, whereas <code class='mono'>B2.componentes</code> includes PT-007 and C6 lists it as shared. Therefore the calculated transfer of PT-007 degradation into B2 is not established by the declared architecture. Shared XV-1001/VLV-006 actuation independently prevents treating B1 and B2 as independent IPLs (design basis §4; <code class='mono'>a3_cruzamentos[id=C6]</code>).</li><li><b>Exposure:</b> the group is known degraded, governed by repair backlog rather than an unidentified hidden-failure interval. No repair deadline is supplied. The effective voting arrangement is described in the work order but remains a model assumption requiring field verification (<code class='mono'>a3_cruzamentos[id=C4]</code>, <code class='mono'>a2_estado_atual.ordens_servico[wo_id=WO-RUN_A-CH-B]</code>, <code class='mono'>premissas_do_modelo.voted_group_without_reconfiguration</code>).</li></ul>
+<h3 class='s'>2. Process</h3>
+<p style='font-size:12.5px;line-height:1.6'>Current readings and distances must be read together with their unavailable rates: <code class='mono'>a2_estado_atual.margem.PIT-7001.{valor,distancia,taxa_por_min,tempo_ate_limiar_min,alvos_declarados}</code>, and the corresponding fields for the other tags. These do <b>not</b> demonstrate a stable trajectory or usable response time (<code class='mono'>references/cross-checks.md</code>, C7).</p>
+<p style='font-size:12.5px;line-height:1.6'>The empty rate ladder explicitly reports insufficient series. Consequently, the C1/C7 summary statements do not establish envelope validity or complete dynamic margins; pressure HIHI and lower targets also lack the full distance/rate treatment in <code class='mono'>margem</code> despite appearing in <code class='mono'>a1_base_de_projeto.limiares</code> (<code class='mono'>a2_estado_atual.escada_de_taxas</code>, <code class='mono'>a3_cruzamentos[id=C1]</code>, <code class='mono'>a3_cruzamentos[id=C7]</code>).</p>
+<p style='font-size:12.5px;line-height:1.6'>Compression is unmeasurable, not demonstrated absent. Neither the design response windows nor the human delay allowance can be adopted as the current available time; configuration-change invalidation checks remain incomplete (<code class='mono'>a3_cruzamentos[id=C3]</code>; design basis §§5,7).</p>
+<h3 class='s'>3. Context</h3>
+<p style='font-size:12.5px;line-height:1.6'>The selected work orders follow <code class='mono'>a2_estado_atual.regra_de_recuperacao[&quot;work orders&quot;]</code>; channel and event evidence is restricted by the corresponding visibility rules. The prior channel repair and current channel failure justify examining recurring integrity problems, but do not prove common cause or organisational failure (<code class='mono'>a2_estado_atual.ordens_servico</code>).</p>
+<p style='font-size:12.5px;line-height:1.6'>Material inconsistencies remain despite C5 reporting no named gaps:</p>
+<ul class='tight'><li><b>Test clock:</b> retain both model/calendar readings and their calculated sensitivity; obtain executed test records and the approved schedule to resolve them (<code class='mono'>a2_estado_atual.contradicoes[0]</code>). The overdue test predates the recorded B failure, so claiming it would have exposed that later failure is unsupported.</li><li><b>Training clock:</b> <code class='mono'>B2.motivos</code> disagrees with <code class='mono'>a2_estado_atual.ordens_servico[wo_id=WO-RUN_A-TRAIN].vencida_ha_dias</code>; reconcile competence records before assigning quantitative human credit.</li><li><b>Design provenance:</b> barrier <code class='mono'>pfd_documento</code> fields do not match the supplied diagram, and component-sum design PFDs differ from the narrative basis. Obtain the controlled graph, asset mapping and approved credit basis (<code class='mono'>B1/B2.pfd_documento</code>, <code class='mono'>B1/B2.pfd_projeto</code>; diagram; design basis §4).</li><li><b>Field verification:</b> inspect channel diagnostics, failure evidence, voting logic and independent pressure indication; obtain time-aligned trends and operating/configuration records to settle functional state, mode and dynamics (<code class='mono'>references/cross-checks.md</code>, C1, C4–C5).</li><li><b>Missing assurance:</b> approved PHA/LOPA, tolerability, consequence/receptor data and current temporary-change records are absent. Threat persistence also remains unclassified pending the declared removal test (design basis §6; <code class='mono'>references/risk-analysis-reference.md</code>, §§1–4).</li></ul>
+<h3 class='s'>Risk judgement</h3>
+<p style='font-size:12.5px;line-height:1.6'><b>Barrier erosion demonstrated; risk tolerability not determined.</b></p>
+<p style='font-size:12.5px;line-height:1.6'>The computed conventional design/current pair is <code class='mono'>motores.conventional.projeto.evento_topo_por_ano</code> versus <code class='mono'>motores.conventional.atual.evento_topo_por_ano</code>, with ratio <code class='mono'>motores.conventional.razao</code>, over <code class='mono'>motores.janela_de_exposicao_anos</code>. T1 dominates the current modelled contribution (<code class='mono'>motores.conventional.atual.pathways[0].contribuicao_pct</code>).</p>
+<p style='font-size:12.5px;line-height:1.6'>The corresponding fuzzy pair and ratio are <code class='mono'>motores.fuzzy.{projeto,atual}.evento_topo_por_ano</code> and <code class='mono'>motores.fuzzy.razao</code>; its unchanged labels qualify frequency only. Conventional results provide model magnitude; fuzzy results express linguistic propagation, not independent validation (<code class='mono'>motores.nota</code>).</p>
+<p style='font-size:12.5px;line-height:1.6'>These are <b>diagram-model outputs, not validated residual-risk estimates</b>: shared actuation, B2 detector mapping, assumed human PFD and unresolved clocks limit their credit. Current barrier values enter through <code class='mono'>motores.pfd_atual</code>, not the MTTF transformation; the supplied diagram carries zero node MTTFs (SKILL.md, “Reading the engine’s numbers”).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Urgency: immediate review; status: action required.</b> No emergency excursion is demonstrated, but restoration cannot be deferred on static margins or an unspecified repair horizon. Confidence in quantitative residual risk is low because consequence severity, receptors, acceptance criteria and decisive dependencies remain unresolved (<code class='mono'>a2_estado_atual.margem</code>; C4; <code class='mono'>references/risk-analysis-reference.md</code>, §§3,7).</p>
+<h3 class='s'>Recommendation</h3>
+<p style='font-size:12.5px;line-height:1.6'><b>Immediate containment:</b> Operations should immediately verify field condition, remaining protection and temporary configurations, and obtain an authorised continued-operation decision under standing procedures. If approach to trip, unsafe-envelope operation or multiple critical barriers is identified, escalate under emergency procedures without awaiting certainty. Do not improvise manoeuvres or change voting, thresholds or bypasses (SKILL.md, Safety limits).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Restoration:</b> Instrumentation/maintenance should establish a repair deadline, diagnose and repair PT-007.B, and perform approved channel, voting and end-to-end functional tests. Training ownership should verify and renew B2 competence; reliability/process safety should reconcile both clocks and the detector mapping before restoring quantitative credit (<code class='mono'>a2_estado_atual.ordens_servico</code>; <code class='mono'>references/risk-analysis-reference.md</code>, §§2,4,8).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Definitive solution:</b> Review recurrent channel defects and backlog controls; prioritise observable B2 demand and robust reduction of shared-actuator dependence over permanent administrative compensation. Assess changes through the applicable hazard/MOC process. Any intervention involving shared feed valves must address loss of level control and the declared secondary shutdown route (<code class='mono'>a3_cruzamentos[id=C6]</code>; design basis §4; risk-analysis reference §§4–6).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Suggested owner / deadline:</b> Operations superintendent for the immediate decision; maintenance, instrumentation, training and process-safety leads for time-bound restoration. The authorised team must set the repair horizon and any temporary measure’s expiry and withdrawal conditions; no safe numerical deadline is demonstrated (C4; risk-analysis reference §6).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Expected return / leading indicator:</b> Verified functional redundancy, completed proof testing and competence renewal, resolved overdue items, and measured process trends sufficient to assess all declared targets—not merely agreeing channel readings (C4–C7; risk-analysis reference §8).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Closure criteria:</b> Controlled condition; repaired and tested functions; reconciled configuration and clocks; managed temporary changes; current-condition window validation; reassessed residual risk and traceable open actions. No closure is supported at this snapshot (SKILL.md B5).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Residual risk / accepting authority:</b> Not determined; acceptance belongs to the facility’s designated authority, whose identity is absent—not to this report (SKILL.md B4–B5).</p>
+<p style='font-size:12.5px;line-height:1.6'><b>Human decision:</b> pending.</p>
+<h3 class='s'>Evidence and assumptions</h3>
+<ul class='tight'><li><b>[demonstrated]</b> <code class='mono'>identidade.gatilho</code> and <code class='mono'>a2_estado_atual.canais</code>: newly recorded unrepaired failure at the frozen analysis instant.</li><li><b>[demonstrated]</b> <code class='mono'>a2_estado_atual.grupo_votado</code>: analogue agreement does not reproduce the recorded discrepancy; freezing is not demonstrated.</li><li><b>[inferred]</b> <code class='mono'>B1/B2.pfd_atual</code>, <code class='mono'>motores</code>: calculated erosion depends on declared model assumptions and unresolved architecture.</li><li><b>[undetermined]</b> <code class='mono'>a2_estado_atual.contradicoes</code>, <code class='mono'>envelope.lacuna</code>, design basis §§4–7: governing clock, current effectiveness window, validated joint credit and threat persistence.</li><li><b>[undetermined]</b> No supplied consequence/acceptance basis: residual-risk tolerability and authorisation to operate.</li></ul></section>
+<div class='grid'><div>
+<section class='card'><h2>Process variables</h2><p class='sub'>Window 2025-07-30T00:30:00 → 2025-08-29T00:30:00. Shaded bands and dashed lines are the <code>alarm_config</code> thresholds; the solid line is the SIS trip (<code>alarm_config.trip_sis</code>). Every chart carries value and rate.</p>
+<div class='chart-head'><span class='nm'>PIT-7001 — Reaction vessel pressure <span class='badge ok'>normal</span></span><span class='vl'>2708.11 kPa</span></div><svg class="chart" viewBox="0 0 1000 180" preserveAspectRatio="none"><rect x="6" width="988" y="49.8" height="16.1" fill="#fbeaea"/><rect x="6" width="988" y="6.0" height="43.8" fill="#f6d3d1"/><rect x="6" width="988" y="130.2" height="32.2" fill="#fbeaea"/><rect x="6" width="988" y="162.4" height="11.6" fill="#f6d3d1"/><line x1="6" x2="994" y1="65.9" y2="65.9" stroke="#b4790c" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="62.9" text-anchor="end" font-size="9" fill="#b4790c">HI 2750</text><line x1="6" x2="994" y1="49.8" y2="49.8" stroke="#b3261e" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="46.8" text-anchor="end" font-size="9" fill="#b3261e">HIHI 2800</text><line x1="6" x2="994" y1="130.2" y2="130.2" stroke="#b4790c" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="127.2" text-anchor="end" font-size="9" fill="#b4790c">LO 2550</text><line x1="6" x2="994" y1="162.4" y2="162.4" stroke="#b3261e" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="159.4" text-anchor="end" font-size="9" fill="#b3261e">LOLO 2450</text><line x1="6" x2="994" y1="17.6" y2="17.6" stroke="#6d1414" stroke-width="1.4" opacity=".9"/><text x="990" y="14.6" text-anchor="end" font-size="9" fill="#6d1414">SIS TRIP 2900</text><path d="M6.0 78.4 L11.5 78.3 L17.0 78.0 L22.6 79.3 L28.1 78.4 L33.6 79.8 L39.1 79.3 L44.6 79.5 L50.2 79.2 L55.7 78.8 L61.2 80.1 L66.7 79.0 L72.2 79.1 L77.8 78.9 L83.3 80.1 L88.8 79.0 L94.3 78.8 L99.8 78.9 L105.4 80.2 L110.9 78.5 L116.4 79.8 L121.9 79.3 L127.4 78.9 L132.9 79.4 L138.5 80.2 L144.0 79.9 L149.5 79.5 L155.0 80.0 L160.5 79.8 L166.1 79.1 L171.6 79.7 L177.1 79.8 L182.6 79.1 L188.1 79.6 L193.7 80.7 L199.2 79.5 L204.7 78.4 L210.2 79.4 L215.7 79.5 L221.3 79.5 L226.8 80.0 L232.3 79.1 L237.8 79.5 L243.3 78.9 L248.9 78.7 L254.4 80.3 L259.9 80.1 L265.4 80.1 L270.9 80.1 L276.5 79.3 L282.0 78.4 L287.5 80.5 L293.0 78.9 L298.5 79.8 L304.1 79.6 L309.6 78.8 L315.1 79.1 L320.6 80.6 L326.1 78.9 L331.7 78.4 L337.2 79.3 L342.7 78.8 L348.2 79.7 L353.7 79.8 L359.3 79.5 L364.8 80.4 L370.3 79.6 L375.8 79.6 L381.3 79.2 L386.8 79.4 L392.4 79.3 L397.9 80.0 L403.4 79.9 L408.9 79.3 L414.4 79.7 L420.0 79.4 L425.5 77.4 L431.0 79.2 L436.5 79.5 L442.0 78.8 L447.6 79.8 L453.1 78.7 L458.6 78.6 L464.1 79.4 L469.6 79.7 L475.2 79.7 L480.7 80.1 L486.2 80.1 L491.7 80.0 L497.2 79.2 L502.8 78.8 L508.3 79.4 L513.8 78.8 L519.3 79.0 L524.8 79.6 L530.4 79.2 L535.9 79.6 L541.4 79.3 L546.9 78.2 L552.4 78.5 L558.0 80.2 L563.5 78.7 L569.0 79.1 L574.5 79.5 L580.0 79.0 L585.6 79.4 L591.1 78.3 L596.6 78.9 L602.1 79.8 L607.6 79.6 L613.2 78.3 L618.7 78.9 L624.2 78.8 L629.7 79.9 L635.2 79.1 L640.7 78.7 L646.3 79.4 L651.8 78.8 L657.3 79.1 L662.8 78.3 L668.3 79.4 L673.9 78.7 L679.4 79.9 L684.9 79.0 L690.4 80.0 L695.9 78.5 L701.5 79.9 L707.0 80.0 L712.5 79.7 L718.0 78.6 L723.5 79.0 L729.1 78.6 L734.6 79.6 L740.1 80.0 L745.6 79.1 L751.1 77.8 L756.7 78.8 L762.2 79.3 L767.7 78.5 L773.2 79.5 L778.7 79.0 L784.3 79.0 L789.8 79.3 L795.3 78.8 L800.8 79.6 L806.3 79.3 L811.9 79.8 L817.4 80.1 L822.9 78.9 L828.4 79.3 L833.9 80.1 L839.5 79.6 L845.0 78.8 L850.5 77.7 L856.0 79.2 L861.5 79.4 L867.1 78.6 L872.6 80.5 L878.1 80.6 L883.6 78.1 L889.1 79.0 L894.6 79.7 L900.2 78.1 L905.7 79.6 L911.2 78.8 L916.7 79.3 L922.2 79.1 L927.8 78.3 L933.3 80.3 L938.8 78.4 L944.3 78.9 L949.8 79.2 L955.4 78.2 L960.9 79.9 L966.4 79.7 L971.9 80.9 L977.4 80.1 L983.0 79.3 L988.5 80.5 L994.0 79.3" fill="none" stroke="#b3261e" stroke-width="2" vector-effect="non-scaling-stroke"/><circle cx="994.0" cy="79.3" r="3.5" fill="#b3261e"/></svg><div class='lg'><span><i style='background:#fbeaea'></i>alarm band</span><span>rate <b>—</b> kPa/min <span class='badge calc'>computed</span></span></div>
+<p class='sub' style='margin:3px 0'>→ SIS trip (2900 kPa): 191.89 kPa  <span class='mono'>alarm_config.trip_sis</span></p>
+<p class='sub' style='margin:3px 0'>→ model physical limit (3000 kPa): 291.89 kPa  <span class='mono'>design basis, section 3</span></p>
+<div class='chart-head'><span class='nm'>FIT-1001 — Stream 1 feed flow <span class='badge ok'>normal</span></span><span class='vl'>0.2530 kscmh</span></div><svg class="chart" viewBox="0 0 1000 180" preserveAspectRatio="none"><rect x="6" width="988" y="107.4" height="55.0" fill="#fbeaea"/><rect x="6" width="988" y="162.4" height="11.6" fill="#f6d3d1"/><line x1="6" x2="994" y1="107.4" y2="107.4" stroke="#b4790c" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="104.4" text-anchor="end" font-size="9" fill="#b4790c">LO 0.15</text><line x1="6" x2="994" y1="162.4" y2="162.4" stroke="#b3261e" stroke-width="1" stroke-dasharray="4 3" opacity=".75"/><text x="990" y="159.4" text-anchor="end" font-size="9" fill="#b3261e">LOLO 0.05</text><path d="M6.0 43.6 L11.5 60.9 L17.0 38.9 L22.6 50.4 L28.1 36.0 L33.6 49.4 L39.1 39.7 L44.6 53.2 L50.2 52.3 L55.7 48.2 L61.2 44.8 L66.7 71.8 L72.2 77.1 L77.8 43.6 L83.3 32.3 L88.8 41.0 L94.3 59.2 L99.8 45.1 L105.4 35.3 L110.9 36.1 L116.4 46.8 L121.9 53.5 L127.4 71.4 L132.9 77.4 L138.5 52.7 L144.0 58.4 L149.5 42.4 L155.0 72.0 L160.5 36.1 L166.1 50.0 L171.6 43.3 L177.1 56.6 L182.6 53.0 L188.1 51.6 L193.7 54.7 L199.2 55.0 L204.7 61.1 L210.2 46.9 L215.7 50.8 L221.3 54.3 L226.8 44.5 L232.3 51.7 L237.8 48.4 L243.3 46.9 L248.9 43.9 L254.4 47.0 L259.9 55.4 L265.4 64.6 L270.9 56.6 L276.5 69.0 L282.0 78.2 L287.5 42.8 L293.0 53.5 L298.5 49.0 L304.1 61.2 L309.6 60.6 L315.1 74.6 L320.6 72.2 L326.1 79.6 L331.7 45.4 L337.2 43.6 L342.7 51.5 L348.2 23.4 L353.7 43.6 L359.3 53.3 L364.8 60.5 L370.3 53.4 L375.8 50.2 L381.3 33.8 L386.8 55.5 L392.4 34.3 L397.9 60.8 L403.4 45.7 L408.9 76.7 L414.4 54.1 L420.0 51.7 L425.5 55.2 L431.0 45.3 L436.5 18.7 L442.0 63.9 L447.6 59.4 L453.1 44.9 L458.6 60.6 L464.1 43.7 L469.6 59.8 L475.2 57.8 L480.7 42.4 L486.2 61.5 L491.7 46.1 L497.2 51.7 L502.8 65.0 L508.3 53.5 L513.8 77.5 L519.3 41.8 L524.8 66.7 L530.4 37.2 L535.9 69.7 L541.4 44.3 L546.9 54.7 L552.4 53.8 L558.0 72.9 L563.5 58.7 L569.0 45.8 L574.5 72.0 L580.0 49.5 L585.6 17.6 L591.1 55.8 L596.6 63.2 L602.1 43.0 L607.6 44.7 L613.2 64.0 L618.7 42.5 L624.2 49.3 L629.7 56.5 L635.2 39.4 L640.7 66.1 L646.3 51.1 L651.8 58.2 L657.3 60.5 L662.8 67.6 L668.3 49.7 L673.9 36.6 L679.4 33.8 L684.9 72.9 L690.4 57.0 L695.9 47.8 L701.5 79.0 L707.0 76.1 L712.5 46.7 L718.0 26.6 L723.5 55.7 L729.1 42.7 L734.6 65.1 L740.1 53.1 L745.6 52.9 L751.1 40.4 L756.7 50.1 L762.2 60.3 L767.7 46.3 L773.2 58.4 L778.7 56.8 L784.3 53.9 L789.8 64.1 L795.3 32.3 L800.8 29.5 L806.3 48.2 L811.9 61.2 L817.4 50.9 L822.9 57.3 L828.4 54.5 L833.9 50.1 L839.5 47.5 L845.0 46.9 L850.5 27.8 L856.0 45.1 L861.5 54.4 L867.1 58.3 L872.6 31.8 L878.1 66.5 L883.6 46.8 L889.1 36.6 L894.6 50.4 L900.2 50.3 L905.7 53.1 L911.2 64.3 L916.7 46.1 L922.2 70.6 L927.8 38.0 L933.3 59.0 L938.8 59.5 L944.3 40.4 L949.8 70.4 L955.4 58.7 L960.9 48.7 L966.4 53.6 L971.9 51.1 L977.4 39.7 L983.0 39.7 L988.5 19.2 L994.0 50.7" fill="none" stroke="#b3261e" stroke-width="2" vector-effect="non-scaling-stroke"/><circle cx="994.0" cy="50.7" r="3.5" fill="#b3261e"/></svg><div class='lg'><span><i style='background:#fbeaea'></i>alarm band</span><span>rate <b>—</b> kscmh/min <span class='badge calc'>computed</span></span></div>
+</section>
+<section class='card'><h2>Barrier impact</h2><p class='sub'>Barriers of the pathway combine by <b>AND</b>. PFD as design → current, with both C2 multipliers. A demanded barrier is shown by its outcome.</p><div class='bt'><div class='flow'><div class='node threat'><div class='n1'>T1 — loss of stream 1 feed</div><div class='n2'>FIT-1001 at 0.2530 kscmh</div></div><span class='op'>AND</span><div class='node b warn'><div class='n1'>B1 — interlock</div><div class='n2'>1.08× design</div></div><span class='op'>AND</span><div class='node b bad'><div class='n1'>B2 — operator</div><div class='n2'>2.27× design</div></div><span class='op'>→</span><div class='node top'><div class='n1'>Loss of reactor<br>control</div></div></div></div>
+<div class='bcard'><div class='bhead'><div><div class='bname'>B1 High-pressure interlock</div><div class='bnode'>PT-007 · UZ-007 · XV-1001 · VLV-006</div></div><span class='badge warn'>1.08× design</span></div><div class='pfd2'><div class='pcol'><div class='t'>Most degraded component — PT-007</div><div class='pair'><span class='from'>7.00e-05<em>design</em></span><span class='to bad'>1.73e-03<em>current</em></span></div><div class='dl bad'>24.69× design</div></div><div class='pcol'><div class='t'>Barrier B1 complete</div><div class='pair'><span class='from'>2.05e-02<em>design</em></span><span class='to warn'>2.22e-02<em>current</em></span></div><div class='dl warn'>1.08× — XV-1001 carries 50%</div></div></div>
+<div class='chn'>
+<div class='ch ok'>Channel A<small>2708.62 kPa · sd 1.96</small><small>record: ok</small></div>
+<div class='ch ok'>Channel B<small>2708.08 kPa · sd 1.97</small><small>record: failed_detected_unrepaired</small></div>
+<div class='ch ok'>Channel C<small>2708.34 kPa · sd 1.98</small><small>record: no_discrepancy_reported</small></div>
+</div>
+</div>
+<div class='bcard'><div class='bhead'><div><div class='bname'>B2 Manual operator action</div><div class='bnode'>PT-007 · XV-1001 · VLV-006 · OP-B2</div></div><span class='badge bad'>2.27× design</span></div><div class='pfd2'><div class='pcol'><div class='t'>Most degraded component — PT-007</div><div class='pair'><span class='from'>7.00e-05<em>design</em></span><span class='to bad'>1.73e-03<em>current</em></span></div><div class='dl bad'>24.69× design</div></div><div class='pcol'><div class='t'>Barrier B2 complete</div><div class='pair'><span class='from'>1.20e-01<em>design</em></span><span class='to bad'>2.72e-01<em>current</em></span></div><div class='dl bad'>2.27× — OP-B2 carries 92%</div></div></div>
+</div>
+</section></div><div>
+<section class='card'><h2>Demand outcome</h2><p class='sub'>Each barrier on the detect–decide–act model, at its own demand, against the design basis success criterion.</p>
+<p class='sub'>B1: no demand on B1 recorded up to t_now</p>
+</section>
+<section class='card'><h2>Top event frequency <span class='badge calc'>computed</span></h2><p class='sub'>Design diagram against current barrier PFDs. Conventional for magnitude; fuzzy for the propagation of linguistic uncertainty.</p><table><tr><th>Engine</th><th>Design /yr</th><th>Current /yr</th><th>×</th><th>Label</th></tr>
+<tr><td>conventional</td><td class='num'>1.75e-03</td><td class='num'><b>3.54e-03</b></td><td class='num'>2.02</td><td>—</td></tr>
+<tr><td>fuzzy</td><td class='num'>2.50e-04</td><td class='num'><b>4.75e-04</b></td><td class='num'>1.9</td><td>Moderate → Moderate</td></tr>
+</table></section>
+<section class='card'><h2>Validity envelope <span class='badge ok'>holds</span></h2>
+</section>
+<section class='card'><h2>Gaps that bear on the decision <span class='badge warn'>C5</span></h2>
+<p class='sub'>None at this instant.</p>
+</section></div></div>
+<section class='card'><h2>Analyses over time</h2><p class='sub'>Each trigger in the stream opened its own dated analysis, and each decision uses only the context frozen at its <code>t_now</code>.</p><table><tr><th>#</th><th>t_now</th><th>Trigger(s)</th><th>Decision</th></tr>
+<tr><td>1</td><td class='mono'><a href='../INC-BT-REATOR-20250401-1/report.html'>2025-04-01T00:30:00</a></td><td class='mono'>record:wo_opened:WO-RUN_A-CH-A, record:channel_failure_detected:PT-007.A</td><td>Require prompt operations review and tested restoration of PT-007.A; do not treat the calculated frequency as validated residual risk (`a2_estado_atual.canais[0]`; `a3_cruzamentos[id=C6]`).</td></tr>
+<tr><td>2</td><td class='mono'><a href='../INC-BT-REATOR-20250402-1/report.html'>2025-04-02T00:00:00</a></td><td class='mono'>record:wo_closed:WO-RUN_A-CH-A, record:channel_repaired:PT-007.A</td><td>Recognise the recorded channel restoration, but retain monitoring and defer occurrence closure until functional assurance and residual-risk review are complete.</td></tr>
+<tr><td>3</td><td class='mono'><a href='../INC-BT-REATOR-20250531-1/report.html'>2025-05-31T00:00:00</a></td><td class='mono'>record:wo_opened:WO-RUN_A-TEST, record:wo_overdue:WO-RUN_A-TEST</td><td>Escalate the overdue B1 functional test for immediate review, reconcile the conflicting test clocks, and obtain an authorised restoration plan.</td></tr>
+<tr><td>4</td><td class='mono'><a href='../INC-BT-REATOR-20250730-1/report.html'>2025-07-30T00:00:00</a></td><td class='mono'>record:wo_opened:WO-RUN_A-TRAIN, record:wo_overdue:WO-RUN_A-TRAIN</td><td>Escalate the overdue competence renewal and interlock test for immediate readiness review; do not treat the modeled frequency as accepted residual risk.</td></tr>
+<tr style='background:#eef6f6'><td>5</td><td class='mono'><a href='../INC-BT-REATOR-20250829-1/report.html'>2025-08-29T00:30:00</a></td><td class='mono'>record:wo_opened:WO-RUN_A-CH-B, record:channel_failure_detected:PT-007.B</td><td>Escalate the newly recorded pressure-channel failure for immediate operational review and restoration; continued-operation risk acceptance is not demonstrated.</td></tr>
+</table></section>
+<div class='foot'>Figures come from <code>context.json</code> (phase A, deterministic, from the database). The decision text is phase B, governed by <code>SKILL.md</code>; written by the blind single agent. Every recovery rule, cross-check and assumption behind these numbers is in the <a href='log.html'>audit log</a>.</div></main></body></html>

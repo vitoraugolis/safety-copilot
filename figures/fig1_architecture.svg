@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="177.80mm" height="74.08mm" viewBox="0 0 1344 560" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif">
+<rect width="1344" height="560" fill="#FFFFFF"/>
+<rect x="20" y="20" width="1304" height="232" rx="10" fill="#EEF3F8"/>
+<rect x="20" y="268" width="1304" height="132" rx="10" fill="#FBF1E4" stroke="#9A5210" stroke-width="2" stroke-dasharray="10 6"/>
+<rect x="20" y="416" width="1304" height="124" rx="10" fill="#F0EFEA"/>
+<text x="36" y="62" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="700" fill="#2C5A85" text-anchor="start">CODE</text>
+<text x="36" y="88.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="start">deterministic,</text>
+<text x="36" y="114.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="start">auditable</text>
+<text x="36" y="310" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="700" fill="#8A4A0E" text-anchor="start">LLM</text>
+<text x="36" y="336.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="start">isolated,</text>
+<text x="36" y="362.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="start">text only</text>
+<text x="36" y="458" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="700" fill="#1B1D1F" text-anchor="start">PEOPLE</text>
+<text x="36" y="484.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="start">final</text>
+<text x="36" y="510.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="start">authority</text>
+<rect x="196" y="44" width="172" height="184" rx="8" fill="#FFFFFF" stroke="#2C5A85" stroke-width="2.5"/>
+<circle cx="224" cy="72" r="14" fill="#2C5A85"/>
+<text x="224" y="79" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="210" y="116" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="600" fill="#1B1D1F" text-anchor="start">Plant data</text>
+<text x="210" y="146.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">process,</text>
+<text x="210" y="172.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">reliability,</text>
+<text x="210" y="198.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">maintenance</text>
+<rect x="412" y="44" width="172" height="184" rx="8" fill="#FFFFFF" stroke="#2C5A85" stroke-width="2.5"/>
+<circle cx="440" cy="72" r="14" fill="#2C5A85"/>
+<text x="440" y="79" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="426" y="116" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="600" fill="#1B1D1F" text-anchor="start">Masked feed</text>
+<text x="426" y="146.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">anonymised,</text>
+<text x="426" y="172.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">nothing after</text>
+<text x="426" y="198.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">t_now</text>
+<rect x="628" y="44" width="172" height="184" rx="8" fill="#FFFFFF" stroke="#2C5A85" stroke-width="2.5"/>
+<circle cx="656" cy="72" r="14" fill="#2C5A85"/>
+<text x="656" y="79" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+<text x="642" y="116" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="600" fill="#1B1D1F" text-anchor="start">Stream</text>
+<text x="642" y="146.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">one dated</text>
+<text x="642" y="172.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">analysis per</text>
+<text x="642" y="198.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">trigger</text>
+<rect x="844" y="44" width="172" height="184" rx="8" fill="#FFFFFF" stroke="#2C5A85" stroke-width="2.5"/>
+<circle cx="872" cy="72" r="14" fill="#2C5A85"/>
+<text x="872" y="79" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+<text x="858" y="116" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="600" fill="#1B1D1F" text-anchor="start">Phase A</text>
+<text x="858" y="146.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">evidence</text>
+<text x="858" y="172.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">assembled and</text>
+<text x="858" y="198.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">cross-checked</text>
+<rect x="1148" y="44" width="172" height="184" rx="8" fill="#FFFFFF" stroke="#2C5A85" stroke-width="2.5"/>
+<circle cx="1176" cy="72" r="14" fill="#2C5A85"/>
+<text x="1176" y="79" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">6</text>
+<text x="1162" y="116" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="600" fill="#1B1D1F" text-anchor="start">Report</text>
+<text x="1162" y="146.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">decision view</text>
+<text x="1162" y="172.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">and audit log</text>
+<line x1="369" y1="136" x2="400" y2="136" stroke="#1B1D1F" stroke-width="2.5"/>
+<polygon points="412,136 399,129 399,143" fill="#1B1D1F"/>
+<line x1="585" y1="136" x2="616" y2="136" stroke="#1B1D1F" stroke-width="2.5"/>
+<polygon points="628,136 615,129 615,143" fill="#1B1D1F"/>
+<line x1="801" y1="136" x2="832" y2="136" stroke="#1B1D1F" stroke-width="2.5"/>
+<polygon points="844,136 831,129 831,143" fill="#1B1D1F"/>
+<line x1="1017" y1="136" x2="1136" y2="136" stroke="#1B1D1F" stroke-width="2.5"/>
+<polygon points="1148,136 1135,129 1135,143" fill="#1B1D1F"/>
+<text x="1082" y="122" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="600" fill="#1B1D1F" text-anchor="middle">numbers</text>
+<line x1="930" y1="229" x2="930" y2="268" stroke="#1B1D1F" stroke-width="2.5"/>
+<polygon points="930,280 923,267 937,267" fill="#1B1D1F"/>
+<text x="944" y="256" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="600" fill="#1B1D1F" text-anchor="start">closed evidence</text>
+<rect x="844" y="280" width="256" height="108" rx="8" fill="#FFFFFF" stroke="#9A5210" stroke-width="2.5" stroke-dasharray="10 6"/>
+<circle cx="872" cy="308" r="14" fill="#8A4A0E"/>
+<text x="872" y="315" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+<text x="896" y="315" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="26" font-weight="600" fill="#1B1D1F" text-anchor="start">Phase B</text>
+<text x="858" y="348.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">LLM interprets and</text>
+<text x="858" y="374.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">recommends</text>
+<text x="196" y="318.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="400" fill="#33373B" text-anchor="start">A fresh session for every analysis, with no tools,</text>
+<text x="196" y="345.3" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="400" fill="#33373B" text-anchor="start">files, memory or network access.</text>
+<polyline points="1101,334 1200,334 1200,241" fill="none" stroke="#1B1D1F" stroke-width="2.5"/>
+<polygon points="1200,229 1193,242 1207,242" fill="#1B1D1F"/>
+<text x="1112" y="358" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="600" fill="#1B1D1F" text-anchor="start">judgement</text>
+<line x1="1290" y1="229" x2="1290" y2="414" stroke="#1B1D1F" stroke-width="2.5"/>
+<polygon points="1290,426 1283,413 1297,413" fill="#1B1D1F"/>
+<rect x="1132" y="426" width="188" height="108" rx="8" fill="#FFFFFF" stroke="#1B1D1F" stroke-width="2.5"/>
+<rect x="1136" y="430" width="180" height="100" rx="6" fill="none" stroke="#1B1D1F" stroke-width="1.2"/>
+<circle cx="1160" cy="454" r="14" fill="#1B1D1F"/>
+<text x="1160" y="461" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">7</text>
+<text x="1184" y="461" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="600" fill="#1B1D1F" text-anchor="start">People</text>
+<text x="1146" y="494.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">act on the</text>
+<text x="1146" y="520.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">recommendation</text>
+<text x="196" y="466.0" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="400" fill="#33373B" text-anchor="start">The report only recommends. People accept, act or reject.</text>
+</svg>

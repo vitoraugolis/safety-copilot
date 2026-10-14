@@ -1,0 +1,9 @@
+# Safety Copilot — dependências do experimento RUN_A.
+#
+# Banco em sqlite3 e config em tomllib, ambos da stdlib. numpy é usado pela
+# ponte com o BowTie v3 (importado via [bowtie].path no config.toml), que traz
+# simpful, pandas e o resto do seu requirements.txt.
+numpy>=1.26.0
+
+# Fase B cega: CLI `claude` autenticado (`claude auth login`).
+# Testes: pytest.

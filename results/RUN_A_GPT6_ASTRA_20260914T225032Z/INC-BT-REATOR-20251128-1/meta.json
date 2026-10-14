@@ -1,0 +1,65 @@
+{
+  "incident_id": "INC-BT-REATOR-20251128-1",
+  "run": "RUN_A",
+  "ts": "2025-11-28T00:00:00",
+  "trigger": [
+    {
+      "chave": "record:process_event:operating_condition_change",
+      "ts": "2025-11-28T00:00:00",
+      "tipo": "process_event",
+      "ref": "operating_condition_change",
+      "detalhe": "{\"modo\": \"campanha padrao\", \"carga_pct\": 15, \"escala_setpoints_alimentacao\": 1.15}"
+    },
+    {
+      "chave": "alarme:PIT-7001:LO",
+      "tag": "PIT-7001",
+      "tipo": "LO",
+      "limite": 2550.0,
+      "valor": 2518.253,
+      "ts": "2025-11-28T00:00:00"
+    },
+    {
+      "chave": "discrepancia:PIT-7001",
+      "tag": "PIT-7001",
+      "spread": 190.5,
+      "limite": 17.5,
+      "canal_divergente": "B",
+      "desvio": 189.65,
+      "ts": "2025-11-28T00:00:00"
+    }
+  ],
+  "ok": true,
+  "rc": 0,
+  "seconds": 92.5,
+  "phase_b_by": "Codex CLI, fresh text-only GPT-6 Astra session",
+  "blind": true,
+  "model": "gpt-6-astra",
+  "models_in_session": [
+    "gpt-6-astra"
+  ],
+  "session_id": "01a0a572-24f1-7ef0-bfdb-757270039752",
+  "usage": {
+    "input_tokens": 31022,
+    "cached_input_tokens": 16256,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 2835,
+    "reasoning_output_tokens": 238
+  },
+  "tool_items": [],
+  "database": "safety_copilot_v2.db",
+  "sha_database": "c7c2854b3fc989efb3a50d9c22bae246ff1b5f80055724a95d48edfabf079604",
+  "sha_skill": "8617d9ab7f690afd80abd1bed6c208382b53917229e508d1eac48bf2458beecf",
+  "sha_inputs": {
+    "input/SKILL.md": "8617d9ab7f690afd80abd1bed6c208382b53917229e508d1eac48bf2458beecf",
+    "input/references/producing-a-design-basis.md": "05a9c56cf9e41d998d8ed6a2c1982ae02d93b397ee75e075fee2a3ed91477905",
+    "input/references/risk-analysis-reference.md": "50e6c154058be31c6df1a7b11a42a6d92abfca60abfe2d8210a5b126abeed8d1",
+    "input/references/cross-checks.md": "470dfd5367f2596906af47060e1b1523b13b2ad2993e9d46c01fd4056f60eb2d",
+    "input/references/design-basis-barriers.md": "7c3f5eb39a2546da656da986fe46180d069874953480e66a2ee07249b7434ab0",
+    "input/diagrams/BT-REATOR.txt": "240465c4ca0d539e8f56387f0de660c68179cfe89c53511f028e74c3033f737b"
+  },
+  "sha_system": "15f8f1d1159f311e1f1f09d719ec377358819fbb5bca8093190297ad4b1b6a5d",
+  "sha_prompt": "3c354c098c30a9fa1c66b0a8223b9f014cbdeaec68a209963445ae8a832f55ee",
+  "sha_context": "9b6a57cab50eb2d24ece682cf6ce15dc92e56d7a71dbe9ef43cae36a54d0384b",
+  "cli_version": "codex-cli 0.153.4",
+  "error": null
+}

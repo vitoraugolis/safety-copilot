@@ -1,0 +1,11 @@
+__pycache__/
+.pytest_cache/
+.DS_Store
+.env
+*.pem
+*.local.md
+state/
+triggers/
+reports/
+gabarito/
+data/live_tags.json

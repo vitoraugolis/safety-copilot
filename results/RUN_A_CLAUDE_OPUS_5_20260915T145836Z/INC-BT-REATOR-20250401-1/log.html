@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Analysis log · INC-BT-REATOR-20250401-1</title><style>
+/* ============================================================
+   Safety Copilot — base visual da tela de contexto
+   Apenas estilos. Nenhum conteúdo, nenhum valor.
+
+   Classes disponíveis, agrupadas por uso:
+
+   layout      : header, .banner, main, .grid, section.card
+   rótulos     : .badge  (+ .bad .warn .ok .n .calc)
+   gráfico     : svg.chart, .chart-head (.nm .vl), .lg
+   tabela      : table, th, td, td.num
+   barreira    : .bcard, .bhead, .bname, .bnode, .pfd2, .pcol,
+                 .pair, .from, .to, .dl, .chn, .ch, .prem
+   bowtie      : .bt, .flow, .node (+ .threat .b .top), .op
+   envelope    : .env, .envbox (+ .ref .now), .rule
+   destaques   : .gap (lacuna), .contra (contradição)
+   rodapé      : .foot
+
+   Convenção de marcação de origem do valor:
+     <span class="badge calc">cálculo</span>  -> valor derivado
+     sem badge                                -> leitura direta do banco
+   ============================================================ */
+
+:root{
+  --acc:#0B6E6E;--acc-d:#075454;--grey:#f2f2f2;--hdr:#d9e2e4;--bd:#dcdcdc;
+  --tx:#1a1a1a;--sub:#5c5c5c;--ok:#2e8b3d;--ok-bg:#e4f4e4;--warn:#b4790c;
+  --warn-bg:#fdf0ce;--bad:#b3261e;--bad-bg:#fbeaea;--nb:#eef0f0;
+}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Calibri,Arial,sans-serif;margin:0;background:#f5f6f6;color:var(--tx)}
+
+/* ---------- cabeçalho ---------- */
+header{background:linear-gradient(135deg,var(--acc-d),var(--acc));color:#fff;padding:20px 30px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header h1{margin:0;font-size:19px}
+header p{margin:4px 0 0;font-size:12.5px;opacity:.85}
+header code{background:rgba(255,255,255,.15);padding:1px 5px;border-radius:3px}
+.banner{background:#fff;color:var(--tx);border-radius:6px;padding:9px 14px;font-size:12.5px;
+  display:flex;align-items:center;gap:10px;max-width:540px;line-height:1.45}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--bad);flex-shrink:0}
+
+/* ---------- layout ---------- */
+main{max-width:1240px;margin:0 auto;padding:20px 24px 60px}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+section.card{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:16px 20px;margin-bottom:18px}
+section.card>h2{font-size:14px;color:var(--acc-d);margin:0 0 4px;display:flex;align-items:center;gap:8px}
+section.card>p.sub{margin:0 0 12px;font-size:12px;color:var(--sub);line-height:1.5}
+
+/* ---------- rótulos ---------- */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;
+  padding:2px 9px;border-radius:10px;text-transform:uppercase;letter-spacing:.02em}
+.badge.bad{background:var(--bad-bg);color:var(--bad)}
+.badge.warn{background:var(--warn-bg);color:var(--warn)}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}
+.badge.n{background:var(--nb);color:var(--sub)}
+.badge.calc{background:#ece6f7;color:#5b3fa0}
+
+/* ---------- gráfico ---------- */
+svg.chart{width:100%;height:180px;display:block;background:#fbfbfb;border:1px solid var(--bd);border-radius:4px}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 4px}
+.chart-head .nm{font-size:13px;font-weight:700}
+.chart-head .vl{font-size:13px;font-weight:700;color:var(--bad)}
+.lg{display:flex;gap:16px;font-size:10.5px;color:var(--sub);margin-top:5px;flex-wrap:wrap;align-items:center}
+.lg i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:4px}
+
+/* ---------- tabelas ---------- */
+table{width:100%;border-collapse:collapse;font-size:12px;margin:6px 0}
+th,td{border:1px solid var(--bd);padding:6px 9px;text-align:left}
+th{background:var(--hdr);color:var(--acc-d);font-size:11px}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- barreiras ---------- */
+.bcard{border:1px solid var(--bd);border-radius:7px;padding:12px 14px;margin-bottom:12px}
+.bcard:last-child{margin-bottom:0}
+.bhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}
+.bname{font-size:13px;font-weight:700}
+.bnode{font-size:11px;color:var(--sub);font-family:Consolas,monospace;margin-top:2px}
+
+/* PFD no formato projeto -> atual, lado a lado */
+.pfd2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+@media(max-width:700px){.pfd2{grid-template-columns:1fr}}
+.pcol{background:var(--grey);border-radius:6px;padding:9px 11px}
+.pcol .t{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);margin-bottom:5px}
+.pair{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.from,.to{font-size:14px;font-weight:700}
+.from{color:var(--sub)}
+.from::after{content:'→';margin-left:9px;color:#b8b8b8;font-weight:400}
+.to.bad{color:var(--bad)}
+.to.warn{color:var(--warn)}
+.from em,.to em{display:block;font-size:9.5px;font-weight:400;font-style:normal;color:var(--sub);margin-top:1px}
+.dl{font-size:11px;margin-top:6px;font-weight:600}
+.dl.bad{color:var(--bad)}
+.dl.warn{color:var(--warn)}
+
+/* canais de grupo votado */
+.chn{display:flex;gap:6px;margin:8px 0}
+.ch{flex:1;text-align:center;border-radius:5px;padding:6px 4px;font-size:11px;font-weight:700;line-height:1.4}
+.ch.ok{background:var(--ok-bg);color:var(--ok)}
+.ch.bad{background:var(--bad-bg);color:var(--bad)}
+.ch small{display:block;font-weight:400;font-size:10px;opacity:.85}
+
+/* premissa do modelo — marcar onde o valor é assumido, não lido */
+.prem{font-size:11px;color:var(--warn);background:var(--warn-bg);border-radius:4px;
+  padding:5px 9px;margin-top:7px;line-height:1.45}
+
+/* ---------- bowtie macro ---------- */
+.bt{background:#fbfbfb;border:1px solid var(--bd);border-radius:7px;padding:12px 14px}
+.flow{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
+.node{border:1.5px solid var(--bd);border-radius:6px;padding:7px 10px;background:#fff;min-width:112px;flex:1}
+.node .n1{font-size:11.5px;font-weight:700;line-height:1.3}
+.node .n2{font-size:10px;color:var(--sub);margin-top:2px}
+.node.threat{border-color:var(--bad)}
+.node.threat .n1{color:var(--bad)}
+.node.b.bad{border-color:var(--bad);background:var(--bad-bg)}
+.node.b.warn{border-color:var(--warn);background:var(--warn-bg)}
+.node.top{border-color:var(--acc);background:var(--hdr);text-align:center;
+  display:flex;align-items:center;justify-content:center}
+.op{align-self:center;font-size:10.5px;font-weight:800;color:var(--sub);
+  background:#eceeee;border-radius:9px;padding:2px 7px}
+
+/* ---------- envelope de validade ---------- */
+.env{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:700px){.env{grid-template-columns:1fr}}
+.envbox{border-radius:6px;padding:10px 12px}
+.envbox.ref{background:var(--grey)}
+.envbox.now{background:var(--bad-bg)}
+.envbox .t{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);margin-bottom:6px}
+.envbox .big{font-size:18px;font-weight:700}
+.envbox.now .big{color:var(--bad)}
+.envbox .u{font-size:11px;color:var(--sub);margin-top:3px}
+.rule{font-size:11.5px;background:#fff;border:1px dashed var(--bd);border-radius:5px;
+  padding:8px 11px;line-height:1.55}
+
+/* ---------- lacunas e contradições ---------- */
+.gap{border-left:3px solid var(--warn);background:var(--warn-bg);padding:9px 12px;margin:8px 0;
+  font-size:12px;border-radius:0 4px 4px 0;line-height:1.55}
+.contra{border-left:3px solid var(--bad);background:var(--bad-bg);padding:9px 12px;margin:8px 0;
+  font-size:12px;border-radius:0 4px 4px 0;line-height:1.55}
+
+/* ---------- rodapé ---------- */
+.foot{font-size:11.5px;color:var(--sub);margin-top:26px;border-top:1px solid var(--bd);
+  padding-top:12px;line-height:1.6}
+
+/* complementos locais, mesma paleta */
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:12px;line-height:1.6}
+.kv b{color:var(--sub);font-weight:600}
+.mono{font-family:Consolas,'Courier New',monospace;font-size:11px}
+.q{font-family:Consolas,'Courier New',monospace;font-size:10.5px;color:var(--sub);
+   background:var(--grey);border-radius:4px;padding:5px 8px;margin:5px 0 9px;display:block;
+   overflow-x:auto;white-space:pre;line-height:1.5}
+h3.s{font-size:12px;color:var(--acc-d);margin:16px 0 4px;text-transform:uppercase;letter-spacing:.04em}
+ul.tight{margin:6px 0 0;padding-left:18px;font-size:12px;line-height:1.65}
+ul.tight li{margin-bottom:4px}
+.wo{font-size:11.5px;border-left:2px solid var(--bd);padding:4px 0 4px 10px;margin:5px 0 5px 6px;line-height:1.5}
+.wo.bad{border-left-color:var(--bad)}
+.wo.warn{border-left-color:var(--warn)}
+.wo.ok{border-left-color:var(--ok)}
+.foot code{background:var(--grey);padding:1px 4px;border-radius:3px}
+.gate{background:var(--hdr);border:1px solid var(--acc);border-radius:6px;padding:11px 14px;
+      font-size:12.5px;line-height:1.6;margin-top:6px}
+</style></head><body>
+<header><div><h1>Analysis log · episode <code>RUN_A</code></h1><p><code>INC-BT-REATOR-20250401-1</code> · bowtie <code>BT-REATOR</code> (pathway T1) · <code>t_now 2025-04-01T00:30:00</code> · trigger <code>record:wo_opened:WO-RUN_A-CH-A, record:channel_failure_detected:PT-007.A</code> · <a href='report.html' style='color:#fff'>report</a></p></div><div class='banner'><span class='dot'></span><div><b>No demand on a barrier</b> at the instant assessed.</div></div></header><main>
+<section class='card'><h2>Identity and provenance</h2><div class='kv'><b>incident_id</b><span class='mono'>INC-BT-REATOR-20250401-1</span><b>bowtie_id</b><span class='mono'>BT-REATOR</span><b>run_id</b><span class='mono'>RUN_A</span><b>t_now</b><span class='mono'>2025-04-01T00:30:00</span><b>window from</b><span class='mono'>2025-03-02T00:30:00</span><b>horizon from</b><span class='mono'>2025-01-01T00:00:00</span><b>database</b><span class='mono'>safety_copilot_v2.db</span><b>design basis</b><span class='mono'>references/design-basis-barriers.md</span></div><h3 class='s'>Trigger(s)</h3><span class='q'>{&quot;chave&quot;: &quot;record:wo_opened:WO-RUN_A-CH-A&quot;, &quot;ts&quot;: &quot;2025-04-01T00:00:00&quot;, &quot;tipo&quot;: &quot;wo_opened&quot;, &quot;ref&quot;: &quot;WO-RUN_A-CH-A&quot;, &quot;item&quot;: &quot;PT-007&quot;, &quot;barreira&quot;: &quot;reator.T1.B1&quot;, &quot;wo_tipo&quot;: &quot;corretiva&quot;, &quot;falha_encontrada&quot;: null}
+{&quot;chave&quot;: &quot;record:channel_failure_detected:PT-007.A&quot;, &quot;ts&quot;: &quot;2025-04-01T00:30:00&quot;, &quot;tipo&quot;: &quot;channel_failure_detected&quot;, &quot;ref&quot;: &quot;PT-007.A&quot;, &quot;item&quot;: &quot;PT-007&quot;}</span><h3 class='s'>Recovery rules applied</h3><span class='q'>alarms         alarm_events with ts_inicio &lt;= t_now; future ts_fim nulled; active peaks from voted series through t_now
+work orders    work_orders with data_abertura &lt;= t_now; future closure, final narrative and findings omitted
+channels       blind_feed.canais_visiveis — a failure undetected by t_now is masked
+reliability    blind_feed.pfd_confiabilidade — only failures known by t_now enter the PFD
+events         process_events with visivel_copiloto=1 and ts &lt;= t_now</span></section>
+<section class='card'><h2>Demand outcome, in full</h2><p class='sub'>Anchored on each barrier's own demand. The SIS is a separate layer.</p><span class='q'>{
+ &quot;B1&quot;: {
+  &quot;barreira&quot;: &quot;B1&quot;,
+  &quot;demandada&quot;: false,
+  &quot;gatilho_declarado&quot;: &quot;voted PIT-7001 &gt;= HIHI&quot;,
+  &quot;nota&quot;: &quot;no demand on B1 recorded up to t_now&quot;
+ }
+}</span></section>
+<section class='card'><h2>Voted group PIT-7001 <span class='badge calc'>computed</span></h2><p class='sub'>Window 2025-03-02T00:30:00 → 2025-04-01T00:30:00; design noise 1.93 kPa (design basis §3).</p><table><tr><th>Channel</th><th>n</th><th>Mean</th><th>SD</th><th>Min</th><th>Max</th><th>Last</th></tr>
+<tr><td>A</td><td class='num'>180</td><td class='num'>2708.38</td><td class='num'>1.80</td><td class='num'>2703.55</td><td class='num'>2713.50</td><td class='num'>2704.64</td></tr>
+<tr><td>B</td><td class='num'>180</td><td class='num'>2708.41</td><td class='num'>1.81</td><td class='num'>2703.44</td><td class='num'>2713.24</td><td class='num'>2704.43</td></tr>
+<tr><td>C</td><td class='num'>180</td><td class='num'>2708.43</td><td class='num'>1.85</td><td class='num'>2702.85</td><td class='num'>2713.03</td><td class='num'>2704.93</td></tr>
+</table><span class='q'>{
+ &quot;flat_channels&quot;: [],
+ &quot;agreement&quot;: {
+  &quot;tolerancia_kpa&quot;: 5.79,
+  &quot;pares&quot;: [
+   [
+    &quot;A&quot;,
+    &quot;B&quot;
+   ],
+   [
+    &quot;A&quot;,
+    &quot;C&quot;
+   ],
+   [
+    &quot;B&quot;,
+    &quot;C&quot;
+   ]
+  ],
+  &quot;divergente_pela_maioria&quot;: null
+ },
+ &quot;freeze&quot;: null
+}</span></section>
+<section class='card'><h2>Engines, design versus current <span class='badge calc'>computed</span></h2><p class='sub'>Diagram <code>diagrams/BT-REATOR.txt</code>; exposure window 1.0 yr; current PFDs fed: <code>{&quot;B1&quot;: 0.023088, &quot;B2&quot;: 0.122428, &quot;B3&quot;: 0.01178, &quot;B4&quot;: 0.11112}</code>.</p><table><tr><th>Engine</th><th>State</th><th>Top event /yr</th><th>Label</th><th>Pathway %</th></tr>
+<tr><td>conventional</td><td>design</td><td class='num'>1.754e-03</td><td>—</td><td class='num'>[70.1, 29.9]</td></tr>
+<tr><td>conventional</td><td>current</td><td class='num'>1.937e-03</td><td>—</td><td class='num'>[73.0, 27.0]</td></tr>
+<tr><td>fuzzy</td><td>design</td><td class='num'>2.496e-04</td><td>Moderate</td><td class='num'>[74.2, 25.8]</td></tr>
+<tr><td>fuzzy</td><td>current</td><td class='num'>2.906e-04</td><td>Moderate</td><td class='num'>[79.3, 20.7]</td></tr>
+</table><p class='sub'>conventional engine for magnitude; fuzzy engine for the propagation of linguistic uncertainty (SKILL.md, &#x27;The fuzzy engine&#x27;). Never one as a check on the other.</p></section>
+<section class='card'><h2>The eight cross-checks <span class='badge n'>none produces judgement</span></h2><table><tr><th>#</th><th>Compared</th><th>Result</th></tr>
+<tr><td><b>C1</b><br><span class='sub'>Envelope: current versus validated dynamics</span></td><td><span class='q'>{
+ &quot;rate_ladder&quot;: [],
+ &quot;design_rate&quot;: null,
+ &quot;invalidation_triggers&quot;: null,
+ &quot;regime_shift_kpa&quot;: null
+}</span></td><td>no escalation window at t_now</td></tr>
+<tr><td><b>C2</b><br><span class='sub'>PFD decomposition: component versus barrier</span></td><td><span class='q'>{
+ &quot;B1&quot;: {
+  &quot;barrier_multiplier&quot;: 1.12,
+  &quot;worst_component&quot;: {
+   &quot;item&quot;: &quot;PT-007&quot;,
+   &quot;multiplicador&quot;: 37.54
+  },
+  &quot;dominant_element&quot;: {
+   &quot;item&quot;: &quot;XV-1001&quot;,
+   &quot;pfd&quot;: 0.011,
+   &quot;fracao_do_total&quot;: 0.476
+  }
+ },
+ &quot;B2&quot;: {
+  &quot;barrier_multiplier&quot;: 1.02,
+  &quot;worst_component&quot;: {
+   &quot;item&quot;: &quot;PT-007&quot;,
+   &quot;multiplicador&quot;: 37.54
+  },
+  &quot;dominant_element&quot;: {
+   &quot;item&quot;: &quot;OP-B2&quot;,
+   &quot;pfd&quot;: 0.1,
+   &quot;fracao_do_total&quot;: 0.817
+  }
+ }
+}</span></td><td>both multipliers reported per barrier</td></tr>
+<tr><td><b>C3</b><br><span class='sub'>Barrier class under window compression</span></td><td><span class='q'>{
+ &quot;hihi_to_sis_window&quot;: {
+  &quot;design_min&quot;: 162.0,
+  &quot;measured_min&quot;: null,
+  &quot;compression&quot;: null,
+  &quot;design_source&quot;: &quot;design basis, section 5&quot;
+ },
+ &quot;B1&quot;: {
+  &quot;class&quot;: &quot;automatic&quot;,
+  &quot;time&quot;: &quot;seconds&quot;
+ },
+ &quot;B2&quot;: {
+  &quot;class&quot;: &quot;human&quot;,
+  &quot;time&quot;: &quot;minutes&quot;,
+  &quot;tolerable_delay_min&quot;: 67.0
+ }
+}</span></td><td>real window not measurable at t_now<br><span class='sub'>not applicable: no demand on B1 up to t_now</span></td></tr>
+<tr><td><b>C4</b><br><span class='sub'>State and observability of redundant groups</span></td><td><span class='q'>{
+ &quot;declared_arrangement&quot;: &quot;2oo3 (PT-007)&quot;,
+ &quot;record&quot;: {
+  &quot;PT-007.A&quot;: &quot;failed_detected_unrepaired&quot;,
+  &quot;PT-007.B&quot;: &quot;no_discrepancy_reported&quot;,
+  &quot;PT-007.C&quot;: &quot;no_discrepancy_reported&quot;
+ },
+ &quot;reading_spread&quot;: [],
+ &quot;flat_channels&quot;: [],
+ &quot;majority_outlier&quot;: null
+}</span></td><td>known degraded: PT-007.A failure detected 2025-04-01T00:30:00 (WO-RUN_A-CH-A, not repaired)</td></tr>
+<tr><td><b>C5</b><br><span class='sub'>Decidability gap</span></td><td><span class='q'>null</span></td><td>0 named gap(s)</td></tr>
+<tr><td><b>C6</b><br><span class='sub'>Side effect of the barrier action</span></td><td><span class='q'>{
+ &quot;shared_items&quot;: {
+  &quot;PT-007&quot;: [
+   &quot;B1&quot;,
+   &quot;B2&quot;
+  ],
+  &quot;XV-1001&quot;: [
+   &quot;B1&quot;,
+   &quot;B2&quot;
+  ],
+  &quot;VLV-006&quot;: [
+   &quot;B1&quot;,
+   &quot;B2&quot;
+  ]
+ },
+ &quot;declared_independence&quot;: {
+  &quot;secao&quot;: &quot;4&quot;,
+  &quot;deteccao&quot;: &quot;independent (PT-007 versus ZT-1001)&quot;,
+  &quot;atuacao&quot;: &quot;shared (XV-1001 and VLV-006)&quot;,
+  &quot;consequencia&quot;: &quot;joint credit must not multiply the two PFDs&quot;
+ },
+ &quot;declared_side_effect&quot;: &quot;closes the A+C feed valve, which is the actuator of the level cascade LIC-8001; inventory control is lost, level goes to about -2.5 % and a low-level trip follows roughly 1 h later&quot;
+}</span></td><td>detection independent (PT-007 versus ZT-1001); actuation shared (XV-1001 and VLV-006). joint credit must not multiply the two PFDs. Declared side effect of B1&#x27;s action: closes the A+C feed valve, which is the actuator of the level cascade LIC-8001; inventory control is lost, level goes to about -2.5 % and a low-level trip follows roughly 1 h later</td></tr>
+<tr><td><b>C7</b><br><span class='sub'>Static indicator versus dynamic margin</span></td><td><span class='q'>{
+ &quot;PIT-7001&quot;: {
+  &quot;valor&quot;: 2704.8758,
+  &quot;unidade&quot;: &quot;kPa&quot;,
+  &quot;alvos_declarados&quot;: [
+   {
+    &quot;nome&quot;: &quot;SIS trip&quot;,
+    &quot;valor&quot;: 2900.0,
+    &quot;distancia&quot;: 195.12,
+    &quot;ja_cruzado&quot;: false,
+    &quot;tempo_min&quot;: null,
+    &quot;fonte&quot;: &quot;alarm_config.trip_sis&quot;
+   },
+   {
+    &quot;nome&quot;: &quot;model physical limit&quot;,
+    &quot;valor&quot;: 3000.0,
+    &quot;distancia&quot;: 295.12,
+    &quot;ja_cruzado&quot;: false,
+    &quot;tempo_min&quot;: null,
+    &quot;fonte&quot;: &quot;design basis, section 3&quot;
+   }
+  ],
+  &quot;limiar_a_frente&quot;: {
+   &quot;nome&quot;: &quot;hi&quot;,
+   &quot;valor&quot;: 2750.0
+  },
+  &quot;distancia&quot;: 45.12,
+  &quot;limiares_ja_cruzados&quot;: [],
+  &quot;taxa_por_min&quot;: null,
+  &quot;tempo_ate_limiar_min&quot;: null,
+  &quot;nota&quot;: &quot;time to a threshold is computed from the measured rate, not read; suppressed beyond  …</span></td><td>distance and rate side by side against every declared target</td></tr>
+<tr><td><b>C8</b><br><span class='sub'>Persistent versus removable threat</span></td><td><span class='q'>{
+ &quot;feed_flow&quot;: {
+  &quot;valor&quot;: 0.2128,
+  &quot;unidade&quot;: &quot;kscmh&quot;,
+  &quot;alvos_declarados&quot;: [],
+  &quot;limiar_a_frente&quot;: {
+   &quot;nome&quot;: null,
+   &quot;valor&quot;: null
+  },
+  &quot;distancia&quot;: null,
+  &quot;limiares_ja_cruzados&quot;: [],
+  &quot;taxa_por_min&quot;: null,
+  &quot;tempo_ate_limiar_min&quot;: null,
+  &quot;nota&quot;: &quot;time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise&quot;
+ },
+ &quot;rate&quot;: null
+}</span></td><td>classification requires the threat-removal test<br><span class='sub'>gap: The removal test (design basis, section 6) was not executed for this bowtie.</span></td></tr>
+</table></section>
+<section class='card'><h2>Named gaps and contradictions</h2>
+</section>
+<section class='card'><h2>Model assumptions <span class='badge warn'>assumption</span></h2><p class='sub'>None of these is in the asset table. They stay visible so they can be challenged.</p><table><tr><th>Assumption</th><th>Value</th><th>Effect</th></tr>
+<tr><td class='mono'>human_barrier_pfd_with_overdue_competence</td><td><b>0.25</b></td><td>replaces the human barrier&#x27;s design PFD from the training due date, while the work order stays open</td></tr>
+<tr><td class='mono'>mean_channel_pfd_between_tests</td><td><b>lambda_du * t / 2</b></td><td>grows from the last closed test; with no test record the declared interval is taken as met</td></tr>
+<tr><td class='mono'>voted_group_without_reconfiguration</td><td><b>2oo3 = 3[(1-beta)*PFD1]^2 + beta*PFD1; with a detected channel failure, 2oo2 = 2*PFD1</b></td><td>from the detected channel failure on, growth is linear in t, without the beta factor</td></tr>
+<tr><td class='mono'>single_channel_item_with_known_failure</td><td><b>1.0</b></td><td>the item is unavailable (PFD = 1) from the work order&#x27;s opening until it closes</td></tr>
+<tr><td class='mono'>items_without_test_records</td><td><b>—</b></td><td>items with no test, calibration or training record are kept at their design PFD; absence of a record is not treated as absence of maintenance</td></tr>
+</table></section>
+<div class='gate'><b>Phase A→B gate.</b> 0 named gap(s), 0 recorded contradiction(s), validity envelope not invalidated by the rate ladder. Phase B was written under these declared restrictions; none was filled in by estimate. <a href='report.html'>Back to the report</a>.</div></main></body></html>

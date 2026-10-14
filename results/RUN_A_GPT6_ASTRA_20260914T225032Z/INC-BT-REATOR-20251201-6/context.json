@@ -1,0 +1,1762 @@
+{
+  "identidade": {
+    "incident_id": "INC-BT-REATOR-20251201-6",
+    "run": "RUN_A",
+    "ts": "2025-12-01T02:30:20",
+    "janela_de": "2025-12-01T00:00:00",
+    "bowtie_id": "BT-REATOR",
+    "pathway_avaliada": "T1",
+    "origem_do_horizonte": "2025-01-01T00:00:00",
+    "banco": "safety_copilot_v2.db",
+    "gatilho": [
+      {
+        "chave": "end_of_record",
+        "ts": "2025-12-01T02:30:20"
+      }
+    ]
+  },
+  "a1_base_de_projeto": {
+    "barreiras": [
+      {
+        "id": "B1",
+        "nome": "B1 High-pressure interlock",
+        "pathway": "T1",
+        "componentes": [
+          "PT-007",
+          "UZ-007",
+          "XV-1001",
+          "VLV-006"
+        ],
+        "pfd_projeto": {
+          "valor": 0.02053,
+          "tipo": "leitura",
+          "fonte": "sum of the components' pfd_projeto (ativos)"
+        },
+        "pfd_atual": {
+          "valor": 1.0,
+          "tipo": "calculo",
+          "formula": "sum of component PFDs",
+          "entradas": "blind_feed.pfd_confiabilidade per asset"
+        },
+        "pfd_documento": {
+          "valor": 0.01,
+          "tipo": "leitura",
+          "fonte": "loop PFD from the bowtie document"
+        },
+        "c2": {
+          "multiplicador_barreira": 48.71,
+          "componente_pior": {
+            "item": "UZ-007",
+            "multiplicador": 1515.15
+          },
+          "elemento_dominante": {
+            "item": "UZ-007",
+            "pfd": 1.0,
+            "fracao_do_total": 1.0
+          }
+        },
+        "detalhe_componentes": [
+          {
+            "item": "PT-007",
+            "pfd": 0.0024055516666666664,
+            "pfd_projeto": 7e-05,
+            "fator": 34.37
+          },
+          {
+            "item": "UZ-007",
+            "pfd": 1.0,
+            "pfd_projeto": 0.00066,
+            "fator": 1515.15
+          },
+          {
+            "item": "XV-1001",
+            "pfd": 0.011,
+            "pfd_projeto": 0.011,
+            "fator": 1.0
+          },
+          {
+            "item": "VLV-006",
+            "pfd": 0.0088,
+            "pfd_projeto": 0.0088,
+            "fator": 1.0
+          }
+        ],
+        "motivos": [
+          "PT-007: 34.4x - 334 d since the last test (interval 365 d); voted group running 2oo2 without reconfiguration — 1 detected channel failure(s) not repaired",
+          "UZ-007: 1515.2x - known unrepaired failure (WO-RUN_A-UZ007, opened 2025-12-01T02:07:22): function unavailable, PFD = 1"
+        ]
+      },
+      {
+        "id": "B2",
+        "nome": "B2 Manual operator action",
+        "pathway": "T1",
+        "componentes": [
+          "PT-007",
+          "XV-1001",
+          "VLV-006",
+          "OP-B2"
+        ],
+        "pfd_projeto": {
+          "valor": 0.11987,
+          "tipo": "leitura",
+          "fonte": "sum of the components' pfd_projeto (ativos)"
+        },
+        "pfd_atual": {
+          "valor": 0.27220555166666666,
+          "tipo": "calculo",
+          "formula": "sum of component PFDs",
+          "entradas": "blind_feed.pfd_confiabilidade per asset"
+        },
+        "pfd_documento": {
+          "valor": 0.1,
+          "tipo": "leitura",
+          "fonte": "loop PFD from the bowtie document"
+        },
+        "c2": {
+          "multiplicador_barreira": 2.27,
+          "componente_pior": {
+            "item": "PT-007",
+            "multiplicador": 34.37
+          },
+          "elemento_dominante": {
+            "item": "OP-B2",
+            "pfd": 0.25,
+            "fracao_do_total": 0.918
+          }
+        },
+        "detalhe_componentes": [
+          {
+            "item": "PT-007",
+            "pfd": 0.0024055516666666664,
+            "pfd_projeto": 7e-05,
+            "fator": 34.37
+          },
+          {
+            "item": "XV-1001",
+            "pfd": 0.011,
+            "pfd_projeto": 0.011,
+            "fator": 1.0
+          },
+          {
+            "item": "VLV-006",
+            "pfd": 0.0088,
+            "pfd_projeto": 0.0088,
+            "fator": 1.0
+          },
+          {
+            "item": "OP-B2",
+            "pfd": 0.25,
+            "pfd_projeto": 0.1,
+            "fator": 2.5
+          }
+        ],
+        "motivos": [
+          "PT-007: 34.4x - 334 d since the last test (interval 365 d); voted group running 2oo2 without reconfiguration — 1 detected channel failure(s) not repaired",
+          "OP-B2: 2.5x - test overdue by 152 d (interval 182 d); competence renewal overdue and open; PFD assumed 0.25 (model assumption, not declared in the asset)"
+        ]
+      }
+    ],
+    "limiares": [
+      {
+        "tag": "PIT-7001",
+        "descricao": "Reaction vessel pressure",
+        "unidade": "kPa",
+        "lolo": 2450.0,
+        "lo": 2550.0,
+        "hi": 2750.0,
+        "hihi": 2800.0,
+        "trip_sis": 2900.0
+      },
+      {
+        "tag": "TIT-9001",
+        "descricao": "Reaction vessel temperature",
+        "unidade": "C",
+        "lolo": 100.0,
+        "lo": 110.0,
+        "hi": 135.0,
+        "hihi": 150.0,
+        "trip_sis": null
+      },
+      {
+        "tag": "LIT-8001",
+        "descricao": "Reaction vessel level",
+        "unidade": "%",
+        "lolo": 20.0,
+        "lo": 30.0,
+        "hi": 85.0,
+        "hihi": 95.0,
+        "trip_sis": null
+      },
+      {
+        "tag": "FIT-1001",
+        "descricao": "Stream 1 feed flow",
+        "unidade": "kscmh",
+        "lolo": 0.05,
+        "lo": 0.15,
+        "hi": null,
+        "hihi": null,
+        "trip_sis": null
+      },
+      {
+        "tag": "TIT-2101",
+        "descricao": "Cooling water outlet temperature",
+        "unidade": "C",
+        "lolo": null,
+        "lo": 88.0,
+        "hi": 100.0,
+        "hihi": 105.0,
+        "trip_sis": null
+      }
+    ],
+    "base_de_projeto_declarada": true,
+    "documento": "references/design-basis-barriers.md",
+    "declarado": {
+      "documento": "references/design-basis-barriers.md",
+      "condicao_de_projeto": {
+        "secao": "2",
+        "pressao_regime_kpa": 2708.0,
+        "nivel_regime_pct": 74.4,
+        "temperatura_regime_c": 120.4,
+        "vazao_alimentacao_kscmh": 0.252,
+        "taxa_escalada_kpa_min": 1.1,
+        "plato": {
+          "de_kpa": 2850.0,
+          "ate_kpa": 2870.0,
+          "duracao_h": 1.7,
+          "taxa_local_kpa_min": 0.27
+        }
+      },
+      "escada_protecao": {
+        "secao": "3",
+        "hi": 2750.0,
+        "hihi": 2800.0,
+        "trip_sis": 2900.0,
+        "limite_fisico": 3000.0,
+        "ruido_kpa": 1.93
+      },
+      "desempenho": {
+        "secao": "5",
+        "janela_hi_sis_min": 202.0,
+        "janela_hihi_sis_min": 162.0,
+        "atraso_tolerav_b2_min": 67.0,
+        "criterio_sucesso": "pressure reverts without reaching the SIS trip"
+      },
+      "barreiras": {
+        "B1": {
+          "classe": "automatic",
+          "tempo_atuacao": "seconds",
+          "gatilho": "voted PIT-7001 >= HIHI",
+          "efeito_colateral": "closes the A+C feed valve, which is the actuator of the level cascade LIC-8001; inventory control is lost, level goes to about -2.5 % and a low-level trip follows roughly 1 h later"
+        },
+        "B2": {
+          "classe": "human",
+          "tempo_atuacao": "minutes",
+          "gatilho": "command-versus-position discrepancy on ZT-1001",
+          "nota": "not triggered by the pressure alarm; demand exists only after B1 has tried and failed. Detection is independent of B1 (ZT-1001 versus PT-007); the final element is shared."
+        }
+      },
+      "independencia": {
+        "secao": "4",
+        "deteccao": "independent (PT-007 versus ZT-1001)",
+        "atuacao": "shared (XV-1001 and VLV-006)",
+        "consequencia": "joint credit must not multiply the two PFDs"
+      },
+      "invalidacao": {
+        "secao": "7",
+        "taxa_limite_kpa_min": 2.2,
+        "gatilhos": [
+          "measured escalation rate above 2.2 kPa/min",
+          "operating-condition change without subsequent revalidation",
+          "alarm_config thresholds changed without recomputing windows",
+          "voting arrangement or test interval changed in ativos"
+        ]
+      },
+      "ameaca": {
+        "secao": "6",
+        "T1": "not classified; requires threat-removal test"
+      }
+    },
+    "lacuna": null
+  },
+  "a2_estado_atual": {
+    "contradicoes": [
+      {
+        "item": "PT-007",
+        "fonte_a": {
+          "o_que": "PFD creep clock",
+          "diz": "334 d since the last test (interval 365 d)",
+          "regra": "resets on the last CLOSED test/calibration/training work order; a corrective order does not reset it"
+        },
+        "fonte_b": {
+          "o_que": "maintenance calendar (WO-RUN_A-TEST)",
+          "diz": "teste_funcional overdue by 184 d",
+          "regra": "work_orders.vencimento <= t_now with no data_fechamento"
+        },
+        "sensibilidade": {
+          "ultimo_teste_implicito": "2024-05-31T00:00:00",
+          "premissa": "due date minus the declared test interval (365 d); an assumption, not a record",
+          "pfd_item_relogio_do_modelo": 0.0024055516666666664,
+          "pfd_item_relogio_do_calendario": 0.003953551666666667,
+          "razao_item": 1.64,
+          "por_barreira": {
+            "B1": {
+              "pfd_relogio_do_modelo": 1.0,
+              "pfd_relogio_do_calendario": 1.0,
+              "razao": 1.0
+            },
+            "B2": {
+              "pfd_relogio_do_modelo": 0.272206,
+              "pfd_relogio_do_calendario": 0.273754,
+              "razao": 1.01
+            }
+          }
+        },
+        "nao_resolvida": "Both readings come from the same database and disagree. Phase A reports the PFD under each; which clock governs is a decision for the team."
+      }
+    ],
+    "alarmes_ativos": [
+      {
+        "tag": "FIT-1001",
+        "tipo": "LO",
+        "ts_inicio": "2025-12-01T00:00:05",
+        "ts_fim": null,
+        "valor_pico": -0.0039,
+        "e_demanda": 0,
+        "fonte_pico": "extreme of voted series from alarm start through t_now",
+        "estado": "ativo",
+        "ativo_ha_min": 150.2,
+        "taxa": {
+          "valor": -0.0,
+          "tipo": "calculo",
+          "formula": "regressao linear sobre a janela, em unidade/min",
+          "entradas": "61 amostras, span 300 s, janela 300 s"
+        }
+      },
+      {
+        "tag": "FIT-1001",
+        "tipo": "LOLO",
+        "ts_inicio": "2025-12-01T00:00:05",
+        "ts_fim": null,
+        "valor_pico": -0.0039,
+        "e_demanda": 0,
+        "fonte_pico": "extreme of voted series from alarm start through t_now",
+        "estado": "ativo",
+        "ativo_ha_min": 150.2,
+        "taxa": {
+          "valor": -0.0,
+          "tipo": "calculo",
+          "formula": "regressao linear sobre a janela, em unidade/min",
+          "entradas": "61 amostras, span 300 s, janela 300 s"
+        }
+      },
+      {
+        "tag": "PIT-7001",
+        "tipo": "HI",
+        "ts_inicio": "2025-12-01T01:57:10",
+        "ts_fim": null,
+        "valor_pico": 2923.1756,
+        "e_demanda": 0,
+        "fonte_pico": "extreme of voted series from alarm start through t_now",
+        "estado": "ativo",
+        "ativo_ha_min": 33.2,
+        "taxa": {
+          "valor": 4.5366,
+          "tipo": "calculo",
+          "formula": "regressao linear sobre a janela, em unidade/min",
+          "entradas": "61 amostras, span 300 s, janela 300 s"
+        }
+      },
+      {
+        "tag": "PIT-7001",
+        "tipo": "HIHI",
+        "ts_inicio": "2025-12-01T02:07:30",
+        "ts_fim": null,
+        "valor_pico": 2923.1756,
+        "e_demanda": 1,
+        "fonte_pico": "extreme of voted series from alarm start through t_now",
+        "estado": "ativo",
+        "ativo_ha_min": 22.8,
+        "taxa": {
+          "valor": 4.5366,
+          "tipo": "calculo",
+          "formula": "regressao linear sobre a janela, em unidade/min",
+          "entradas": "61 amostras, span 300 s, janela 300 s"
+        }
+      }
+    ],
+    "alarmes_normalizados": [
+      {
+        "tag": "PIT-7001",
+        "tipo": "LO",
+        "ts_inicio": "2025-11-28T00:00:00",
+        "ts_fim": "2025-11-28T08:00:00",
+        "valor_pico": 2518.25,
+        "e_demanda": 0,
+        "estado": "normalizado"
+      },
+      {
+        "tag": "PIT-7001",
+        "tipo": "LO",
+        "ts_inicio": "2025-11-29T04:00:00",
+        "ts_fim": "2025-11-29T08:00:00",
+        "valor_pico": 2535.64,
+        "e_demanda": 0,
+        "estado": "normalizado"
+      },
+      {
+        "tag": "PIT-7001",
+        "tipo": "LO",
+        "ts_inicio": "2025-11-30T08:00:00",
+        "ts_fim": "2025-12-01T00:00:00",
+        "valor_pico": 2545.81,
+        "e_demanda": 0,
+        "estado": "normalizado"
+      },
+      {
+        "tag": "PIT-7001",
+        "tipo": "LO",
+        "ts_inicio": "2025-12-01T00:34:25",
+        "ts_fim": "2025-12-01T01:07:00",
+        "valor_pico": 2543.07,
+        "e_demanda": 0,
+        "estado": "normalizado"
+      }
+    ],
+    "taxas": {
+      "PIT-7001": {
+        "valor": 4.5366,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "TIT-9001": {
+        "valor": -0.0055,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "LIT-8001": {
+        "valor": 0.0211,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "FIT-1001": {
+        "valor": -0.0,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "TIT-2101": {
+        "valor": 0.0065,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "FCV-1002": {
+        "valor": -0.0589,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "FCV-0601": {
+        "valor": -0.144,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "FIT-1002": {
+        "valor": -2.5941,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "FIT-1003": {
+        "valor": 5.192,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "FIT-1004": {
+        "valor": -0.0118,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "XV-1001A": {
+        "valor": -0.038,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "XV-1001B": {
+        "valor": 0.0525,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "XV-1001C": {
+        "valor": 0.5695,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      },
+      "XV-1001D": {
+        "valor": 0.0233,
+        "tipo": "calculo",
+        "formula": "regressao linear sobre a janela, em unidade/min",
+        "entradas": "61 amostras, span 300 s, janela 300 s"
+      }
+    },
+    "canais": [
+      {
+        "channel_id": "PT-007.A",
+        "equipamento_id": "PT-007",
+        "estado": "ok",
+        "ts_falha": "2025-04-01T00:00:00",
+        "ts_deteccao": "2025-04-01T00:30:00",
+        "ts_reparo": "2025-04-02T00:00:00",
+        "wo_id": "WO-RUN_A-CH-A"
+      },
+      {
+        "channel_id": "PT-007.B",
+        "equipamento_id": "PT-007",
+        "estado": "failed_detected_unrepaired",
+        "ts_falha": "2025-08-29T00:00:00",
+        "ts_deteccao": "2025-08-29T00:30:00",
+        "ts_reparo": null,
+        "wo_id": "WO-RUN_A-CH-B"
+      },
+      {
+        "channel_id": "PT-007.C",
+        "equipamento_id": "PT-007",
+        "estado": "no_discrepancy_reported",
+        "ts_falha": null,
+        "ts_deteccao": null,
+        "ts_reparo": null,
+        "wo_id": null
+      }
+    ],
+    "discrepancia_canais": [
+      {
+        "tag": "PIT-7001",
+        "canais": {
+          "A": 2922.61,
+          "B": 2708.22,
+          "C": 2922.81
+        },
+        "spread": {
+          "valor": 214.59,
+          "tipo": "calculo",
+          "formula": "max(canais) - min(canais)",
+          "entradas": "leitura por canal"
+        },
+        "desvio_contra_mediana": {
+          "A": 0.0,
+          "B": -214.39,
+          "C": 0.2
+        },
+        "limite": {
+          "valor": 17.5,
+          "tipo": "leitura",
+          "fonte": "5% da faixa lolo..hihi de alarm_config"
+        },
+        "acima_do_limite": true
+      }
+    ],
+    "ordens_servico": [
+      {
+        "wo_id": "WO-RUN_A-CH-A",
+        "origem": "corretiva_falha",
+        "tipo": "corretiva",
+        "equipamento_id": "PT-007",
+        "barreira_id": "reator.T1.B1",
+        "data_abertura": "2025-04-01T00:00:00",
+        "data_fechamento": "2025-04-02T00:00:00",
+        "vencimento": null,
+        "status": "fechada",
+        "falha_encontrada": 1,
+        "descricao": "Discrepancia do canal A do PT-007; rele/canal substituido e reteste OK.",
+        "classe": "closed_with_finding"
+      },
+      {
+        "wo_id": "WO-RUN_A-TEST",
+        "origem": "preventiva_agenda",
+        "tipo": "teste_funcional",
+        "equipamento_id": "PT-007",
+        "barreira_id": "reator.T1.B1",
+        "data_abertura": "2025-05-31T00:00:00",
+        "data_fechamento": null,
+        "vencimento": "2025-05-31T00:00:00",
+        "status": "vencida",
+        "falha_encontrada": null,
+        "descricao": "Teste funcional do intertravamento (reator.T1.B1) VENCIDO e nao executado.",
+        "classe": "overdue_not_executed",
+        "vencida_ha_dias": 184
+      },
+      {
+        "wo_id": "WO-RUN_A-TRAIN",
+        "origem": "agenda_automatica",
+        "tipo": "treinamento",
+        "equipamento_id": "OP-B2",
+        "barreira_id": "reator.T1.B2",
+        "data_abertura": "2025-07-30T00:00:00",
+        "data_fechamento": null,
+        "vencimento": "2025-07-30T00:00:00",
+        "status": "vencida",
+        "falha_encontrada": null,
+        "descricao": "Treinamento periodico de competencia (reator.T1.B2) VENCIDO; WO aberta automaticamente.",
+        "classe": "overdue_not_executed",
+        "vencida_ha_dias": 124
+      },
+      {
+        "wo_id": "WO-RUN_A-CH-B",
+        "origem": "corretiva_falha",
+        "tipo": "corretiva",
+        "equipamento_id": "PT-007",
+        "barreira_id": "reator.T1.B1",
+        "data_abertura": "2025-08-29T00:30:00",
+        "data_fechamento": null,
+        "vencimento": null,
+        "status": "aberta",
+        "falha_encontrada": 1,
+        "descricao": "Discrepancia do canal B do PT-007 detectada; grupo votado operando degradado (2oo2). Reparo pendente em backlog.",
+        "classe": "open"
+      },
+      {
+        "wo_id": "WO-RUN_A-UZ007",
+        "origem": "corretiva_falha",
+        "tipo": "corretiva",
+        "equipamento_id": "UZ-007",
+        "barreira_id": "reator.T1.B1",
+        "data_abertura": "2025-12-01T02:07:22",
+        "data_fechamento": null,
+        "vencimento": null,
+        "status": "aberta",
+        "falha_encontrada": 1,
+        "descricao": "Demanda registrada em HIHI e nenhuma saida comandada: alimentacoes e purga permaneceram em controle normal. Funcao de seguranca de B1 nao executou.",
+        "classe": "open"
+      }
+    ],
+    "eventos_operacionais": [
+      {
+        "ts": "2025-11-28T00:00:00",
+        "tipo": "operating_condition_change",
+        "detalhe": "{\"modo\": \"campanha padrao\", \"carga_pct\": 15, \"escala_setpoints_alimentacao\": 1.15}",
+        "tags_afetadas": "[\"FIT-1001\", \"PIT-7001\"]"
+      },
+      {
+        "ts": "2025-12-01T02:07:22",
+        "tipo": "falha_intertravamento",
+        "detalhe": "{\"ativo\": \"UZ-007\", \"barreira\": \"reator.T1.B1\", \"saidas_comandadas\": false, \"deteccao_ok\": true}",
+        "tags_afetadas": "[\"XV-1001A\", \"XV-1001B\", \"XV-1001C\", \"XV-1001D\", \"FCV-0601\"]"
+      },
+      {
+        "ts": "2025-12-01T02:25:25",
+        "tipo": "trip_sis",
+        "detalhe": "{\"limiar_kPa\": 2900.0, \"valor_kPa\": 2900.1, \"barreira\": \"SIS\"}",
+        "tags_afetadas": "[\"PIT-7001\"]"
+      }
+    ],
+    "regra_de_recuperacao": {
+      "alarms": "alarm_events with ts_inicio <= t_now; future ts_fim nulled; active peaks from voted series through t_now",
+      "work orders": "work_orders with data_abertura <= t_now; future closure, final narrative and findings omitted",
+      "channels": "blind_feed.canais_visiveis — a failure undetected by t_now is masked",
+      "reliability": "blind_feed.pfd_confiabilidade — only failures known by t_now enter the PFD",
+      "events": "process_events with visivel_copiloto=1 and ts <= t_now"
+    },
+    "margem": {
+      "PIT-7001": {
+        "valor": 2923.1756,
+        "unidade": "kPa",
+        "alvos_declarados": [
+          {
+            "nome": "SIS trip",
+            "valor": 2900.0,
+            "distancia": -23.18,
+            "ja_cruzado": true,
+            "tempo_min": null,
+            "fonte": "alarm_config.trip_sis"
+          },
+          {
+            "nome": "model physical limit",
+            "valor": 3000.0,
+            "distancia": 76.82,
+            "ja_cruzado": false,
+            "tempo_min": 16.9,
+            "fonte": "design basis, section 3"
+          }
+        ],
+        "limiar_a_frente": {
+          "nome": null,
+          "valor": null
+        },
+        "distancia": null,
+        "limiares_ja_cruzados": [
+          {
+            "nome": "hi",
+            "valor": 2750.0,
+            "excedencia": 173.18
+          },
+          {
+            "nome": "hihi",
+            "valor": 2800.0,
+            "excedencia": 123.18
+          }
+        ],
+        "taxa_por_min": 4.5366,
+        "tempo_ate_limiar_min": null,
+        "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+      },
+      "TIT-9001": {
+        "valor": 120.384,
+        "unidade": "C",
+        "alvos_declarados": [],
+        "limiar_a_frente": {
+          "nome": "lo",
+          "valor": 110.0
+        },
+        "distancia": 10.38,
+        "limiares_ja_cruzados": [],
+        "taxa_por_min": -0.0055,
+        "tempo_ate_limiar_min": null,
+        "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+      },
+      "LIT-8001": {
+        "valor": 72.3934,
+        "unidade": "%",
+        "alvos_declarados": [],
+        "limiar_a_frente": {
+          "nome": "hi",
+          "valor": 85.0
+        },
+        "distancia": 12.61,
+        "limiares_ja_cruzados": [],
+        "taxa_por_min": 0.0211,
+        "tempo_ate_limiar_min": 597.6,
+        "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+      },
+      "FIT-1001": {
+        "valor": 0.0017,
+        "unidade": "kscmh",
+        "alvos_declarados": [],
+        "limiar_a_frente": {
+          "nome": null,
+          "valor": null
+        },
+        "distancia": null,
+        "limiares_ja_cruzados": [
+          {
+            "nome": "lo",
+            "valor": 0.15,
+            "excedencia": -0.15
+          },
+          {
+            "nome": "lolo",
+            "valor": 0.05,
+            "excedencia": -0.05
+          }
+        ],
+        "taxa_por_min": -0.0,
+        "tempo_ate_limiar_min": null,
+        "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+      },
+      "TIT-2101": {
+        "valor": 93.4482,
+        "unidade": "C",
+        "alvos_declarados": [],
+        "limiar_a_frente": {
+          "nome": "hi",
+          "valor": 100.0
+        },
+        "distancia": 6.55,
+        "limiares_ja_cruzados": [],
+        "taxa_por_min": 0.0065,
+        "tempo_ate_limiar_min": 1007.7,
+        "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+      }
+    },
+    "escada_de_taxas": {
+      "tag": "PIT-7001",
+      "degraus": [
+        {
+          "janela": "since 00:00 of the day",
+          "nota": "includes any initial fall",
+          "taxa": 2.19,
+          "amostras": 1805,
+          "span_min": 150.3,
+          "de": "2025-12-01T00:00:00",
+          "ate": "2025-12-01T02:30:20",
+          "razao_vs_projeto": 2.0,
+          "excede_limite": false
+        },
+        {
+          "janela": "valley (2543 kPa) to the SIS trip",
+          "nota": "",
+          "taxa": 3.62,
+          "amostras": 1213,
+          "span_min": 101.0,
+          "de": "2025-12-01T00:44:25",
+          "ate": "2025-12-01T02:25:25",
+          "razao_vs_projeto": 3.3,
+          "excede_limite": true
+        },
+        {
+          "janela": "HI to HIHI",
+          "nota": "",
+          "taxa": 4.58,
+          "amostras": 125,
+          "span_min": 10.3,
+          "de": "2025-12-01T01:57:10",
+          "ate": "2025-12-01T02:07:30",
+          "razao_vs_projeto": 4.2,
+          "excede_limite": true
+        },
+        {
+          "janela": "HIHI to the SIS trip",
+          "nota": "the window in which the decision is taken",
+          "taxa": 5.52,
+          "amostras": 216,
+          "span_min": 17.9,
+          "de": "2025-12-01T02:07:30",
+          "ate": "2025-12-01T02:25:25",
+          "razao_vs_projeto": 5.0,
+          "excede_limite": true
+        },
+        {
+          "janela": "after the SIS acted",
+          "nota": "escalation continues after the last automated layer",
+          "taxa": 4.54,
+          "amostras": 60,
+          "span_min": 4.9,
+          "de": "2025-12-01T02:25:25",
+          "ate": "2025-12-01T02:30:20",
+          "razao_vs_projeto": 4.1,
+          "excede_limite": true
+        },
+        {
+          "janela": "last 10 min before t_now",
+          "nota": "",
+          "taxa": 4.78,
+          "amostras": 121,
+          "span_min": 10.0,
+          "de": "2025-12-01T02:20:20",
+          "ate": "2025-12-01T02:30:20",
+          "razao_vs_projeto": 4.3,
+          "excede_limite": true
+        }
+      ],
+      "dispersao": {
+        "minima": 2.19,
+        "maxima": 5.52,
+        "razao": 2.52
+      },
+      "trip_sis": {
+        "ts": "2025-12-01T02:25:25",
+        "detalhe": "{\"limiar_kPa\": 2900.0, \"valor_kPa\": 2900.1, \"barreira\": \"SIS\"}"
+      },
+      "referencia_de_projeto": {
+        "taxa_kpa_min": 1.1,
+        "fonte": "design basis, section 2"
+      },
+      "limite_de_invalidacao": {
+        "taxa_kpa_min": 2.2,
+        "fonte": "design basis, section 7"
+      },
+      "gatilhos_de_invalidacao": [
+        {
+          "gatilho": "measured escalation rate above 2.2 kPa/min",
+          "observado": true,
+          "evidencia": "5 of 6 windows above 2.2 kPa/min"
+        },
+        {
+          "gatilho": "operating-condition change without subsequent revalidation",
+          "observado": true,
+          "evidencia": "operating-condition change at 2025-11-28T00:00:00; no work order and no window revalidation event after that date"
+        },
+        {
+          "gatilho": "design plateau not observed",
+          "observado": true,
+          "evidencia": "the 2850-2870 kPa band lasted 3.6 min at 5.31 kPa/min, against 1.7 h at 0.27 kPa/min in the design case"
+        }
+      ],
+      "plato_medido": {
+        "de": "2025-12-01T02:15:45",
+        "ate": "2025-12-01T02:19:20",
+        "duracao_min": 3.6,
+        "taxa_local": 5.31
+      },
+      "invalidada": true,
+      "janelas_de_projeto": {
+        "secao": "5",
+        "janela_hi_sis_min": 202.0,
+        "janela_hihi_sis_min": 162.0,
+        "atraso_tolerav_b2_min": 67.0,
+        "criterio_sucesso": "pressure reverts without reaching the SIS trip"
+      }
+    },
+    "regime": {
+      "mudanca": {
+        "ts": "2025-11-28T00:00:00",
+        "tipo": "operating_condition_change",
+        "detalhe": "{\"modo\": \"campanha padrao\", \"carga_pct\": 15, \"escala_setpoints_alimentacao\": 1.15}",
+        "tags_afetadas": "[\"FIT-1001\", \"PIT-7001\"]"
+      },
+      "regime_antes": {
+        "de": "2025-01-01T00:00:00",
+        "ate": "2025-11-28T00:00:00",
+        "n": 1986,
+        "mediana": 2708.37,
+        "min": 2702.66,
+        "max": 2715.78
+      },
+      "regime_depois": {
+        "de": "2025-11-28T00:00:00",
+        "ate": "2025-12-01T00:00:00",
+        "n": 17,
+        "mediana": 2559.51,
+        "min": 2518.25,
+        "max": 2602.79
+      },
+      "deslocamento_kpa": -148.86,
+      "alarmes_entre_a_mudanca_e_o_episodio": [
+        {
+          "tipo": "LO",
+          "ts_inicio": "2025-11-28T00:00:00",
+          "ts_fim": "2025-11-28T08:00:00",
+          "valor_pico": 2518.25
+        },
+        {
+          "tipo": "LO",
+          "ts_inicio": "2025-11-29T04:00:00",
+          "ts_fim": "2025-11-29T08:00:00",
+          "valor_pico": 2535.64
+        },
+        {
+          "tipo": "LO",
+          "ts_inicio": "2025-11-30T08:00:00",
+          "ts_fim": "2025-12-01T00:00:00",
+          "valor_pico": 2545.81
+        }
+      ],
+      "revalidacao_registrada": false,
+      "nota": "regime medians are computed from the voted series; alarms are read from alarm_events between the change and the start of the current day"
+    },
+    "grupo_votado": {
+      "tag": "PIT-7001",
+      "janela": {
+        "de": "2025-11-01T02:30:20",
+        "ate": "2025-12-01T02:30:20"
+      },
+      "estatistica_por_canal": {
+        "A": {
+          "n": 1983,
+          "media": 2658.68,
+          "desvio": 107.71,
+          "min": 2518.14,
+          "max": 2922.67,
+          "ultimo": 2922.61
+        },
+        "B": {
+          "n": 1983,
+          "media": 2708.4,
+          "desvio": 0.2,
+          "min": 2707.66,
+          "max": 2709.2,
+          "ultimo": 2708.22
+        },
+        "C": {
+          "n": 1983,
+          "media": 2658.69,
+          "desvio": 107.7,
+          "min": 2518.98,
+          "max": 2922.81,
+          "ultimo": 2922.81
+        }
+      },
+      "ruido_de_projeto_kpa": 1.93,
+      "canais_parados": [
+        "B"
+      ],
+      "concordancia_no_ultimo_instante": {
+        "tolerancia_kpa": 5.79,
+        "pares": [
+          [
+            "A",
+            "C"
+          ]
+        ],
+        "divergente_pela_maioria": "B"
+      },
+      "congelamento": {
+        "canal": "B",
+        "valor_medio": 2708.4,
+        "banda_kpa": 1.5,
+        "parado_desde_aprox": "2025-08-29T00:00:00",
+        "regime_de_referencia": 2708.37,
+        "fonte_regime": "median voted PIT-7001 2025-01-01T00:00:00 → 2025-11-28T00:00:00",
+        "diferenca_para_o_regime": 0.03,
+        "nota": "computed from the series; the start is the first sample of the final stretch inside the band, not a recorded failure time"
+      }
+    },
+    "demandas": {
+      "B1": {
+        "barreira": "B1",
+        "demandada": true,
+        "gatilho_declarado": "voted PIT-7001 >= HIHI",
+        "fonte_gatilho": "design basis, section 4",
+        "instantes": {
+          "primeira_amostra_acima_hihi": "2025-12-01T02:07:30",
+          "alarme_hihi": "2025-12-01T02:07:30",
+          "evento_de_logica": "2025-12-01T02:07:22",
+          "ancora": "2025-12-01T02:07:22"
+        },
+        "detectar": {
+          "canais_na_demanda": {
+            "A": 2800.67,
+            "B": 2708.51,
+            "C": 2800.26
+          },
+          "limiar_hihi": 2800.0,
+          "canais_acima": [
+            "A",
+            "C"
+          ],
+          "voto_2oo3_satisfeito": true,
+          "fonte": "series per channel at 2025-12-01T02:07:30"
+        },
+        "decidir": {
+          "eventos_registrados": [
+            {
+              "ts": "2025-12-01T02:07:22",
+              "tipo": "falha_intertravamento",
+              "detalhe": {
+                "ativo": "UZ-007",
+                "barreira": "reator.T1.B1",
+                "saidas_comandadas": false,
+                "deteccao_ok": true
+              }
+            }
+          ],
+          "ordens_abertas_na_demanda": [
+            {
+              "wo_id": "WO-RUN_A-UZ007",
+              "item": "UZ-007",
+              "descricao": "Demanda registrada em HIHI e nenhuma saida comandada: alimentacoes e purga permaneceram em controle normal. Funcao de seguranca de B1 nao executou."
+            }
+          ]
+        },
+        "agir": {
+          "janela": "5 min before vs after 2025-12-01T02:07:22",
+          "banda_morta_pp": 5.0,
+          "sinais": [
+            {
+              "tag": "XV-1001A",
+              "descricao": "Stream 2 feed valve opening",
+              "esperado": "close",
+              "media_antes": 62.74,
+              "media_depois": 62.97,
+              "delta": 0.23,
+              "como_esperado": false
+            },
+            {
+              "tag": "XV-1001B",
+              "descricao": "Stream 3 feed valve opening",
+              "esperado": "close",
+              "media_antes": 48.5,
+              "media_depois": 48.85,
+              "delta": 0.35,
+              "como_esperado": false
+            },
+            {
+              "tag": "XV-1001C",
+              "descricao": "Stream 1 feed valve opening",
+              "esperado": "close",
+              "media_antes": 89.82,
+              "media_depois": 99.46,
+              "delta": 9.64,
+              "como_esperado": false
+            },
+            {
+              "tag": "XV-1001D",
+              "descricao": "Stream 4 (A+C) feed valve opening",
+              "esperado": "close",
+              "media_antes": 70.34,
+              "media_depois": 70.73,
+              "delta": 0.39,
+              "como_esperado": false
+            },
+            {
+              "tag": "FCV-0601",
+              "descricao": "Purge valve opening",
+              "esperado": "open",
+              "media_antes": 40.02,
+              "media_depois": 37.95,
+              "delta": -2.08,
+              "como_esperado": false
+            },
+            {
+              "tag": "LIT-8001",
+              "descricao": "Reaction vessel level",
+              "esperado": "fall",
+              "media_antes": 69.83,
+              "media_depois": 69.98,
+              "delta": 0.15,
+              "como_esperado": false
+            }
+          ],
+          "algum_como_esperado": false
+        },
+        "desfecho": {
+          "criterio": "pressure reverts without reaching the SIS trip",
+          "fonte_criterio": "design basis, section 5",
+          "proxima_camada": {
+            "nome": "SIS trip",
+            "valor": 2900.0,
+            "fonte": "alarm_config.trip_sis"
+          },
+          "proxima_camada_atingida_em": "2025-12-01T02:25:25",
+          "minutos_da_demanda_ao_trip": 18.1,
+          "criterio_atendido": false,
+          "nota": "the next layer (SIS trip) was reached after the demand: pressure did not revert before it"
+        }
+      },
+      "B2": {
+        "barreira": "B2",
+        "gatilho_declarado": "command-versus-position discrepancy on ZT-1001",
+        "fonte_gatilho": "design basis, section 4",
+        "sinal_de_posicao_ZT-1001": {
+          "presente": false,
+          "nota": "not in ativos nor in series"
+        },
+        "comando_registrado_na_demanda_de_B1": false,
+        "fonte_comando": "process_events falha_intertravamento at 2025-12-01T02:07:22"
+      },
+      "SIS": {
+        "camada": "SIS trip",
+        "limiar": 2900.0,
+        "fonte_limiar": "alarm_config.trip_sis",
+        "atuou_em": "2025-12-01T02:25:25",
+        "detalhe": "{\"limiar_kPa\": 2900.0, \"valor_kPa\": 2900.1, \"barreira\": \"SIS\"}",
+        "taxa_depois_kpa_min": 4.54,
+        "nota": "a layer beyond the bowtie's preventive barriers; it is not B1"
+      }
+    }
+  },
+  "a3_cruzamentos": [
+    {
+      "id": "C1",
+      "titulo": "Envelope: current versus validated dynamics",
+      "comparado": {
+        "rate_ladder": [
+          {
+            "window": "since 00:00 of the day",
+            "rate": 2.19,
+            "span_min": 150.3,
+            "vs_design": 2.0
+          },
+          {
+            "window": "valley (2543 kPa) to the SIS trip",
+            "rate": 3.62,
+            "span_min": 101.0,
+            "vs_design": 3.3
+          },
+          {
+            "window": "HI to HIHI",
+            "rate": 4.58,
+            "span_min": 10.3,
+            "vs_design": 4.2
+          },
+          {
+            "window": "HIHI to the SIS trip",
+            "rate": 5.52,
+            "span_min": 17.9,
+            "vs_design": 5.0
+          },
+          {
+            "window": "after the SIS acted",
+            "rate": 4.54,
+            "span_min": 4.9,
+            "vs_design": 4.1
+          },
+          {
+            "window": "last 10 min before t_now",
+            "rate": 4.78,
+            "span_min": 10.0,
+            "vs_design": 4.3
+          }
+        ],
+        "design_rate": 1.1,
+        "invalidation_triggers": [
+          {
+            "gatilho": "measured escalation rate above 2.2 kPa/min",
+            "observado": true,
+            "evidencia": "5 of 6 windows above 2.2 kPa/min"
+          },
+          {
+            "gatilho": "operating-condition change without subsequent revalidation",
+            "observado": true,
+            "evidencia": "operating-condition change at 2025-11-28T00:00:00; no work order and no window revalidation event after that date"
+          },
+          {
+            "gatilho": "design plateau not observed",
+            "observado": true,
+            "evidencia": "the 2850-2870 kPa band lasted 3.6 min at 5.31 kPa/min, against 1.7 h at 0.27 kPa/min in the design case"
+          }
+        ],
+        "regime_shift_kpa": -148.86
+      },
+      "resultado": "rate ranges 2.19 to 5.52 kPa/min across windows (2.52x); envelope invalidated",
+      "lacuna": null,
+      "nao_se_aplica": null
+    },
+    {
+      "id": "C2",
+      "titulo": "PFD decomposition: component versus barrier",
+      "comparado": {
+        "B1": {
+          "barrier_multiplier": 48.71,
+          "worst_component": {
+            "item": "UZ-007",
+            "multiplicador": 1515.15
+          },
+          "dominant_element": {
+            "item": "UZ-007",
+            "pfd": 1.0,
+            "fracao_do_total": 1.0
+          }
+        },
+        "B2": {
+          "barrier_multiplier": 2.27,
+          "worst_component": {
+            "item": "PT-007",
+            "multiplicador": 34.37
+          },
+          "dominant_element": {
+            "item": "OP-B2",
+            "pfd": 0.25,
+            "fracao_do_total": 0.918
+          }
+        }
+      },
+      "resultado": "both multipliers reported per barrier",
+      "lacuna": null,
+      "nao_se_aplica": null
+    },
+    {
+      "id": "C3",
+      "titulo": "Barrier class under window compression",
+      "comparado": {
+        "hihi_to_sis_window": {
+          "design_min": 162.0,
+          "measured_min": 18.1,
+          "compression": 9.0,
+          "design_source": "design basis, section 5"
+        },
+        "B1": {
+          "class": "automatic",
+          "time": "seconds"
+        },
+        "B2": {
+          "class": "human",
+          "time": "minutes",
+          "tolerable_delay_min": 67.0
+        }
+      },
+      "resultado": "HIHI→SIS window 162 min in design, 18.1 min measured from B1's demand (9.0x). B1 is automatic (seconds); B2's design tolerable delay of 67 min is 3.7x the whole measured window",
+      "lacuna": "B2's design PFD was calibrated for the design window; under the measured window the number survives and its meaning does not",
+      "nao_se_aplica": null
+    },
+    {
+      "id": "C4",
+      "titulo": "State and observability of redundant groups",
+      "comparado": {
+        "declared_arrangement": "2oo3 (PT-007)",
+        "record": {
+          "PT-007.A": "ok",
+          "PT-007.B": "failed_detected_unrepaired",
+          "PT-007.C": "no_discrepancy_reported"
+        },
+        "reading_spread": [
+          {
+            "tag": "PIT-7001",
+            "spread": 214.59,
+            "limit": 17.5
+          }
+        ],
+        "flat_channels": [
+          "B"
+        ],
+        "majority_outlier": "B"
+      },
+      "resultado": "known degraded: PT-007.B failure detected 2025-08-29T00:30:00 (WO-RUN_A-CH-B, not repaired); channel B flat at 2708.4 kPa since about 2025-08-29T00:00:00",
+      "relogio": "repair backlog: 94 d since detection of PT-007.B",
+      "lacuna": null,
+      "nao_se_aplica": null
+    },
+    {
+      "id": "C5",
+      "titulo": "Decidability gap",
+      "comparado": null,
+      "resultado": "3 named gap(s)",
+      "lacunas": [
+        {
+          "pergunta": "Is there a common cause affecting channels A and C?",
+          "por_que_nao_responde": "A and C agree within 5.79 kPa and B diverges, so the majority identifies the divergent channel; what the group cannot rule out is a shared error in the agreeing pair",
+          "verificacao_externa": "an independent field measurement of vessel pressure"
+        },
+        {
+          "pergunta": "Which layer arrests the escalation downstream of the SIS?",
+          "por_que_nao_responde": "the SIS acted at 2025-12-01T02:25:25; pressure kept rising at 4.54 kPa/min; the design basis puts the model physical limit at 3000 kPa and declares no layer between the SIS and that limit",
+          "verificacao_externa": "confirm whether pressure relief exists downstream of the SIS, and the vessel design pressure"
+        },
+        {
+          "pergunta": "Was B2 ever demanded?",
+          "por_que_nao_responde": "B2's declared trigger is a command-versus-position discrepancy on ZT-1001, and ZT-1001 is in neither ativos nor series; the record at B1's demand says outputs commanded = False",
+          "verificacao_externa": "instrument feed valve position, or the control room record"
+        }
+      ],
+      "lacuna": null,
+      "nao_se_aplica": null
+    },
+    {
+      "id": "C6",
+      "titulo": "Side effect of the barrier action",
+      "comparado": {
+        "shared_items": {
+          "PT-007": [
+            "B1",
+            "B2"
+          ],
+          "XV-1001": [
+            "B1",
+            "B2"
+          ],
+          "VLV-006": [
+            "B1",
+            "B2"
+          ]
+        },
+        "declared_independence": {
+          "secao": "4",
+          "deteccao": "independent (PT-007 versus ZT-1001)",
+          "atuacao": "shared (XV-1001 and VLV-006)",
+          "consequencia": "joint credit must not multiply the two PFDs"
+        },
+        "declared_side_effect": "closes the A+C feed valve, which is the actuator of the level cascade LIC-8001; inventory control is lost, level goes to about -2.5 % and a low-level trip follows roughly 1 h later"
+      },
+      "resultado": "detection independent (PT-007 versus ZT-1001); actuation shared (XV-1001 and VLV-006). joint credit must not multiply the two PFDs. Declared side effect of B1's action: closes the A+C feed valve, which is the actuator of the level cascade LIC-8001; inventory control is lost, level goes to about -2.5 % and a low-level trip follows roughly 1 h later",
+      "lacuna": null,
+      "nao_se_aplica": null
+    },
+    {
+      "id": "C7",
+      "titulo": "Static indicator versus dynamic margin",
+      "comparado": {
+        "PIT-7001": {
+          "valor": 2923.1756,
+          "unidade": "kPa",
+          "alvos_declarados": [
+            {
+              "nome": "SIS trip",
+              "valor": 2900.0,
+              "distancia": -23.18,
+              "ja_cruzado": true,
+              "tempo_min": null,
+              "fonte": "alarm_config.trip_sis"
+            },
+            {
+              "nome": "model physical limit",
+              "valor": 3000.0,
+              "distancia": 76.82,
+              "ja_cruzado": false,
+              "tempo_min": 16.9,
+              "fonte": "design basis, section 3"
+            }
+          ],
+          "limiar_a_frente": {
+            "nome": null,
+            "valor": null
+          },
+          "distancia": null,
+          "limiares_ja_cruzados": [
+            {
+              "nome": "hi",
+              "valor": 2750.0,
+              "excedencia": 173.18
+            },
+            {
+              "nome": "hihi",
+              "valor": 2800.0,
+              "excedencia": 123.18
+            }
+          ],
+          "taxa_por_min": 4.5366,
+          "tempo_ate_limiar_min": null,
+          "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+        },
+        "TIT-9001": {
+          "valor": 120.384,
+          "unidade": "C",
+          "alvos_declarados": [],
+          "limiar_a_frente": {
+            "nome": "lo",
+            "valor": 110.0
+          },
+          "distancia": 10.38,
+          "limiares_ja_cruzados": [],
+          "taxa_por_min": -0.0055,
+          "tempo_ate_limiar_min": null,
+          "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+        },
+        "LIT-8001": {
+          "valor": 72.3934,
+          "unidade": "%",
+          "alvos_declarados": [],
+          "limiar_a_frente": {
+            "nome": "hi",
+            "valor": 85.0
+          },
+          "distancia": 12.61,
+          "limiares_ja_cruzados": [],
+          "taxa_por_min": 0.0211,
+          "tempo_ate_limiar_min": 597.6,
+          "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+        },
+        "FIT-1001": {
+          "valor": 0.0017,
+          "unidade": "kscmh",
+          "alvos_declarados": [],
+          "limiar_a_frente": {
+            "nome": null,
+            "valor": null
+          },
+          "distancia": null,
+          "limiares_ja_cruzados": [
+            {
+              "nome": "lo",
+              "valor": 0.15,
+              "excedencia": -0.15
+            },
+            {
+              "nome": "lolo",
+              "valor": 0.05,
+              "excedencia": -0.05
+            }
+          ],
+          "taxa_por_min": -0.0,
+          "tempo_ate_limiar_min": null,
+          "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+        },
+        "TIT-2101": {
+          "valor": 93.4482,
+          "unidade": "C",
+          "alvos_declarados": [],
+          "limiar_a_frente": {
+            "nome": "hi",
+            "valor": 100.0
+          },
+          "distancia": 6.55,
+          "limiares_ja_cruzados": [],
+          "taxa_por_min": 0.0065,
+          "tempo_ate_limiar_min": 1007.7,
+          "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+        }
+      },
+      "resultado": "distance and rate side by side against every declared target",
+      "lacuna": null,
+      "nao_se_aplica": null
+    },
+    {
+      "id": "C8",
+      "titulo": "Persistent versus removable threat",
+      "comparado": {
+        "feed_flow": {
+          "valor": 0.0017,
+          "unidade": "kscmh",
+          "alvos_declarados": [],
+          "limiar_a_frente": {
+            "nome": null,
+            "valor": null
+          },
+          "distancia": null,
+          "limiares_ja_cruzados": [
+            {
+              "nome": "lo",
+              "valor": 0.15,
+              "excedencia": -0.15
+            },
+            {
+              "nome": "lolo",
+              "valor": 0.05,
+              "excedencia": -0.05
+            }
+          ],
+          "taxa_por_min": -0.0,
+          "tempo_ate_limiar_min": null,
+          "nota": "time to a threshold is computed from the measured rate, not read; suppressed beyond 24 h as rate noise"
+        },
+        "rate": {
+          "valor": -0.0,
+          "tipo": "calculo",
+          "formula": "regressao linear sobre a janela, em unidade/min",
+          "entradas": "61 amostras, span 300 s, janela 300 s"
+        }
+      },
+      "resultado": "classification requires the threat-removal test",
+      "lacuna": "The removal test (design basis, section 6) was not executed for this bowtie.",
+      "nao_se_aplica": null
+    }
+  ],
+  "envelope": {
+    "tag": "PIT-7001",
+    "degraus": [
+      {
+        "janela": "since 00:00 of the day",
+        "nota": "includes any initial fall",
+        "taxa": 2.19,
+        "amostras": 1805,
+        "span_min": 150.3,
+        "de": "2025-12-01T00:00:00",
+        "ate": "2025-12-01T02:30:20",
+        "razao_vs_projeto": 2.0,
+        "excede_limite": false
+      },
+      {
+        "janela": "valley (2543 kPa) to the SIS trip",
+        "nota": "",
+        "taxa": 3.62,
+        "amostras": 1213,
+        "span_min": 101.0,
+        "de": "2025-12-01T00:44:25",
+        "ate": "2025-12-01T02:25:25",
+        "razao_vs_projeto": 3.3,
+        "excede_limite": true
+      },
+      {
+        "janela": "HI to HIHI",
+        "nota": "",
+        "taxa": 4.58,
+        "amostras": 125,
+        "span_min": 10.3,
+        "de": "2025-12-01T01:57:10",
+        "ate": "2025-12-01T02:07:30",
+        "razao_vs_projeto": 4.2,
+        "excede_limite": true
+      },
+      {
+        "janela": "HIHI to the SIS trip",
+        "nota": "the window in which the decision is taken",
+        "taxa": 5.52,
+        "amostras": 216,
+        "span_min": 17.9,
+        "de": "2025-12-01T02:07:30",
+        "ate": "2025-12-01T02:25:25",
+        "razao_vs_projeto": 5.0,
+        "excede_limite": true
+      },
+      {
+        "janela": "after the SIS acted",
+        "nota": "escalation continues after the last automated layer",
+        "taxa": 4.54,
+        "amostras": 60,
+        "span_min": 4.9,
+        "de": "2025-12-01T02:25:25",
+        "ate": "2025-12-01T02:30:20",
+        "razao_vs_projeto": 4.1,
+        "excede_limite": true
+      },
+      {
+        "janela": "last 10 min before t_now",
+        "nota": "",
+        "taxa": 4.78,
+        "amostras": 121,
+        "span_min": 10.0,
+        "de": "2025-12-01T02:20:20",
+        "ate": "2025-12-01T02:30:20",
+        "razao_vs_projeto": 4.3,
+        "excede_limite": true
+      }
+    ],
+    "dispersao": {
+      "minima": 2.19,
+      "maxima": 5.52,
+      "razao": 2.52
+    },
+    "trip_sis": {
+      "ts": "2025-12-01T02:25:25",
+      "detalhe": "{\"limiar_kPa\": 2900.0, \"valor_kPa\": 2900.1, \"barreira\": \"SIS\"}"
+    },
+    "referencia_de_projeto": {
+      "taxa_kpa_min": 1.1,
+      "fonte": "design basis, section 2"
+    },
+    "limite_de_invalidacao": {
+      "taxa_kpa_min": 2.2,
+      "fonte": "design basis, section 7"
+    },
+    "gatilhos_de_invalidacao": [
+      {
+        "gatilho": "measured escalation rate above 2.2 kPa/min",
+        "observado": true,
+        "evidencia": "5 of 6 windows above 2.2 kPa/min"
+      },
+      {
+        "gatilho": "operating-condition change without subsequent revalidation",
+        "observado": true,
+        "evidencia": "operating-condition change at 2025-11-28T00:00:00; no work order and no window revalidation event after that date"
+      },
+      {
+        "gatilho": "design plateau not observed",
+        "observado": true,
+        "evidencia": "the 2850-2870 kPa band lasted 3.6 min at 5.31 kPa/min, against 1.7 h at 0.27 kPa/min in the design case"
+      }
+    ],
+    "plato_medido": {
+      "de": "2025-12-01T02:15:45",
+      "ate": "2025-12-01T02:19:20",
+      "duracao_min": 3.6,
+      "taxa_local": 5.31
+    },
+    "invalidada": true,
+    "janelas_de_projeto": {
+      "secao": "5",
+      "janela_hi_sis_min": 202.0,
+      "janela_hihi_sis_min": 162.0,
+      "atraso_tolerav_b2_min": 67.0,
+      "criterio_sucesso": "pressure reverts without reaching the SIS trip"
+    }
+  },
+  "motores": {
+    "diagrama": "diagrams/BT-REATOR.txt",
+    "janela_de_exposicao_anos": 1.0,
+    "pfd_atual": {
+      "B1": 1.0,
+      "B2": 0.272206,
+      "B3": 0.01178,
+      "B4": 0.11112
+    },
+    "conventional": {
+      "projeto": {
+        "evento_topo_por_ano": 0.0017540629900000002,
+        "rotulo": null,
+        "pathways": [
+          {
+            "nos": [
+              "B2 Atuacao manual do operador",
+              "B1 Intertravamento de alta pressao",
+              "Perda de alimentacao da corrente 1"
+            ],
+            "contribuicao_pct": 70.1
+          },
+          {
+            "nos": [
+              "B4 Atuacao manual do operador",
+              "B3 Intertravamento de alta temperatura",
+              "Travamento da valvula de resfriamento"
+            ],
+            "contribuicao_pct": 29.9
+          }
+        ]
+      },
+      "atual": {
+        "evento_topo_por_ano": 0.13662637327333332,
+        "rotulo": null,
+        "pathways": [
+          {
+            "nos": [
+              "B2 Atuacao manual do operador",
+              "B1 Intertravamento de alta pressao",
+              "Perda de alimentacao da corrente 1"
+            ],
+            "contribuicao_pct": 99.6
+          },
+          {
+            "nos": [
+              "B4 Atuacao manual do operador",
+              "B3 Intertravamento de alta temperatura",
+              "Travamento da valvula de resfriamento"
+            ],
+            "contribuicao_pct": 0.4
+          }
+        ]
+      },
+      "razao": 77.89
+    },
+    "fuzzy": {
+      "projeto": {
+        "evento_topo_por_ano": 0.0002495795110242525,
+        "rotulo": "Moderate",
+        "pathways": [
+          {
+            "nos": [
+              "B2 Atuacao manual do operador",
+              "B1 Intertravamento de alta pressao",
+              "Perda de alimentacao da corrente 1"
+            ],
+            "contribuicao_pct": 74.2
+          },
+          {
+            "nos": [
+              "B4 Atuacao manual do operador",
+              "B3 Intertravamento de alta temperatura",
+              "Travamento da valvula de resfriamento"
+            ],
+            "contribuicao_pct": 25.8
+          }
+        ]
+      },
+      "atual": {
+        "evento_topo_por_ano": 0.0037857335808652894,
+        "rotulo": "High",
+        "pathways": [
+          {
+            "nos": [
+              "B2 Atuacao manual do operador",
+              "B1 Intertravamento de alta pressao",
+              "Perda de alimentacao da corrente 1"
+            ],
+            "contribuicao_pct": 98.8
+          },
+          {
+            "nos": [
+              "B4 Atuacao manual do operador",
+              "B3 Intertravamento de alta temperatura",
+              "Travamento da valvula de resfriamento"
+            ],
+            "contribuicao_pct": 1.2
+          }
+        ]
+      },
+      "razao": 15.17
+    },
+    "nota": "conventional engine for magnitude; fuzzy engine for the propagation of linguistic uncertainty (SKILL.md, 'The fuzzy engine'). Never one as a check on the other."
+  },
+  "premissas_do_modelo": {
+    "human_barrier_pfd_with_overdue_competence": {
+      "valor": 0.25,
+      "origem": "model assumption; not in the asset table",
+      "efeito": "replaces the human barrier's design PFD from the training due date, while the work order stays open"
+    },
+    "mean_channel_pfd_between_tests": {
+      "formula": "lambda_du * t / 2",
+      "origem": "standard hidden-failure model with periodic testing",
+      "efeito": "grows from the last closed test; with no test record the declared interval is taken as met"
+    },
+    "voted_group_without_reconfiguration": {
+      "formula": "2oo3 = 3[(1-beta)*PFD1]^2 + beta*PFD1; with a detected channel failure, 2oo2 = 2*PFD1",
+      "origem": "arrangement declared in the asset; the fall to 2oo2 is an assumption",
+      "efeito": "from the detected channel failure on, growth is linear in t, without the beta factor"
+    },
+    "single_channel_item_with_known_failure": {
+      "valor": 1.0,
+      "origem": "model assumption; an open corrective work order with a failure found on a 1oo1 item",
+      "efeito": "the item is unavailable (PFD = 1) from the work order's opening until it closes"
+    },
+    "items_without_test_records": {
+      "origem": "model assumption",
+      "efeito": "items with no test, calibration or training record are kept at their design PFD; absence of a record is not treated as absence of maintenance"
+    }
+  },
+  "fase": "A — context assembled; no conclusion issued"
+}

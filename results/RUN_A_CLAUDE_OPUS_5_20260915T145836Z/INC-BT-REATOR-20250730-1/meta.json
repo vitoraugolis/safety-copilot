@@ -1,0 +1,84 @@
+{
+  "incident_id": "INC-BT-REATOR-20250730-1",
+  "run": "RUN_A",
+  "ts": "2025-07-30T00:00:00",
+  "trigger": [
+    {
+      "chave": "record:wo_opened:WO-RUN_A-TRAIN",
+      "ts": "2025-07-30T00:00:00",
+      "tipo": "wo_opened",
+      "ref": "WO-RUN_A-TRAIN",
+      "item": "OP-B2",
+      "barreira": "reator.T1.B2",
+      "wo_tipo": "treinamento",
+      "falha_encontrada": null
+    },
+    {
+      "chave": "record:wo_overdue:WO-RUN_A-TRAIN",
+      "ts": "2025-07-30T00:00:00",
+      "tipo": "wo_overdue",
+      "ref": "WO-RUN_A-TRAIN",
+      "item": "OP-B2",
+      "barreira": "reator.T1.B2",
+      "wo_tipo": "treinamento"
+    }
+  ],
+  "ok": true,
+  "blind": true,
+  "rc": 0,
+  "seconds": 163.7,
+  "phase_b_by": "claude -p, fresh text-only session (dedicated profile, no tools, no MCP, no plugins, no memory)",
+  "model": "claude-opus-5",
+  "models_in_session": [
+    "claude-opus-5"
+  ],
+  "isolation_breaks": [],
+  "session_id": "0d585964-d9c1-4ab5-a28d-1a8efe9be775",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 16333,
+    "cache_read_input_tokens": 20407,
+    "output_tokens": 12364,
+    "output_tokens_details": {
+      "thinking_tokens": 2782
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 16333,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 12364,
+        "cache_read_input_tokens": 20407,
+        "cache_creation_input_tokens": 16333,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 16333
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "cli_version": "2.1.247 (Claude Code)",
+  "sha_inputs": {
+    "input/SKILL.md": "8617d9ab7f690afd",
+    "input/diagrams/BT-REATOR.txt": "240465c4ca0d539e",
+    "input/references/cross-checks.md": "470dfd5367f25969",
+    "input/references/design-basis-barriers.md": "7c3f5eb39a2546da",
+    "input/references/producing-a-design-basis.md": "05a9c56cf9e41d99",
+    "input/references/risk-analysis-reference.md": "50e6c154058be31c"
+  },
+  "sha_system": "15f8f1d1159f311e",
+  "sha_prompt": "d199ec717d826d49",
+  "sha_context": "7828d6dd840b9577",
+  "database": "safety_copilot_v2.db",
+  "error": null
+}

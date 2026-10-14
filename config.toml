@@ -1,0 +1,8 @@
+# Safety Copilot — configuração usada pelo experimento RUN_A.
+#
+# `contexto.py` lê daqui a raiz do BowTie v3 (engines convencional e fuzzy) e a
+# janela de exposição usada no MTTF.
+
+[bowtie]
+path = "../BowTie-v3.2026"   # raiz do pacote bowtie_v3 (relativa a este arquivo)
+time = 1.0                                             # janela de exposição (anos)

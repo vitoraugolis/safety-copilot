@@ -1,0 +1,33 @@
+{
+  "status": "complete",
+  "run": "RUN_A",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "completed_at_utc": "2026-09-15T14:28:09.753634+00:00",
+  "points": 3808,
+  "analyses": 14,
+  "unique_model_sessions": 14,
+  "tool_calls": 0,
+  "first_analysis_at": "2025-04-01T00:30:00",
+  "last_analysis_at": "2025-12-01T02:30:20",
+  "database_sha256": "c7c2854b3fc989efb3a50d9c22bae246ff1b5f80055724a95d48edfabf079604",
+  "runtime_manifest": "audit/frozen_runtime_manifest.json",
+  "actual_session_inputs_match_audited_inputs": true,
+  "responses_preserved_verbatim": true,
+  "all_final_inputs_match_frozen_preflight": true,
+  "ground_truth_and_hidden_events_not_provided": true,
+  "prior_outputs_and_orchestrator_history_not_provided": true,
+  "tests_passed": 9,
+  "whole_context_invariance_checks_passed": 4,
+  "superseded_analysis_attempts": 9,
+  "superseded_location": "audit/superseded_profile",
+  "accepted_session_usage": {
+    "input_tokens": 458603,
+    "cached_input_tokens": 32512,
+    "output_tokens": 39361,
+    "reasoning_output_tokens": 3518
+  },
+  "latest_report": "INC-BT-REATOR-20251201-6/report.html",
+  "validation": "audit/output_validation.json",
+  "claim_limit": "The experiment evaluates model interpretation of a deterministic Phase A; it does not establish autonomous discovery or safe real-plant operation."
+}

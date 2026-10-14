@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="177.80mm" height="84.67mm" viewBox="0 0 1344 640" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif">
+<rect width="1344" height="640" fill="#FFFFFF"/>
+<text x="20" y="30" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="700" fill="#1B1D1F" text-anchor="start">(a) What opened each analysis in 2025</text>
+<rect x="962" y="14" width="16" height="16" rx="0" fill="#1B1D1F"/>
+<text x="988" y="30" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">plant record</text>
+<circle cx="1136" cy="22" r="7" fill="#FFFFFF" stroke="#1B1D1F" stroke-width="3"/>
+<text x="1154" y="30" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">process signal</text>
+<line x1="60" y1="150" x2="1300" y2="150" stroke="#1B1D1F" stroke-width="2.5"/>
+<line x1="60" y1="145" x2="60" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="117.55" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Jan</text>
+<line x1="175.1" y1="145" x2="175.1" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="227.10000000000002" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Feb</text>
+<line x1="279.1" y1="145" x2="279.1" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="336.65" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Mar</text>
+<line x1="394.2" y1="145" x2="394.2" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="449.9" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Apr</text>
+<line x1="505.6" y1="145" x2="505.6" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="563.1500000000001" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">May</text>
+<line x1="620.7" y1="145" x2="620.7" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="676.4000000000001" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Jun</text>
+<line x1="732.1" y1="145" x2="732.1" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="789.6500000000001" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Jul</text>
+<line x1="847.2" y1="145" x2="847.2" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="904.75" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Aug</text>
+<line x1="962.3" y1="145" x2="962.3" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="1018.0" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Sep</text>
+<line x1="1073.7" y1="145" x2="1073.7" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="1131.25" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Oct</text>
+<line x1="1188.8" y1="145" x2="1188.8" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="1244.4" y="178" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">Nov</text>
+<line x1="1300" y1="145" x2="1300" y2="155" stroke="#1B1D1F" stroke-width="2"/>
+<text x="396" y="72" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="500" fill="#1B1D1F" text-anchor="middle">1–2  channel A fails and is repaired</text>
+<line x1="396" y1="82" x2="396" y2="140" stroke="#1B1D1F" stroke-width="1.5"/>
+<rect x="388" y="142" width="16" height="16" rx="0" fill="#1B1D1F"/>
+<text x="617" y="110" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="500" fill="#1B1D1F" text-anchor="middle">3  test overdue</text>
+<line x1="617" y1="120" x2="617" y2="140" stroke="#1B1D1F" stroke-width="1.5"/>
+<rect x="609" y="142" width="16" height="16" rx="0" fill="#1B1D1F"/>
+<text x="839.7" y="72" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="500" fill="#1B1D1F" text-anchor="middle">4  training overdue</text>
+<line x1="839.7" y1="82" x2="839.7" y2="140" stroke="#1B1D1F" stroke-width="1.5"/>
+<rect x="831.7" y="142" width="16" height="16" rx="0" fill="#1B1D1F"/>
+<text x="951.1" y="110" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="500" fill="#1B1D1F" text-anchor="middle">5  channel B fails</text>
+<line x1="951.1" y1="120" x2="951.1" y2="140" stroke="#1B1D1F" stroke-width="1.5"/>
+<rect x="943.1" y="142" width="16" height="16" rx="0" fill="#1B1D1F"/>
+<text x="1324" y="72" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="500" fill="#1B1D1F" text-anchor="end">6  load +15 %, not revalidated</text>
+<line x1="1289" y1="82" x2="1289" y2="140" stroke="#1B1D1F" stroke-width="1.5"/>
+<rect x="1281" y="142" width="16" height="16" rx="0" fill="#1B1D1F"/>
+<circle cx="1300" cy="190" r="8" fill="#FFFFFF" stroke="#1B1D1F" stroke-width="3"/>
+<polyline points="60,198 60,206 1280,206 1280,198" fill="none" stroke="#767676" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="60" y="232" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#33373B" text-anchor="start">No alarm until 28 Nov: plant records alone open analyses 1–5.</text>
+<text x="1324" y="232" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="500" fill="#1B1D1F" text-anchor="end">6–8  pressure LO  ·  9–14  see (b)</text>
+<line x1="20" y1="254" x2="1324" y2="254" stroke="#D6D3CA" stroke-width="2"/>
+<text x="20" y="284" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="700" fill="#1B1D1F" text-anchor="start">(b) 1 December: reactor pressure (kPa) and analyses 9–14</text>
+<line x1="150" y1="352" x2="1300" y2="352" stroke="#8A4A0E" stroke-width="2" stroke-dasharray="12 6"/>
+<text x="142" y="359" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="700" fill="#8A4A0E" text-anchor="end">SIS trip 2900</text>
+<line x1="150" y1="404" x2="1300" y2="404" stroke="#2C5A85" stroke-width="2" stroke-dasharray="4 4"/>
+<text x="142" y="411" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="700" fill="#2C5A85" text-anchor="end">HIHI 2800</text>
+<line x1="150" y1="430" x2="1300" y2="430" stroke="#4A4E52" stroke-width="2" stroke-dasharray="2 5"/>
+<text x="142" y="437" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="end">HI 2750</text>
+<line x1="150" y1="534" x2="1300" y2="534" stroke="#4A4E52" stroke-width="2" stroke-dasharray="2 5"/>
+<text x="142" y="541" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="end">LO 2550</text>
+<polyline points="150.6,484.3 413.3,534.2 489.8,537.6 1046.3,429.5 1125.4,403.8 1262.4,351.9 1300,339.9" fill="none" stroke="#1B1D1F" stroke-width="3.5"/>
+<circle cx="150.6" cy="484.3" r="15" fill="#1B1D1F"/>
+<text x="150.6" y="490.3" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">9</text>
+<circle cx="413.3" cy="534.2" r="15" fill="#1B1D1F"/>
+<text x="413.3" y="540.2" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">10</text>
+<circle cx="1046.3" cy="429.5" r="15" fill="#1B1D1F"/>
+<text x="1046.3" y="435.5" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">11</text>
+<circle cx="1125.4" cy="403.8" r="15" fill="#1B1D1F"/>
+<text x="1125.4" y="409.8" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">12</text>
+<circle cx="1262.4" cy="351.9" r="15" fill="#1B1D1F"/>
+<text x="1262.4" y="357.9" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">13</text>
+<circle cx="1300" cy="339.9" r="15" fill="#1B1D1F"/>
+<text x="1300" y="345.9" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">14</text>
+<text x="172" y="456" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="600" fill="#1B1D1F" text-anchor="start">feed flow lost</text>
+<text x="432" y="506" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="600" fill="#1B1D1F" text-anchor="start">pressure LO</text>
+<text x="1062" y="458" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="600" fill="#1B1D1F" text-anchor="start">HI</text>
+<text x="1110" y="384" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="700" fill="#2C5A85" text-anchor="end">HIHI: B1 does not act</text>
+<text x="1240" y="334" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="700" fill="#8A4A0E" text-anchor="end">SIS trip</text>
+<text x="1324" y="306" font-family="IBM Plex Sans Condensed, IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="600" fill="#1B1D1F" text-anchor="end">still rising</text>
+<line x1="150" y1="580" x2="1300" y2="580" stroke="#1B1D1F" stroke-width="2.5"/>
+<line x1="150" y1="574" x2="150" y2="586" stroke="#1B1D1F" stroke-width="2"/>
+<text x="150" y="608" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">00:00</text>
+<line x1="379.5" y1="574" x2="379.5" y2="586" stroke="#1B1D1F" stroke-width="2"/>
+<text x="379.5" y="608" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">00:30</text>
+<line x1="609" y1="574" x2="609" y2="586" stroke="#1B1D1F" stroke-width="2"/>
+<text x="609" y="608" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">01:00</text>
+<line x1="838.5" y1="574" x2="838.5" y2="586" stroke="#1B1D1F" stroke-width="2"/>
+<text x="838.5" y="608" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">01:30</text>
+<line x1="1068" y1="574" x2="1068" y2="586" stroke="#1B1D1F" stroke-width="2"/>
+<text x="1068" y="608" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">02:00</text>
+<line x1="1297.5" y1="574" x2="1297.5" y2="586" stroke="#1B1D1F" stroke-width="2"/>
+<text x="1297.5" y="608" font-family="IBM Plex Sans, Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="400" fill="#4A4E52" text-anchor="middle">02:30</text>
+</svg>

@@ -1,0 +1,8 @@
+Nome; Frequencia; MTTF; No; No;
+Perda de controle do reator; 0; 0; 1; 2;
+B2 Atuacao manual do operador; 0.119870; 0; 1; -3;
+B1 Intertravamento de alta pressao; 0.020530; 0; -3; -4;
+Perda de alimentacao da corrente 1; 0.5; 0; -4; 0;
+B4 Atuacao manual do operador; 0.111120; 0; 2; -5;
+B3 Intertravamento de alta temperatura; 0.011780; 0; -5; -6;
+Travamento da valvula de resfriamento; 0.4; 0; -6; 0;

@@ -1,0 +1,73 @@
+{
+  "incident_id": "INC-BT-REATOR-20251201-3",
+  "run": "RUN_A",
+  "ts": "2025-12-01T01:57:10",
+  "trigger": [
+    {
+      "chave": "alarme:PIT-7001:HI",
+      "tag": "PIT-7001",
+      "tipo": "HI",
+      "limite": 2750.0,
+      "valor": 2751.015,
+      "ts": "2025-12-01T01:57:10"
+    }
+  ],
+  "ok": true,
+  "blind": true,
+  "rc": 0,
+  "seconds": 164.6,
+  "phase_b_by": "claude -p, fresh text-only session (dedicated profile, no tools, no MCP, no plugins, no memory)",
+  "model": "claude-opus-5",
+  "models_in_session": [
+    "claude-opus-5"
+  ],
+  "isolation_breaks": [],
+  "session_id": "80606b76-295a-4e88-b97f-dcf23492d519",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 24689,
+    "cache_read_input_tokens": 20407,
+    "output_tokens": 12578,
+    "output_tokens_details": {
+      "thinking_tokens": 3586
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 24689,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 12578,
+        "cache_read_input_tokens": 20407,
+        "cache_creation_input_tokens": 24689,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 24689
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "cli_version": "2.1.247 (Claude Code)",
+  "sha_inputs": {
+    "input/SKILL.md": "8617d9ab7f690afd",
+    "input/diagrams/BT-REATOR.txt": "240465c4ca0d539e",
+    "input/references/cross-checks.md": "470dfd5367f25969",
+    "input/references/design-basis-barriers.md": "7c3f5eb39a2546da",
+    "input/references/producing-a-design-basis.md": "05a9c56cf9e41d99",
+    "input/references/risk-analysis-reference.md": "50e6c154058be31c"
+  },
+  "sha_system": "15f8f1d1159f311e",
+  "sha_prompt": "f74531d6ccc1425f",
+  "sha_context": "fd9d095939913eca",
+  "database": "safety_copilot_v2.db",
+  "error": null
+}

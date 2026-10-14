@@ -1,0 +1,58 @@
+{
+  "incident_id": "INC-BT-REATOR-20250401-1",
+  "run": "RUN_A",
+  "ts": "2025-04-01T00:30:00",
+  "trigger": [
+    {
+      "chave": "record:wo_opened:WO-RUN_A-CH-A",
+      "ts": "2025-04-01T00:00:00",
+      "tipo": "wo_opened",
+      "ref": "WO-RUN_A-CH-A",
+      "item": "PT-007",
+      "barreira": "reator.T1.B1",
+      "wo_tipo": "corretiva",
+      "falha_encontrada": null
+    },
+    {
+      "chave": "record:channel_failure_detected:PT-007.A",
+      "ts": "2025-04-01T00:30:00",
+      "tipo": "channel_failure_detected",
+      "ref": "PT-007.A",
+      "item": "PT-007"
+    }
+  ],
+  "ok": true,
+  "rc": 0,
+  "seconds": 91.0,
+  "phase_b_by": "Codex CLI, fresh text-only GPT-6 Astra session",
+  "blind": true,
+  "model": "gpt-6-astra",
+  "models_in_session": [
+    "gpt-6-astra"
+  ],
+  "session_id": "01a0a56b-a9b5-7cd2-bd2c-75a06d1cb7b4",
+  "usage": {
+    "input_tokens": 27955,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 2868,
+    "reasoning_output_tokens": 292
+  },
+  "tool_items": [],
+  "database": "safety_copilot_v2.db",
+  "sha_database": "c7c2854b3fc989efb3a50d9c22bae246ff1b5f80055724a95d48edfabf079604",
+  "sha_skill": "8617d9ab7f690afd80abd1bed6c208382b53917229e508d1eac48bf2458beecf",
+  "sha_inputs": {
+    "input/SKILL.md": "8617d9ab7f690afd80abd1bed6c208382b53917229e508d1eac48bf2458beecf",
+    "input/references/producing-a-design-basis.md": "05a9c56cf9e41d998d8ed6a2c1982ae02d93b397ee75e075fee2a3ed91477905",
+    "input/references/risk-analysis-reference.md": "50e6c154058be31c6df1a7b11a42a6d92abfca60abfe2d8210a5b126abeed8d1",
+    "input/references/cross-checks.md": "470dfd5367f2596906af47060e1b1523b13b2ad2993e9d46c01fd4056f60eb2d",
+    "input/references/design-basis-barriers.md": "7c3f5eb39a2546da656da986fe46180d069874953480e66a2ee07249b7434ab0",
+    "input/diagrams/BT-REATOR.txt": "240465c4ca0d539e8f56387f0de660c68179cfe89c53511f028e74c3033f737b"
+  },
+  "sha_system": "15f8f1d1159f311e1f1f09d719ec377358819fbb5bca8093190297ad4b1b6a5d",
+  "sha_prompt": "1e2724b4fbd65628db1721b6c9016ade3a49ef4621448356da32e4fb5c17ff07",
+  "sha_context": "b7ab7bbb1f4e0ba27901c4f36dd3b473a20a06924911339277157d10cc55ad46",
+  "cli_version": "codex-cli 0.153.4",
+  "error": null
+}
